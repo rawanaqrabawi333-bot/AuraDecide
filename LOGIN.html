@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل الدخول / إنشاء حساب</title>
+<style>
+  body {
+    font-family: "Cairo", sans-serif;
+    background-color: #f5f5dc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    width: 420px;
+    text-align: center;
+  }
+
+  h2 {
+    margin-bottom: 25px;
+  }
+
+  input {
+    width: 90%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    width: 95%;
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 18px;
+  }
+
+  button:hover {
+    background-color: #333;
+  }
+
+  .link {
+    color: #000;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+  }
+
+  #signupForm { display: none; }
+
+  #message, #loginMessage {
+    color: red;
+    font-size: 16px;
+    margin-top: 10px;
+    min-height: 22px;
+  }
+
+  #forgotPopup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popup-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+  }
+
+  .close {
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
+    float: right;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2 id="formTitle">تسجيل الدخول</h2>
+
+  <!-- تسجيل الدخول -->
+  <div id="loginForm">
+    <input type="text" placeholder="البريد الإلكتروني أو رقم الهاتف" id="loginUser"><br>
+    <input type="password" placeholder="كلمة المرور" id="loginPass"><br>
+    <p id="loginMessage"></p>
+    <button onclick="validateLogin()">تسجيل الدخول</button>
+    <p class="link" onclick="showSignup()">إنشاء حساب جديد</p>
+    <p class="link" onclick="showForgot()">نسيت كلمة المرور؟</p>
+  </div>
+
+  <!-- إنشاء حساب -->
+  <div id="signupForm">
+    <input type="text" placeholder="الاسم الأول" id="fname"><br>
+    <input type="text" placeholder="الاسم الأخير" id="lname"><br>
+    <input type="text" placeholder="البريد الإلكتروني أو رقم الهاتف" id="contact"><br>
+    <input type="password" placeholder="إنشاء كلمة مرور" id="password"><br>
+    <input type="password" placeholder="تأكيد كلمة المرور" id="confirmPassword"><br>
+    <p id="message"></p>
+    <button onclick="validateSignup()">إنشاء الحساب</button>
+    <p class="link" onclick="showLogin()">الرجوع إلى تسجيل الدخول</p>
+  </div>
+</div>
+
+<!-- نسيت كلمة المرور -->
+<div id="forgotPopup">
+  <div class="popup-content">
+    <span class="close" onclick="closeForgot()">&times;</span>
+    <h3>استعادة كلمة المرور</h3>
+    <p>أدخل البريد الإلكتروني أو رقم الهاتف:</p>
+    <input type="text" placeholder="البريد الإلكتروني أو رقم الهاتف" id="recoverInput"><br>
+    <button onclick="sendRecovery()">إرسال</button>
+    <p id="recoverMsg"></p>
+  </div>
+</div>
+
+<script>
+function showSignup() {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('signupForm').style.display = 'block';
+  document.getElementById('formTitle').innerText = 'إنشاء حساب';
+}
+
+function showLogin() {
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('formTitle').innerText = 'تسجيل الدخول';
+}
+
+// ✅ التحقق من البريد أو رقم الهاتف
+function isValidContact(value) {
+  if (value.includes("@")) {
+    return true; // بريد إلكتروني
+  } else if (/^\d+$/.test(value)) {
+    return true; // رقم هاتف (أرقام فقط)
+  }
+  return false; // غير صالح
+}
+
+// ✅ التحقق من إنشاء الحساب
+function validateSignup() {
+  let fname = document.getElementById("fname").value.trim();
+  let lname = document.getElementById("lname").value.trim();
+  let contact = document.getElementById("contact").value.trim();
+  let pass = document.getElementById("password").value.trim();
+  let confirm = document.getElementById("confirmPassword").value.trim();
+  let msg = document.getElementById("message");
+
+  if (!fname) { msg.textContent = "⚠️ الرجاء إدخال الاسم الأول"; return; }
+  if (!lname) { msg.textContent = "⚠️ الرجاء إدخال الاسم الأخير"; return; }
+  if (!contact) { msg.textContent = "⚠️ الرجاء إدخال البريد الإلكتروني أو رقم الهاتف"; return; }
+  if (!isValidContact(contact)) { msg.textContent = "⚠️ البريد الإلكتروني أو رقم الهاتف غير صالح"; return; }
+  if (!pass) { msg.textContent = "⚠️ الرجاء إدخال كلمة المرور"; return; }
+  if (!confirm) { msg.textContent = "⚠️ الرجاء تأكيد كلمة المرور"; return; }
+  if (pass !== confirm) { msg.textContent = "⚠️ كلمة المرور غير متطابقة"; return; }
+
+  msg.style.color = "green";
+  msg.textContent = "✅ تم إنشاء الحساب بنجاح!";
+  setTimeout(() => {
+    msg.textContent = "";
+    showLogin();
+  }, 2000);
+}
+
+// ✅ التحقق من تسجيل الدخول
+function validateLogin() {
+  let user = document.getElementById("loginUser").value.trim();
+  let pass = document.getElementById("loginPass").value.trim();
+  let msg = document.getElementById("loginMessage");
+
+  if (!user) { msg.textContent = "⚠️ الرجاء إدخال البريد الإلكتروني أو رقم الهاتف"; return; }
+  if (!isValidContact(user)) { msg.textContent = "⚠️ البريد الإلكتروني أو رقم الهاتف غير صالح"; return; }
+  if (!pass) { msg.textContent = "⚠️ الرجاء إدخال كلمة المرور"; return; }
+
+  msg.style.color = "green";
+  msg.textContent = "✅ تم تسجيل الدخول بنجاح!";
+  setTimeout(() => { msg.textContent = ""; }, 2000);
+}
+
+// ✅ نوافذ "نسيت كلمة المرور"
+function showForgot() {
+  document.getElementById("forgotPopup").style.display = "flex";
+}
+
+function closeForgot() {
+  document.getElementById("forgotPopup").style.display = "none";
+}
+
+function sendRecovery() {
+  let val = document.getElementById("recoverInput").value.trim();
+  let msg = document.getElementById("recoverMsg");
+
+  if (!val) {
+    msg.style.color = "red";
+    msg.textContent = "⚠️ الرجاء إدخال البريد الإلكتروني أو رقم الهاتف";
+  } else if (!isValidContact(val)) {
+    msg.style.color = "red";
+    msg.textContent = "⚠️ البريد الإلكتروني أو رقم الهاتف غير صالح";
+  } else {
+    msg.style.color = "green";
+    msg.textContent = "✅ تم إرسال رابط الاسترجاع بنجاح!";
+    setTimeout(closeForgot, 2000);
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Business Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+	/* ======= GLOBAL STYLES ======= */
+	* {
+	  margin: 0; /* إزالة الهوامش الافتراضية لكل العناصر */
+	  padding: 0; /* إزالة الحشوات الافتراضية لكل العناصر */
+	  box-sizing: border-box; /* حساب الحشوة والحدود ضمن أبعاد العنصر */
+	  font-family: 'Poppins', sans-serif; /* تعيين الخط الافتراضي لكل العناصر */
+	}
+
+	body {
+	  background-color: #f7efdf; /* لون خلفية الصفحة */
+	  color: #000; /* لون النص الأساسي */
+	}
+
+	/* ======= NAVBAR ======= */
+	header {
+	  display: flex; /* استخدام Flexbox لترتيب العناصر */
+	  justify-content: space-between; /* توزيع العناصر بمسافات متساوية */
+	  align-items: center; /* محاذاة العناصر عمودياً بالمنتصف */
+	  padding: 15px 50px; /* حشوة داخلية حول العناصر */
+	  background-color: #f7efdf; /* نفس لون خلفية الصفحة */
+	}
+
+	.nav-links {
+	  display: flex; /* ترتيب روابط التنقل أفقياً */
+	  align-items: center; /* محاذاة الروابط عمودياً */
+	  gap: 30px; /* مسافة بين كل رابط */
+	}
+
+	.nav-links a {
+	  text-decoration: none; /* إزالة الخط السفلي من الروابط */
+	  color: #000; /* لون النص */
+	  font-weight: 600; /* جعل الخط شبه غامق */
+	  text-transform: uppercase; /* تحويل النص إلى حروف كبيرة */
+	  font-size: 13px; /* حجم الخط */
+	}
+
+	.search-box {
+	  display: flex; /* ترتيب محتويات صندوق البحث أفقياً */
+	  align-items: center; /* محاذاة المحتويات عمودياً */
+	  background: #fff; /* خلفية بيضاء للصندوق */
+	  border-radius: 25px; /* جعل الحواف مستديرة */
+	  border: 1px solid #ccc; /* إضافة حد رمادي فاتح */
+	  padding: 3px 10px; /* حشوة داخلية للصندوق */
+	  margin-left: 10px; /* مسافة عن العناصر المجاورة */
+	}
+
+	.search-box input {
+	  border: none; /* إزالة حدود الحقل */
+	  outline: none; /* إزالة خط التركيز الافتراضي */
+	  background: transparent; /* خلفية شفافة داخل الحقل */
+	  padding: 5px; /* حشوة داخلية للنص */
+	  font-size: 12px; /* حجم النص */
+	  width: 120px; /* عرض الحقل */
+	}
+
+	.search-box button {
+	  background: none; /* إزالة الخلفية الافتراضية للزر */
+	  border: none; /* إزالة الحدود */
+	  cursor: pointer; /* تغيير مؤشر الفأرة عند المرور عليه */
+	  font-size: 16px; /* حجم أيقونة أو نص الزر */
+	}
+
+	.contact-btn {
+	  background-color: #d8c7a4; /* لون خلفية زر الاتصال */
+	  border: none; /* إزالة الحدود */
+	  padding: 10px 22px; /* حشوة داخلية للزر */
+	  border-radius: 25px; /* جعل الزر مستدير الحواف */
+	  cursor: pointer; /* مؤشر الفأرة عند المرور عليه */
+	  font-weight: 600; /* جعل النص شبه غامق */
+	  text-transform: uppercase; /* تحويل النص لحروف كبيرة */
+	}
+
+	/* ======= HERO SECTION ======= */
+	.hero {
+	  display: flex; /* استخدام Flexbox لترتيب النص والصورة */
+	  justify-content: space-between; /* توزيع العناصر على المسافة الكاملة */
+	  align-items: flex-start; /* محاذاة العناصر من الأعلى */
+	  padding: 50px 60px; /* حشوة داخلية حول المحتوى */
+	  flex-wrap: wrap; /* السماح بانتقال العناصر للسطر التالي عند ضيق الشاشة */
+	}
+
+	.hero-text {
+	  max-width: 600px; /* أقصى عرض للنص */
+	}
+
+	.hero-text h1 {
+	  font-size: 52px; /* حجم العنوان الرئيسي */
+	  font-weight: 800; /* جعل العنوان ثقيل جداً */
+	  line-height: 1.1; /* ارتفاع السطر بين النصوص */
+	  margin-bottom: 25px; /* مسافة أسفل العنوان */
+	}
+
+	.hero-right {
+	  max-width: 400px; /* أقصى عرض للعمود الأيمن */
+	  text-align: left; /* محاذاة النص لليسار */
+	}
+
+	.hero-right p {
+	  font-size: 13px; /* حجم الفقرة */
+	  letter-spacing: 0.5px; /* زيادة المسافة بين الحروف */
+	  text-transform: uppercase; /* تحويل النص لحروف كبيرة */
+	  line-height: 1.7; /* ارتفاع السطر */
+	  color: #111; /* لون النص */
+	}
+
+	.explore-btn {
+	  margin-top: 20px; /* مسافة فوق الزر */
+	  background-color: #000; /* لون الخلفية أسود */
+	  color: #fff; /* لون النص أبيض */
+	  border: none; /* إزالة الحدود */
+	  padding: 12px 28px; /* حشوة داخلية للزر */
+	  border-radius: 8px; /* حواف مستديرة */
+	  font-weight: 600; /* جعل النص شبه غامق */
+	  cursor: pointer; /* تغيير مؤشر الفأرة عند المرور عليه */
+	  text-transform: uppercase; /* تحويل النص لحروف كبيرة */
+	}
+
+	/* ======= HERO IMAGES ======= */
+	.hero-images {
+	  display: flex; /* ترتيب الصور أفقياً */
+	  gap: 80px; /* مسافة بين الصور */
+	  justify-content: center; /* محاذاة الصور في الوسط */
+	  padding: 0 60px 60px; /* حشوة حول الصور */
+	  margin-top: 200px; /* مسافة من أعلى القسم */
+	}
+
+	.hero-images img {
+	  width: 300px; /* عرض الصورة */
+	  height: 340px; /* ارتفاع الصورة */
+	  object-fit: cover; /* تغطية الصورة بالكامل مع الحفاظ على النسبة */
+	  border-radius: 15px; /* حواف مستديرة للصور */
+	  transition: transform 0.3s ease; /* تأثير الانتقال عند التكبير */
+	}
+
+	.hero-images img:hover {
+	  transform: scale(1.05); /* تكبير الصورة عند المرور عليها */
+	}
+
+	/* ======= RESPONSIVE ======= */
+	@media (max-width: 1000px) {
+	  .hero {
+		flex-direction: column; /* ترتيب العناصر عمودياً للشاشات الصغيرة */
+		text-align: center; /* محاذاة النص للوسط */
+	  }
+
+	  .hero-images {
+		justify-content: center; /* محاذاة الصور للوسط */
+		flex-wrap: wrap; /* السماح للصور بالانتقال للسطر التالي */
+	  }
+
+	  .hero-text {
+		text-align: center; /* محاذاة النص للوسط */
+	  }
+
+	  .hero-right {
+		margin-top: 20px; /* مسافة فوق العمود الأيمن */
+		text-align: center; /* محاذاة النص للوسط */
+	  }
+	}
+	.hero {
+	  position: relative; /* لازم لو حنخلي العنصر الأب هو المرجع */
+	}
+
+	.hero-center {
+	  position: absolute;   /* لتثبيت النص فوق الصور */
+	  top: 350px;           /* المسافة من أعلى الصفحة، عدل حسب مكان الصور */
+	  left: 50%;            /* لتوسيط النص أفقياً */
+	  transform: translateX(-50%); /* تعويض التحريك للوسط */
+	  text-align: center;
+	}
+
+	.hero-center p {
+	  font-size: 100px;
+	  font-weight: 1000;
+	  color: #000;
+	  letter-spacing: 5px;
+	}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">services </a>
+	  <a href="#">Login </a>
+      <a href="#">AI Analysis</a>
+      <a href="#">Insight</a>
+    </div>
+    <button class="contact-btn">Contact Us</button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>smart business <br>solutions for small<br>projects</h1>
+    </div>
+
+    <div class="hero-center">
+      <p>	AuraDecide</p>
+    </div>
+
+    <div class="hero-right">
+      <p>OUR SYSTEM HELPS SMALL BUSINESS OWNERS MAKE SMARTER, DATA DRIVEN DECISION.<br>
+         ANALYZE YOUR SALES, PREDICT FUTURE GROWTH AND RECEIVE AI-POWERED RECOMMENDATIONS.</p>
+      <button class="explore-btn">Explore Services</button>
+    </div>
+  </section>
+
+  <div class="hero-images">
+    <img src="https://i.pinimg.com/736x/e3/98/b5/e398b5fbeefb02abf431af86c7c221d8.jpg" alt="AI Robot">
+    <img src="https://i.pinimg.com/736x/ba/48/42/ba4842c47d25c4fdf594eb758c01645f.jpg" alt="Data Analysis">
+    <img src="https://i.pinimg.com/1200x/6b/af/ab/6bafab3a5482c415affd299a7ba0efd1.jpg" alt="Charts">
+    <img src="https://i.pinimg.com/1200x/e5/a4/33/e5a433d8c0f724515b90d913fc209d96.jpg" alt="Reports">
+  </div>
+
+</body>
+</html>
