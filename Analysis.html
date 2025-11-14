@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام دعم القرار للشركات الصغيرة - إدخال البيانات</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background-color: #f6f7f9;
+      margin: 0;
+      padding: 20px;
+      direction: rtl;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .header p {
+      margin: 10px 0 0;
+      opacity: 0.9;
+    }
+
+    .wizard-steps {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      margin: 0 15px;
+      color: #666;
+    }
+
+    .step.active {
+      color: #4a90e2;
+      font-weight: bold;
+    }
+
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+    }
+
+    .step.active .step-number {
+      background: #4a90e2;
+      color: white;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .form-section {
+      display: none;
+    }
+
+    .form-section.active {
+      display: block;
+    }
+
+    h3 {
+      color: #333;
+      border-bottom: 2px solid #4a90e2;
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #444;
+    }
+
+    .input-help {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .example-box {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 14px;
+      color: #495057;
+    }
+
+    .example-title {
+      font-weight: bold;
+      color: #4a90e2;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .file-upload {
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      background: #fafafa;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .file-upload:hover {
+      border-color: #4a90e2;
+    }
+
+    .file-upload input {
+      display: none;
+    }
+
+    .upload-icon {
+      font-size: 40px;
+      color: #4a90e2;
+      margin-bottom: 10px;
+    }
+
+    .documents-examples {
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    .doc-example {
+      background: white;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-right: 3px solid #4a90e2;
+    }
+
+    .doc-example h4 {
+      margin: 0 0 8px 0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .doc-example p {
+      margin: 0;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .financial-example {
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    .financial-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    .financial-table th {
+      background: #4a90e2;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .financial-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .financial-table tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .financial-table .highlight {
+      background: #e7f3ff;
+      font-weight: bold;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #4a90e2;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #357abd;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #545b62;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #218838;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: #eee;
+      border-radius: 3px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #4a90e2, #764ba2);
+      width: 25%;
+      transition: width 0.3s;
+    }
+
+    .data-summary {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .wizard-steps {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .step {
+        margin: 5px 0;
+      }
+      
+      .button-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      button {
+        width: 100%;
+      }
+      
+      .financial-table {
+        font-size: 12px;
+      }
+      
+      .financial-table th,
+      .financial-table td {
+        padding: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 نظام دعم القرار للشركات الصغيرة</h1>
+      <p>اتخذ قراراتك التجارية بثقة بناءً على تحليل البيانات والذكاء الاصطناعي</p>
+    </div>
+
+    <div class="wizard-steps">
+      <div class="step active">
+        <span class="step-number">1</span>
+        <span>إنشاء الحساب</span>
+      </div>
+      <div class="step">
+        <span class="step-number">2</span>
+        <span>البيانات الأساسية</span>
+      </div>
+      <div class="step">
+        <span class="step-number">3</span>
+        <span>البيانات المالية</span>
+      </div>
+      <div class="step">
+        <span class="step-number">4</span>
+        <span>المراجعة والإرسال</span>
+      </div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <form id="businessForm">
+      <!-- الخطوة 1: إنشاء الحساب -->
+      <div class="form-container form-section active" id="step1">
+        <h3>🔐 إنشاء حساب جديد</h3>
+        
+        <div class="form-group">
+          <label>الاسم الكامل:</label>
+          <input type="text" name="fullName" placeholder="أدخل اسمك الكامل" required>
+        </div>
+
+        <div class="form-group">
+          <label>البريد الإلكتروني:</label>
+          <input type="email" name="email" placeholder="example@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>رقم الهاتف:</label>
+          <input type="tel" name="phone" placeholder="أدخل رقم هاتفك" required>
+          <div class="input-help">سنستخدم هذا الرقم للتواصل معك بشأن تحليلاتك</div>
+        </div>
+
+        <div class="form-group">
+          <label>كلمة المرور:</label>
+          <input type="password" name="password" placeholder="كلمة مرور قوية" required>
+          <div class="input-help">يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل</div>
+        </div>
+
+        <div class="form-group">
+          <label>تأكيد كلمة المرور:</label>
+          <input type="password" name="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+        </div>
+
+        <div class="button-group">
+          <div></div> <!-- spacer -->
+          <button type="button" class="btn-primary" onclick="nextStep(2)">التالي</button>
+        </div>
+      </div>
+
+      <!-- الخطوة 2: البيانات الأساسية -->
+      <div class="form-container form-section" id="step2">
+        <h3>🏢 البيانات الأساسية للمشروع</h3>
+
+        <div class="form-group">
+          <label>اسم المشروع:</label>
+          <input type="text" name="projectName" placeholder="أدخل اسم مشروعك" required>
+        </div>
+
+        <div class="form-group">
+          <label>نوع النشاط التجاري:</label>
+          <select name="businessType" required>
+            <option value="">اختر نوع النشاط</option>
+            <option value="مقهى">مقهى</option>
+            <option value="مطعم">مطعم</option>
+            <option value="بيع بالتجزئة">بيع بالتجزئة</option>
+            <option value="خدمات">خدمات</option>
+            <option value="تصنيع">تصنيع</option>
+            <option value="أخرى">أخرى</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>هدف التحليل:</label>
+          <select name="analysisGoal" required>
+            <option value="">اختر هدف التحليل</option>
+            <option value="open-branch">فتح فرع جديد</option>
+            <option value="increase-production">زيادة الإنتاج</option>
+            <option value="adjust-pricing">تعديل الأسعار</option>
+            <option value="reduce-costs">تقليل التكاليف</option>
+            <option value="other">أخرى</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>وصف المشروع:</label>
+          <textarea name="projectDescription" placeholder="صف مشروعك باختصار..."></textarea>
+          <div class="example-box">
+            <span class="example-title">مثال على وصف المشروع:</span>
+            "مشروع مقهى متخصص في تقديم القهوة المختصة والحلويات الطازجة. يقع في منطقة تجارية مزدحمة ويستهدف الشباب والموظفين. نقدم تجربة فريدة مع مساحات مريحة للعمل والاجتماعات. نخطط لفتح فرع جديد في المنطقة المجاورة لزيادة حصتنا السوقية."
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>رفع ملفات الدعم (اختياري):</label>
+          <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+            <div class="upload-icon">📁</div>
+            <p>انقر لرفع الملفات أو اسحبها هنا</p>
+            <p style="font-size: 12px; color: #666;">يدعم: PDF, Excel, Word, صور</p>
+            <input type="file" id="fileInput" multiple>
+          </div>
+          
+          <div class="documents-examples">
+            <div class="doc-example">
+              <h4>📊 تقارير مالية سابقة</h4>
+              <p>كشوفات البنوك، تقارير الأرباح والخسائر، الميزانيات العمومية</p>
+            </div>
+            <div class="doc-example">
+              <h4>📈 دراسات الجدوى</h4>
+              <p>تحليل السوق، دراسة المنافسين، توقعات المبيعات</p>
+            </div>
+            <div class="doc-example">
+              <h4>📝 خطط العمل</h4>
+              <p>الاستراتيجيات التسويقية، خطط التوسع، الهيكل التنظيمي</p>
+            </div>
+            <div class="doc-example">
+              <h4>🖼️ صور وخرائط</h4>
+              <p>صور للموقع، خرائط المنطقة، تصميمات المشروع</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-secondary" onclick="prevStep(1)">السابق</button>
+          <button type="button" class="btn-primary" onclick="nextStep(3)">التالي</button>
+        </div>
+      </div>
+
+      <!-- الخطوة 3: البيانات المالية -->
+      <div class="form-container form-section" id="step3">
+        <h3>💰 البيانات المالية والتشغيلية</h3>
+
+        <div class="form-group">
+          <label>الإيرادات الشهرية (بالدينار):</label>
+          <input type="number" name="monthlyRevenue" placeholder="أدخل متوسط الإيرادات لآخر 3 شهور" required>
+        </div>
+
+        <div class="form-group">
+          <label>التكاليف الثابتة الشهرية (بالدينار):</label>
+          <input type="number" name="fixedCosts" placeholder="أدخل متوسط التكاليف الثابتة لآخر 3 شهور" required>
+          <div class="input-help">(إيجار، رواتب، فواتير ثابتة)</div>
+        </div>
+
+        <div class="form-group">
+          <label>التكاليف المتغيرة الشهرية (بالدينار):</label>
+          <input type="number" name="variableCosts" placeholder="أدخل متوسط التكاليف المتغيرة لآخر 3 شهور" required>
+          <div class="input-help">(مواد خام، توصيل، مصاريف متغيرة)</div>
+        </div>
+
+        <div class="form-group">
+          <label>عدد الموظفين:</label>
+          <input type="number" name="employeesCount" placeholder="مثال: 5" required>
+        </div>
+
+        <div class="form-group">
+          <label>ساعات العمل الأسبوعية:</label>
+          <input type="number" name="weeklyHours" placeholder="مثال: 40" required>
+        </div>
+
+        <div class="form-group">
+          <label>عدد العملاء الشهري:</label>
+          <input type="number" name="monthlyCustomers" placeholder="أدخل متوسط عدد العملاء لآخر 3 شهور" required>
+        </div>
+
+        <div class="form-group">
+          <label>متوسط سعر المنتج/الخدمة (بالدينار):</label>
+          <input type="number" name="averagePrice" placeholder="مثال: 25" required>
+        </div>
+
+        <!-- مثال البيانات المالية لآخر 3 شهور -->
+        <div class="financial-example">
+          <div class="example-box">
+            <span class="example-title">📊 مثال توضيحي للبيانات المالية لآخر 3 شهور (مشروع مقهى):</span>
+            
+            <table class="financial-table">
+              <thead>
+                <tr>
+                  <th>البند</th>
+                  <th>الشهر الحالي</th>
+                  <th>الشهر الماضي</th>
+                  <th>قبل شهرين</th>
+                  <th>المتوسط</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>الإيرادات</strong></td>
+                  <td>5,500 دينار</td>
+                  <td>5,200 دينار</td>
+                  <td>4,800 دينار</td>
+                  <td class="highlight">5,167 دينار</td>
+                </tr>
+                <tr>
+                  <td><strong>التكاليف الثابتة</strong></td>
+                  <td>2,100 دينار</td>
+                  <td>2,100 دينار</td>
+                  <td>2,050 دينار</td>
+                  <td class="highlight">2,083 دينار</td>
+                </tr>
+                <tr>
+                  <td><strong>التكاليف المتغيرة</strong></td>
+                  <td>1,600 دينار</td>
+                  <td>1,550 دينار</td>
+                  <td>1,450 دينار</td>
+                  <td class="highlight">1,533 دينار</td>
+                </tr>
+                <tr>
+                  <td><strong>صافي الربح</strong></td>
+                  <td>1,800 دينار</td>
+                  <td>1,550 دينار</td>
+                  <td>1,300 دينار</td>
+                  <td class="highlight">1,550 دينار</td>
+                </tr>
+                <tr>
+                  <td><strong>عدد العملاء</strong></td>
+                  <td>320 عميل</td>
+                  <td>300 عميل</td>
+                  <td>280 عميل</td>
+                  <td class="highlight">300 عميل</td>
+                </tr>
+                <tr>
+                  <td><strong>متوسط الإنفاق</strong></td>
+                  <td>17.2 دينار</td>
+                  <td>17.3 دينار</td>
+                  <td>17.1 دينار</td>
+                  <td class="highlight">17.2 دينار</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <div style="margin-top: 15px; font-size: 13px; color: #666;">
+              <strong>ملاحظة:</strong> يرجى إدخال المتوسط الشهري للبيانات المذكورة أعلاه في الحقول الخاصة بها.
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-secondary" onclick="prevStep(2)">السابق</button>
+          <button type="button" class="btn-primary" onclick="nextStep(4)">التالي</button>
+        </div>
+      </div>
+
+      <!-- الخطوة 4: المراجعة والإرسال -->
+      <div class="form-container form-section" id="step4">
+        <h3>📋 مراجعة البيانات وإرسالها</h3>
+
+        <div class="data-summary" id="dataSummary">
+          <h4>ملخص البيانات المدخلة:</h4>
+          <!-- سيتم ملء هذا القسم بالبيانات المدخلة -->
+        </div>
+
+        <div class="form-group">
+          <label>ملاحظات إضافية (اختياري):</label>
+          <textarea name="finalNotes" placeholder="أي ملاحظات إضافية تريد إضافتها..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <input type="checkbox" name="agreeTerms" required>
+            أوافق على شروط الاستخدام وأعطي موافقتي على تحليل بياناتي باستخدام الذكاء الاصطناعي
+          </label>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-secondary" onclick="prevStep(3)">السابق</button>
+          <button type="submit" class="btn-success">إرسال البيانات وتحليلها</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let currentStep = 1;
+
+    function updateProgress() {
+      const progress = document.getElementById('progress');
+      progress.style.width = `${(currentStep / 4) * 100}%`;
+      
+      // تحديث الخطوات النشطة
+      document.querySelectorAll('.step').forEach((step, index) => {
+        if (index + 1 <= currentStep) {
+          step.classList.add('active');
+        } else {
+          step.classList.remove('active');
+        }
+      });
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.form-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(`step${step}`).classList.add('active');
+      currentStep = step;
+      updateProgress();
+      
+      if (step === 4) {
+        updateSummary();
+      }
+    }
+
+    function nextStep(step) {
+      if (validateStep(currentStep)) {
+        showStep(step);
+      }
+    }
+
+    function prevStep(step) {
+      showStep(step);
+    }
+
+    function validateStep(step) {
+      // يمكن إضافة التحقق من صحة البيانات هنا
+      return true;
+    }
+
+    function updateSummary() {
+      const form = document.getElementById('businessForm');
+      const summary = document.getElementById('dataSummary');
+      
+      const formData = new FormData(form);
+      let summaryHTML = '<h4>ملخص البيانات المدخلة:</h4>';
+      
+      // عرض البيانات الأساسية
+      summaryHTML += `
+        <div class="summary-item"><strong>الاسم:</strong> ${formData.get('fullName')}</div>
+        <div class="summary-item"><strong>البريد الإلكتروني:</strong> ${formData.get('email')}</div>
+        <div class="summary-item"><strong>رقم الهاتف:</strong> ${formData.get('phone')}</div>
+        <div class="summary-item"><strong>المشروع:</strong> ${formData.get('projectName')}</div>
+        <div class="summary-item"><strong>نوع النشاط:</strong> ${formData.get('businessType')}</div>
+        <div class="summary-item"><strong>هدف التحليل:</strong> ${formData.get('analysisGoal')}</div>
+        <div class="summary-item"><strong>الإيرادات الشهرية:</strong> ${formData.get('monthlyRevenue')} دينار</div>
+        <div class="summary-item"><strong>التكاليف الثابتة:</strong> ${formData.get('fixedCosts')} دينار</div>
+        <div class="summary-item"><strong>التكاليف المتغيرة:</strong> ${formData.get('variableCosts')} دينار</div>
+        <div class="summary-item"><strong>عدد الموظفين:</strong> ${formData.get('employeesCount')}</div>
+        <div class="summary-item"><strong>عدد العملاء:</strong> ${formData.get('monthlyCustomers')}</div>
+      `;
+      
+      summary.innerHTML = summaryHTML;
+    }
+
+    // معالجة إرسال النموذج
+    document.getElementById('businessForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // محاكاة إرسال البيانات وتحليلها
+      alert('✅ تم إرسال البيانات بنجاح! جاري تحليل البيانات وعرض التوصيات...');
+      
+      // هنا سيتم توجيه المستخدم إلى صفحة النتائج
+      setTimeout(() => {
+        window.location.href = 'results.html';
+      }, 2000);
+    });
+
+    // التهيئة الأولية
+    updateProgress();
+  </script>
+</body>
+</html>
