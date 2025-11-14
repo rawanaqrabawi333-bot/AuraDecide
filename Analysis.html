@@ -7,18 +7,11 @@
   <style>
     body {
       font-family: "Cairo", sans-serif;
-      background-color: #f6f7f9;
+      background-color: #f7efdf;
       margin: 0;
       padding: 20px;
       direction: rtl;
     }
-	header {
-	  display: flex; /* استخدام Flexbox لترتيب العناصر */
-	  justify-content: space-between; /* توزيع العناصر بمسافات متساوية */
-	  align-items: center; /* محاذاة العناصر عمودياً بالمنتصف */
-	  padding: 15px 50px; /* حشوة داخلية حول العناصر */
-	  background-color: #f7efdf; /* نفس لون خلفية الصفحة */
-	}
 
     .container {
       max-width: 1000px;
@@ -355,24 +348,92 @@
         padding: 6px;
       }
     }
+	.top-nav {
+	  width: 95%;
+	  margin: 0px auto;
+	  background: #f7efdf;   /* ← اللون اللي بدك اياه */
+	  padding: 15px 25px;
+	  border-radius: 12px;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  box-shadow: none;
+	}
+
+
+	.nav-links a {
+	  margin: 0 12px;
+	  text-decoration: none;
+	  font-weight: 600;
+	  color: black;
+	}
+
+	.nav-links a:hover {
+	  color: #4a90e2;
+	}
+
+	.contact-btn {
+	  background: #4a90e2;
+	  color: black;
+	  padding: 10px 22px;
+	  border-radius: 25px;
+	  border: none;
+	  font-weight: bold;
+	  cursor: pointer;
+	}
+
+
+	.contact-btn:hover {
+	  opacity: 0.9;
+	}
+
+	.navbar-contact {
+	  background-color: #ddc9a3;
+	  color: black;
+	  padding: 8px 25px;
+	  border-radius: 25px;
+	  font-weight: bold;
+	  font-size: 14px;
+	  text-decoration: none;
+	  display: inline-block;
+	}
+
+	.navbar-contact:hover {
+	  opacity: 0.9;
+	}
+
+	.error-message {
+	  color: #d9534f;
+	  font-size: 13px;
+	  margin-top: 5px;
+	}
+	input.error, select.error, textarea.error {
+	  border: 2px solid #d9534f !important;
+	}
+
+
   </style>
 </head>
 <body>
-  <div class="container">
+<header class="top-nav">
+	<a href="#" class="navbar-contact">Contact Us</a>
+
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="LOGIN.html">Login</a>
+    <a href="Analysis.html">AI Analysis</a>
+    <a href="insight.html">Insight</a>
+  </div>
+</header>
+
+ 
+ <div class="container">
     <div class="header">
       <h1>🚀 نظام دعم القرار للشركات الصغيرة</h1>
       <p>اتخذ قراراتك التجارية بثقة بناءً على تحليل البيانات والذكاء الاصطناعي</p>
 
-	  <header>
-		<div class="nav-links">
-			<a href="index.html">Home</a>
-			<a href="services.html">Services</a>
-			<a href="LOGIN.html">Login</a>
-			<a href="Analysis.html">AI Analysis</a>
-			<a href="insight.html">Insight</a>
-		</div>
-		<button class="contact-btn">Contact Us</button>
-	  </header>
+
     </div>
 
     <div class="wizard-steps">
@@ -400,160 +461,166 @@
 
     <form id="businessForm">
       <!-- الخطوة 1: إنشاء الحساب -->
-      <div class="form-container form-section active" id="step1">
-        <h3>🔐 إنشاء حساب جديد</h3>
-        
-        <div class="form-group">
-          <label>الاسم الكامل:</label>
-          <input type="text" name="fullName" placeholder="أدخل اسمك الكامل" required>
-        </div>
+	<div class="form-container form-section active" id="step1">
+	  <h3>🔐 إنشاء حساب جديد</h3>
+	  
+	  <div class="form-group">
+		<label>الاسم الكامل:</label>
+		<input type="text" name="fullName" id="fullName" placeholder="أدخل اسمك الكامل" required>
+		<div class="error-message" id="fullNameError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>البريد الإلكتروني:</label>
-          <input type="email" name="email" placeholder="example@email.com" required>
-        </div>
+	  <div class="form-group">
+		<label>البريد الإلكتروني:</label>
+		<input type="email" name="email" id="email" placeholder="example@email.com" required>
+		<div class="error-message" id="emailError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>رقم الهاتف:</label>
-          <input type="tel" name="phone" placeholder="أدخل رقم هاتفك" required>
-          <div class="input-help">سنستخدم هذا الرقم للتواصل معك بشأن تحليلاتك</div>
-        </div>
+	  <div class="form-group">
+		<label>رقم الهاتف:</label>
+		<input type="tel" name="phone" id="phone" placeholder="أدخل رقم هاتفك" required>
+		<div class="input-help">سنستخدم هذا الرقم للتواصل معك بشأن تحليلاتك</div>
+		<div class="error-message" id="phoneError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>كلمة المرور:</label>
-          <input type="password" name="password" placeholder="كلمة مرور قوية" required>
-          <div class="input-help">يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل</div>
-        </div>
+	  <div class="form-group">
+		<label>كلمة المرور:</label>
+		<input type="password" name="password" id="password" placeholder="كلمة مرور قوية" required>
+		<div class="input-help">يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل</div>
+		<div class="error-message" id="passwordError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>تأكيد كلمة المرور:</label>
-          <input type="password" name="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
-        </div>
+	  <div class="form-group">
+		<label>تأكيد كلمة المرور:</label>
+		<input type="password" name="confirmPassword" id="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+		<div class="error-message" id="confirmPasswordError"></div>
+	  </div>
 
-        <div class="button-group">
-          <div></div> <!-- spacer -->
-          <button type="button" class="btn-primary" onclick="nextStep(2)">التالي</button>
-        </div>
-      </div>
+	  <div class="button-group">
+		<div></div>
+		<button type="button" class="btn-primary" onclick="nextStep(2)">التالي</button>
+	  </div>
+	</div>
+
 
       <!-- الخطوة 2: البيانات الأساسية -->
-      <div class="form-container form-section" id="step2">
-        <h3>🏢 البيانات الأساسية للمشروع</h3>
+	<div class="form-container form-section" id="step2">
+	  <h3>🏢 البيانات الأساسية للمشروع</h3>
 
-        <div class="form-group">
-          <label>اسم المشروع:</label>
-          <input type="text" name="projectName" placeholder="أدخل اسم مشروعك" required>
-        </div>
+	  <div class="form-group">
+		<label>اسم المشروع:</label>
+		<input type="text" name="projectName" id="projectName" placeholder="أدخل اسم مشروعك" required>
+		<div class="error-message" id="projectNameError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>نوع النشاط التجاري:</label>
-          <select name="businessType" required>
-            <option value="">اختر نوع النشاط</option>
-            <option value="مقهى">مقهى</option>
-            <option value="مطعم">مطعم</option>
-            <option value="بيع بالتجزئة">بيع بالتجزئة</option>
-            <option value="خدمات">خدمات</option>
-            <option value="تصنيع">تصنيع</option>
-            <option value="أخرى">أخرى</option>
-          </select>
-        </div>
+	  <div class="form-group">
+		<label>نوع النشاط التجاري:</label>
+		<select name="businessType" id="businessType" required>
+		  <option value="">اختر نوع النشاط</option>
+		  <option value="مقهى">مقهى</option>
+		  <option value="مطعم">مطعم</option>
+		  <option value="بيع بالتجزئة">بيع بالتجزئة</option>
+		  <option value="خدمات">خدمات</option>
+		  <option value="تصنيع">تصنيع</option>
+		  <option value="أخرى">أخرى</option>
+		</select>
+		<div class="error-message" id="businessTypeError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>هدف التحليل:</label>
-          <select name="analysisGoal" required>
-            <option value="">اختر هدف التحليل</option>
-            <option value="open-branch">فتح فرع جديد</option>
-            <option value="increase-production">زيادة الإنتاج</option>
-            <option value="adjust-pricing">تعديل الأسعار</option>
-            <option value="reduce-costs">تقليل التكاليف</option>
-            <option value="other">أخرى</option>
-          </select>
-        </div>
+	  <div class="form-group">
+		<label>هدف التحليل:</label>
+		<select name="analysisGoal" id="analysisGoal" required>
+		  <option value="">اختر هدف التحليل</option>
+		  <option value="open-branch">فتح فرع جديد</option>
+		  <option value="increase-production">زيادة الإنتاج</option>
+		  <option value="adjust-pricing">تعديل الأسعار</option>
+		  <option value="reduce-costs">تقليل التكاليف</option>
+		  <option value="other">أخرى</option>
+		</select>
+		<div class="error-message" id="analysisGoalError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>وصف المشروع:</label>
-          <textarea name="projectDescription" placeholder="صف مشروعك باختصار..."></textarea>
-          <div class="example-box">
-            <span class="example-title">مثال على وصف المشروع:</span>
-            "مشروع مقهى متخصص في تقديم القهوة المختصة والحلويات الطازجة. يقع في منطقة تجارية مزدحمة ويستهدف الشباب والموظفين. نقدم تجربة فريدة مع مساحات مريحة للعمل والاجتماعات. نخطط لفتح فرع جديد في المنطقة المجاورة لزيادة حصتنا السوقية."
-          </div>
-        </div>
+	  <div class="form-group">
+		<label>وصف المشروع:</label>
+		<textarea name="projectDescription" id="projectDescription" placeholder="صف مشروعك باختصار..."></textarea>
+		<div class="error-message" id="projectDescriptionError"></div>
 
-        <div class="form-group">
-          <label>رفع ملفات الدعم (اختياري):</label>
-          <div class="file-upload" onclick="document.getElementById('fileInput').click()">
-            <div class="upload-icon">📁</div>
-            <p>انقر لرفع الملفات أو اسحبها هنا</p>
-            <p style="font-size: 12px; color: #666;">يدعم: PDF, Excel, Word, صور</p>
-            <input type="file" id="fileInput" multiple>
-          </div>
-          
-          <div class="documents-examples">
-            <div class="doc-example">
-              <h4>📊 تقارير مالية سابقة</h4>
-              <p>كشوفات البنوك، تقارير الأرباح والخسائر، الميزانيات العمومية</p>
-            </div>
-            <div class="doc-example">
-              <h4>📈 دراسات الجدوى</h4>
-              <p>تحليل السوق، دراسة المنافسين، توقعات المبيعات</p>
-            </div>
-            <div class="doc-example">
-              <h4>📝 خطط العمل</h4>
-              <p>الاستراتيجيات التسويقية، خطط التوسع، الهيكل التنظيمي</p>
-            </div>
-            <div class="doc-example">
-              <h4>🖼️ صور وخرائط</h4>
-              <p>صور للموقع، خرائط المنطقة، تصميمات المشروع</p>
-            </div>
-          </div>
-        </div>
+		<div class="example-box">
+		  <span class="example-title">مثال على وصف المشروع:</span>
+		  "مشروع مقهى متخصص في تقديم القهوة المختصة..."
+		</div>
+	  </div>
 
-        <div class="button-group">
-          <button type="button" class="btn-secondary" onclick="prevStep(1)">السابق</button>
-          <button type="button" class="btn-primary" onclick="nextStep(3)">التالي</button>
-        </div>
-      </div>
+	  <div class="form-group">
+		<label>رفع ملفات الدعم (اختياري):</label>
+		<div class="file-upload" onclick="document.getElementById('fileInput').click()">
+		  <div class="upload-icon">📁</div>
+		  <p>انقر لرفع الملفات أو اسحبها هنا</p>
+		  <p style="font-size: 12px; color: #666;">يدعم: PDF, Excel, Word, صور</p>
+		  <input type="file" id="fileInput" multiple>
+		</div>
+	  </div>
 
-      <!-- الخطوة 3: البيانات المالية -->
-      <div class="form-container form-section" id="step3">
-        <h3>💰 البيانات المالية والتشغيلية</h3>
+	  <div class="button-group">
+		<button type="button" class="btn-secondary" onclick="prevStep(1)">السابق</button>
+		<button type="button" class="btn-primary" onclick="nextStep(3)">التالي</button>
+	  </div>
+	</div>
 
-        <div class="form-group">
-          <label>الإيرادات الشهرية (بالدينار):</label>
-          <input type="number" name="monthlyRevenue" placeholder="أدخل متوسط الإيرادات لآخر 3 شهور" required>
-        </div>
 
-        <div class="form-group">
-          <label>التكاليف الثابتة الشهرية (بالدينار):</label>
-          <input type="number" name="fixedCosts" placeholder="أدخل متوسط التكاليف الثابتة لآخر 3 شهور" required>
-          <div class="input-help">(إيجار، رواتب، فواتير ثابتة)</div>
-        </div>
+	<!-- الخطوة 3: البيانات المالية -->
+	<div class="form-container form-section" id="step3">
+	  <h3>💰 البيانات المالية والتشغيلية</h3>
 
-        <div class="form-group">
-          <label>التكاليف المتغيرة الشهرية (بالدينار):</label>
-          <input type="number" name="variableCosts" placeholder="أدخل متوسط التكاليف المتغيرة لآخر 3 شهور" required>
-          <div class="input-help">(مواد خام، توصيل، مصاريف متغيرة)</div>
-        </div>
+	  <div class="form-group">
+		<label>الإيرادات الشهرية (بالدينار):</label>
+		<input type="number" name="monthlyRevenue" id="monthlyRevenue" placeholder="أدخل متوسط الإيرادات" required>
+		<div class="error-message" id="monthlyRevenueError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>عدد الموظفين:</label>
-          <input type="number" name="employeesCount" placeholder="مثال: 5" required>
-        </div>
+	  <div class="form-group">
+		<label>التكاليف الثابتة الشهرية (بالدينار):</label>
+		<input type="number" name="fixedCosts" id="fixedCosts" placeholder="أدخل التكاليف الثابتة" required>
+		<div class="input-help">(إيجار، رواتب، فواتير ثابتة)</div>
+		<div class="error-message" id="fixedCostsError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>ساعات العمل الأسبوعية:</label>
-          <input type="number" name="weeklyHours" placeholder="مثال: 40" required>
-        </div>
+	  <div class="form-group">
+		<label>التكاليف المتغيرة الشهرية (بالدينار):</label>
+		<input type="number" name="variableCosts" id="variableCosts" placeholder="أدخل التكاليف المتغيرة" required>
+		<div class="input-help">(مواد خام، توصيل، مصاريف متغيرة)</div>
+		<div class="error-message" id="variableCostsError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>عدد العملاء الشهري:</label>
-          <input type="number" name="monthlyCustomers" placeholder="أدخل متوسط عدد العملاء لآخر 3 شهور" required>
-        </div>
+	  <div class="form-group">
+		<label>عدد الموظفين:</label>
+		<input type="number" name="employeesCount" id="employeesCount" placeholder="مثال: 5" required>
+		<div class="error-message" id="employeesCountError"></div>
+	  </div>
 
-        <div class="form-group">
-          <label>متوسط سعر المنتج/الخدمة (بالدينار):</label>
-          <input type="number" name="averagePrice" placeholder="مثال: 25" required>
-        </div>
+	  <div class="form-group">
+		<label>ساعات العمل الأسبوعية:</label>
+		<input type="number" name="weeklyHours" id="weeklyHours" placeholder="مثال: 40" required>
+		<div class="error-message" id="weeklyHoursError"></div>
+	  </div>
+
+	  <div class="form-group">
+		<label>عدد العملاء الشهري:</label>
+		<input type="number" name="monthlyCustomers" id="monthlyCustomers" placeholder="عدد العملاء" required>
+		<div class="error-message" id="monthlyCustomersError"></div>
+	  </div>
+
+	  <div class="form-group">
+		<label>متوسط سعر المنتج/الخدمة:</label>
+		<input type="number" name="averagePrice" id="averagePrice" placeholder="مثال: 25" required>
+		<div class="error-message" id="averagePriceError"></div>
+	  </div>
+
+	  <div class="button-group">
+		<button type="button" class="btn-secondary" onclick="prevStep(2)">السابق</button>
+		<button type="button" class="btn-primary" onclick="nextStep(4)">التالي</button>
+	  </div>
+	</div>
 
         <!-- مثال البيانات المالية لآخر 3 شهور -->
         <div class="financial-example">
@@ -697,10 +764,105 @@
       showStep(step);
     }
 
-    function validateStep(step) {
-      // يمكن إضافة التحقق من صحة البيانات هنا
-      return true;
-    }
+	function validateStep(step) {
+	  let valid = true;
+
+	  // إزالة الأخطاء القديمة
+	  document.querySelectorAll(".error-message").forEach(e => e.innerText = "");
+	  document.querySelectorAll("input, select, textarea").forEach(el => el.classList.remove("error"));
+
+	  // ========== الخطوة 1 (إنشاء الحساب) ==========
+	  if (step === 1) {
+		const fullName = document.querySelector("input[name='fullName']");
+		const email = document.querySelector("input[name='email']");
+		const phone = document.querySelector("input[name='phone']");
+		const password = document.querySelector("input[name='password']");
+		const confirmPassword = document.querySelector("input[name='confirmPassword']");
+
+		// الاسم
+		if (fullName.value.trim().length < 3) {
+		  showError(fullName, "الاسم يجب أن يحتوي 3 أحرف على الأقل");
+		  valid = false;
+		}
+
+		// البريد الإلكتروني
+		if (!email.value.includes("@") || !email.value.includes(".")) {
+		  showError(email, "البريد الإلكتروني غير صالح ويجب أن يحتوي على @");
+		  valid = false;
+		}
+
+		// رقم الهاتف
+		if (!/^\d{10}$/.test(phone.value)) {
+		  showError(phone, "رقم الهاتف يجب أن يكون 10 أرقام فقط");
+		  valid = false;
+		}
+
+		// كلمة المرور
+		if (password.value.length < 8) {
+		  showError(password, "كلمة المرور يجب أن تحتوي 8 أحرف على الأقل");
+		  valid = false;
+		}
+
+		// تأكيد كلمة المرور
+		if (confirmPassword.value !== password.value) {
+		  showError(confirmPassword, "كلمة المرور غير متطابقة");
+		  valid = false;
+		}
+	  }
+
+	  // ========== الخطوة 2 (البيانات الأساسية) ==========
+	  if (step === 2) {
+		const projectName = document.querySelector("input[name='projectName']");
+		const businessType = document.querySelector("select[name='businessType']");
+		const analysisGoal = document.querySelector("select[name='analysisGoal']");
+
+		if (projectName.value.trim() === "") {
+		  showError(projectName, "يرجى إدخال اسم المشروع");
+		  valid = false;
+		}
+
+		if (businessType.value === "") {
+		  showError(businessType, "يرجى اختيار نوع النشاط");
+		  valid = false;
+		}
+
+		if (analysisGoal.value === "") {
+		  showError(analysisGoal, "يرجى اختيار هدف التحليل");
+		  valid = false;
+		}
+	  }
+
+	  // ========== الخطوة 3 (البيانات المالية) ==========
+	  if (step === 3) {
+		const requiredFields = [
+		  "monthlyRevenue",
+		  "fixedCosts",
+		  "variableCosts",
+		  "employeesCount",
+		  "weeklyHours",
+		  "monthlyCustomers",
+		  "averagePrice"
+		];
+
+		requiredFields.forEach(field => {
+		  const el = document.querySelector(`input[name='${field}']`);
+		  if (el.value.trim() === "" || Number(el.value) <= 0) {
+			showError(el, "يرجى إدخال قيمة صحيحة");
+			valid = false;
+		  }
+		});
+	  }
+
+	  return valid;
+	}
+
+	// ========== دالة مساعدة لإظهار الأخطاء ==========
+	function showError(input, message) {
+	  input.classList.add("error");
+	  const errorDiv = input.parentElement.querySelector(".error-message");
+	  if (errorDiv) errorDiv.innerText = message;
+	}
+
 
     function updateSummary() {
       const form = document.getElementById('businessForm');
@@ -742,7 +904,7 @@
 
     // التهيئة الأولية
     updateProgress();
+	
   </script>
 </body>
 </html>
-
