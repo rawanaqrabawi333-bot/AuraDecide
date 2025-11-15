@@ -416,7 +416,7 @@
 </head>
 <body>
 <header class="top-nav">
-	<a href="#" class="navbar-contact">Contact Us</a>
+	<a href="#" ></a>
 
   <div class="nav-links">
     <a href="index.html">Home</a>
@@ -724,20 +724,16 @@
     </form>
   </div>
 
-  <script>
+<script type="module">
     let currentStep = 1;
 
     function updateProgress() {
       const progress = document.getElementById('progress');
       progress.style.width = `${(currentStep / 4) * 100}%`;
       
-      // تحديث الخطوات النشطة
       document.querySelectorAll('.step').forEach((step, index) => {
-        if (index + 1 <= currentStep) {
-          step.classList.add('active');
-        } else {
-          step.classList.remove('active');
-        }
+        if (index + 1 <= currentStep) step.classList.add('active');
+        else step.classList.remove('active');
       });
     }
 
@@ -749,15 +745,11 @@
       currentStep = step;
       updateProgress();
       
-      if (step === 4) {
-        updateSummary();
-      }
+      if (step === 4) updateSummary();
     }
 
     function nextStep(step) {
-      if (validateStep(currentStep)) {
-        showStep(step);
-      }
+      if (validateStep(currentStep)) showStep(step);
     }
 
     function prevStep(step) {
@@ -767,11 +759,9 @@
 	function validateStep(step) {
 	  let valid = true;
 
-	  // إزالة الأخطاء القديمة
 	  document.querySelectorAll(".error-message").forEach(e => e.innerText = "");
 	  document.querySelectorAll("input, select, textarea").forEach(el => el.classList.remove("error"));
 
-	  // ========== الخطوة 1 (إنشاء الحساب) ==========
 	  if (step === 1) {
 		const fullName = document.querySelector("input[name='fullName']");
 		const email = document.querySelector("input[name='email']");
@@ -779,38 +769,32 @@
 		const password = document.querySelector("input[name='password']");
 		const confirmPassword = document.querySelector("input[name='confirmPassword']");
 
-		// الاسم
 		if (fullName.value.trim().length < 3) {
 		  showError(fullName, "الاسم يجب أن يحتوي 3 أحرف على الأقل");
 		  valid = false;
 		}
 
-		// البريد الإلكتروني
 		if (!email.value.includes("@") || !email.value.includes(".")) {
 		  showError(email, "البريد الإلكتروني غير صالح ويجب أن يحتوي على @");
 		  valid = false;
 		}
 
-		// رقم الهاتف
 		if (!/^\d{10}$/.test(phone.value)) {
 		  showError(phone, "رقم الهاتف يجب أن يكون 10 أرقام فقط");
 		  valid = false;
 		}
 
-		// كلمة المرور
 		if (password.value.length < 8) {
 		  showError(password, "كلمة المرور يجب أن تحتوي 8 أحرف على الأقل");
 		  valid = false;
 		}
 
-		// تأكيد كلمة المرور
 		if (confirmPassword.value !== password.value) {
 		  showError(confirmPassword, "كلمة المرور غير متطابقة");
 		  valid = false;
 		}
 	  }
 
-	  // ========== الخطوة 2 (البيانات الأساسية) ==========
 	  if (step === 2) {
 		const projectName = document.querySelector("input[name='projectName']");
 		const businessType = document.querySelector("select[name='businessType']");
@@ -832,7 +816,6 @@
 		}
 	  }
 
-	  // ========== الخطوة 3 (البيانات المالية) ==========
 	  if (step === 3) {
 		const requiredFields = [
 		  "monthlyRevenue",
@@ -856,23 +839,19 @@
 	  return valid;
 	}
 
-	// ========== دالة مساعدة لإظهار الأخطاء ==========
 	function showError(input, message) {
 	  input.classList.add("error");
 	  const errorDiv = input.parentElement.querySelector(".error-message");
 	  if (errorDiv) errorDiv.innerText = message;
 	}
 
-
     function updateSummary() {
       const form = document.getElementById('businessForm');
       const summary = document.getElementById('dataSummary');
-      
       const formData = new FormData(form);
-      let summaryHTML = '<h4>ملخص البيانات المدخلة:</h4>';
       
-      // عرض البيانات الأساسية
-      summaryHTML += `
+      summary.innerHTML = `
+        <h4>ملخص البيانات المدخلة:</h4>
         <div class="summary-item"><strong>الاسم:</strong> ${formData.get('fullName')}</div>
         <div class="summary-item"><strong>البريد الإلكتروني:</strong> ${formData.get('email')}</div>
         <div class="summary-item"><strong>رقم الهاتف:</strong> ${formData.get('phone')}</div>
@@ -885,26 +864,43 @@
         <div class="summary-item"><strong>عدد الموظفين:</strong> ${formData.get('employeesCount')}</div>
         <div class="summary-item"><strong>عدد العملاء:</strong> ${formData.get('monthlyCustomers')}</div>
       `;
-      
-      summary.innerHTML = summaryHTML;
     }
 
-    // معالجة إرسال النموذج
     document.getElementById('businessForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      // محاكاة إرسال البيانات وتحليلها
       alert('✅ تم إرسال البيانات بنجاح! جاري تحليل البيانات وعرض التوصيات...');
-      
-      // هنا سيتم توجيه المستخدم إلى صفحة النتائج
       setTimeout(() => {
         window.location.href = 'results.html';
       }, 2000);
     });
 
-    // التهيئة الأولية
     updateProgress();
-	
-  </script>
+
+	// ========== Firebase الحماية ==========
+
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+	import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+	const firebaseConfig = {
+	  apiKey: "AIzaSyClQwi-qkw0gm-h4W-1Ml_GmVurHmoLNxM",
+	  authDomain: "nabd-project.firebaseapp.com",
+	  projectId: "nabd-project",
+	  storageBucket: "nabd-project.firebasestorage.app",
+	  messagingSenderId: "684621374858",
+	  appId: "1:684621374858:web:45803c0ac4df49cacb5473",
+	  measurementId: "G-929SFBC8J2"
+	};
+
+	const app = initializeApp(firebaseConfig);
+	const auth = getAuth(app);
+
+	onAuthStateChanged(auth, (user) => {
+	  if (!user) {
+		alert("⚠️ يجب تسجيل الدخول للوصول إلى هذه الصفحة");
+		window.location.href = "login.html";
+	  }
+	});
+</script>
+
 </body>
 </html>
