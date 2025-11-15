@@ -202,11 +202,14 @@
    Firebase Imports
 -------------------------------------*/
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
 import { 
   getAuth, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 import { 
@@ -214,6 +217,7 @@ import {
   setDoc, 
   doc 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 
 /* ------------------------------------
    Firebase Config
@@ -234,19 +238,43 @@ const db = getFirestore(app);
 
 
 /* ------------------------------------
+   حماية الصفحة (منع الدخول بدون تسجيل دخول)
+-------------------------------------*/
+onAuthStateChanged(auth, (user) => {
+  const logoutBtn = document.getElementById("logoutBtn");
+  const loginLink = document.querySelector('a[href="login.html"]');
+
+  if (user) {
+    // المستخدم مسجل دخول → أظهر زر الخروج
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
+    if (loginLink) loginLink.style.display = "none";
+  } else {
+    // المستخدم غير مسجل دخول
+    if (logoutBtn) logoutBtn.style.display = "none";
+    if (loginLink) loginLink.style.display = "inline-block";
+
+    // إذا هذه ليست صفحة login → رجّعه للوجين
+    if (!window.location.href.includes("login.html")) {
+      window.location.href = "login.html";
+    }
+  }
+});
+
+
+/* ------------------------------------
    UI Controls
 -------------------------------------*/
 window.showSignup = function () {
   document.getElementById('loginForm').style.display = 'none';
   document.getElementById('signupForm').style.display = 'block';
   document.getElementById('formTitle').innerText = 'إنشاء حساب';
-}
+};
 
 window.showLogin = function () {
   document.getElementById('signupForm').style.display = 'none';
   document.getElementById('loginForm').style.display = 'block';
   document.getElementById('formTitle').innerText = 'تسجيل الدخول';
-}
+};
 
 function isValidEmail(value) {
   return value.includes("@");
@@ -254,7 +282,7 @@ function isValidEmail(value) {
 
 
 /* ------------------------------------
-   إنشاء حساب حقيقي في Firebase
+   إنشاء حساب
 -------------------------------------*/
 window.validateSignup = async function () {
 
@@ -265,7 +293,6 @@ window.validateSignup = async function () {
   let confirm = document.getElementById("confirmPassword").value.trim();
   let msg = document.getElementById("message");
 
-  // Validation
   if (!fname) return msg.textContent = "⚠️ الرجاء إدخال الاسم الأول";
   if (!lname) return msg.textContent = "⚠️ الرجاء إدخال الاسم الأخير";
   if (!email) return msg.textContent = "⚠️ الرجاء إدخال البريد الإلكتروني";
@@ -274,11 +301,11 @@ window.validateSignup = async function () {
   if (pass !== confirm) return msg.textContent = "⚠️ كلمة المرور غير متطابقة";
 
   try {
-    // Create Firebase User
+    // إنشاء المستخدم في Firebase
     const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
     const user = userCredential.user;
 
-    // Save in Firestore
+    // حفظ بياناته في Firestore
     await setDoc(doc(db, "users", user.uid), {
       firstName: fname,
       lastName: lname,
@@ -286,7 +313,7 @@ window.validateSignup = async function () {
     });
 
     msg.style.color = "green";
-    msg.textContent = "تم إنشاء الحساب بنجاح ✔️";
+    msg.textContent = "✔️ تم إنشاء الحساب بنجاح";
 
     setTimeout(() => showLogin(), 1500);
 
@@ -298,9 +325,10 @@ window.validateSignup = async function () {
 
 
 /* ------------------------------------
-   تسجيل الدخول عبر Firebase
+   تسجيل الدخول
 -------------------------------------*/
 window.validateLogin = async function () {
+
   let email = document.getElementById("loginUser").value.trim();
   let pass = document.getElementById("loginPass").value.trim();
   let msg = document.getElementById("loginMessage");
@@ -313,10 +341,10 @@ window.validateLogin = async function () {
     await signInWithEmailAndPassword(auth, email, pass);
 
     msg.style.color = "green";
-    msg.textContent = "تم تسجيل الدخول ✔️";
+    msg.textContent = "✔️ تم تسجيل الدخول";
 
     setTimeout(() => {
-      window.location.href = "index.html"; // توجيه بعد الدخول
+      window.location.href = "index.html";
     }, 1000);
 
   } catch (error) {
@@ -331,11 +359,11 @@ window.validateLogin = async function () {
 -------------------------------------*/
 window.showForgot = function () {
   document.getElementById("forgotPopup").style.display = "flex";
-}
+};
 
 window.closeForgot = function () {
   document.getElementById("forgotPopup").style.display = "none";
-}
+};
 
 window.sendRecovery = async function () {
   let email = document.getElementById("recoverInput").value.trim();
@@ -348,41 +376,28 @@ window.sendRecovery = async function () {
     await sendPasswordResetEmail(auth, email);
     msg.style.color = "green";
     msg.textContent = "✔️ تم إرسال رابط الاسترجاع";
+
   } catch (error) {
     msg.style.color = "red";
     msg.textContent = error.message;
   }
-}
-import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+};
 
-/*------------------------------------
-    إظهار زر Logout إذا المستخدم مسجّل دخول
+
+/* ------------------------------------
+   تسجيل الخروج
 -------------------------------------*/
 const logoutBtn = document.getElementById("logoutBtn");
-const loginLink = document.querySelector('a[href="login.html"]');
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // المستخدم مسجل دخول → أظهر زر الخروج
-    logoutBtn.style.display = "inline-block";
-    // أخفي رابط Login
-    if (loginLink) loginLink.style.display = "none";
-  } else {
-    // المستخدم ليس مسجل دخول → أخفي زر الخروج
-    logoutBtn.style.display = "none";
-    if (loginLink) loginLink.style.display = "inline-block";
-  }
-});
-
-/*------------------------------------
-    تنفيذ تسجيل الخروج
--------------------------------------*/
-logoutBtn.addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.href = "login.html"; // رجوع لصفحة تسجيل الدخول
-});
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "login.html";
+  });
+}
 
 </script>
+
 
 
 	</body>
