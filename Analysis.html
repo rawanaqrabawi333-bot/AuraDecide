@@ -900,8 +900,111 @@
 		window.location.href = "LOGIN.html";
 	  }
 	});
+	let currentStep = 1;
+
+function showStep(step) {
+  // إخفاء كل الخطوات
+  document.querySelectorAll(".form-section").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  // إظهار الخطوة المطلوبة
+  document.getElementById(`step${step}`).classList.add("active");
+
+  // تحديث شريط الخطوات
+  document.querySelectorAll(".step").forEach((stepDiv, index) => {
+    stepDiv.classList.remove("active");
+    if (index + 1 === step) {
+      stepDiv.classList.add("active");
+    }
+  });
+
+  // تحديث شريط التقدم
+  const progress = document.getElementById("progress");
+  progress.style.width = (step - 1) * 33 + "%";
+
+  currentStep = step;
+}
+
+function nextStep(step) {
+  if (!validateStep(currentStep)) return;
+  showStep(step);
+}
+
+function prevStep(step) {
+  showStep(step);
+}
+
+// ----------------------
+// التحقق من الخطوات
+// ----------------------
+function validateStep(step) {
+  let valid = true;
+
+  // إزالة الأخطاء السابقة
+  document.querySelectorAll(`#step${step} input, #step${step} select`).forEach(input => {
+    input.classList.remove("error");
+  });
+  document.querySelectorAll(`#step${step} .error-message`).forEach(msg => {
+    msg.innerHTML = "";
+  });
+
+  if (step === 1) {
+    // الاسم الكامل
+    const fullName = document.getElementById("fullName");
+    if (fullName.value.trim().length < 3) {
+      fullName.classList.add("error");
+      document.getElementById("fullNameError").innerText = "الاسم يجب أن يكون 3 أحرف على الأقل";
+      valid = false;
+    }
+
+    // البريد
+    const email = document.getElementById("email");
+    if (!email.value.includes("@") || !email.value.includes(".")) {
+      email.classList.add("error");
+      document.getElementById("emailError").innerText = "أدخل بريدًا صحيحًا";
+      valid = false;
+    }
+
+    // الهاتف
+    const phone = document.getElementById("phone");
+    if (phone.value.length < 9) {
+      phone.classList.add("error");
+      document.getElementById("phoneError").innerText = "رقم الهاتف غير صالح";
+      valid = false;
+    }
+
+    // كلمة المرور
+    const pass = document.getElementById("password");
+    if (pass.value.length < 8) {
+      pass.classList.add("error");
+      document.getElementById("passwordError").innerText = "كلمة المرور يجب أن تكون 8 أحرف على الأقل";
+      valid = false;
+    }
+
+    // تأكيد كلمة المرور
+    const confirmPass = document.getElementById("confirmPassword");
+    if (confirmPass.value !== pass.value) {
+      confirmPass.classList.add("error");
+      document.getElementById("confirmPasswordError").innerText = "كلمتا المرور غير متطابقتين";
+      valid = false;
+    }
+  }
+
+  if (step === 2) {
+    const project = document.getElementById("projectName");
+    if (project.value.trim().length < 3) {
+      project.classList.add("error");
+      document.getElementById("projectNameError").innerText = "اسم المشروع قصير جدًا";
+      valid = false;
+    }
+  }
+
+  return valid;
+}
 </script>
 
 </body>
 </html>
+
 
