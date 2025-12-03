@@ -130,10 +130,17 @@
   </div>
 
   <script>
-    function fakePay() {
-      document.getElementById("successMsg").style.display = "block";
-    }
+   function fakePay() {
+     const msg = document.getElementById("successMsg");
+     msg.style.display = "block";
+
+     setTimeout(() => {
+       window.location.href = "index.html"; 
+     }, 2000); // بعد ثانيتين يرجع للرئيسية
+   }
   </script>
+
 
 </body>
 </html>
+
