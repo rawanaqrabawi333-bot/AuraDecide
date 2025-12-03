@@ -6,194 +6,335 @@
   <title>Smart Business Solutions</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-	/* ======= GLOBAL STYLES ======= */
-	* {
-	  margin: 0; /* إزالة الهوامش الافتراضية لكل العناصر */
-	  padding: 0; /* إزالة الحشوات الافتراضية لكل العناصر */
-	  box-sizing: border-box; /* حساب الحشوة والحدود ضمن أبعاد العنصر */
-	  font-family: 'Poppins', sans-serif; /* تعيين الخط الافتراضي لكل العناصر */
-	}
+    /* ======= GLOBAL STYLES ======= */
+    * {
+      margin: 0; /* إزالة الهوامش الافتراضية لكل العناصر */
+      padding: 0; /* إزالة الحشوات الافتراضية لكل العناصر */
+      box-sizing: border-box; /* حساب الحشوة والحدود ضمن أبعاد العنصر */
+      font-family: 'Poppins', sans-serif; /* تعيين الخط الافتراضي لكل العناصر */
+    }
 
-	body {
-	  background-color: #f7efdf; /* لون خلفية الصفحة */
-	  color: #000; /* لون النص الأساسي */
-	}
+    body {
+      background-color: #f7efdf; /* لون خلفية الصفحة */
+      color: #000; /* لون النص الأساسي */
+    }
 
-	/* ======= NAVBAR ======= */
-	header {
-	  display: flex; /* استخدام Flexbox لترتيب العناصر */
-	  justify-content: space-between; /* توزيع العناصر بمسافات متساوية */
-	  align-items: center; /* محاذاة العناصر عمودياً بالمنتصف */
-	  padding: 15px 50px; /* حشوة داخلية حول العناصر */
-	  background-color: #f7efdf; /* نفس لون خلفية الصفحة */
-	}
+    /* ======= NAVBAR ======= */
+    header {
+      display: flex; /* استخدام Flexbox لترتيب العناصر */
+      justify-content: space-between; /* توزيع العناصر بمسافات متساوية */
+      align-items: center; /* محاذاة العناصر عمودياً بالمنتصف */
+      padding: 15px 50px; /* حشوة داخلية حول العناصر */
+      background-color: #f7efdf; /* نفس لون خلفية الصفحة */
+    }
 
-	.nav-links {
-	  display: flex; /* ترتيب روابط التنقل أفقياً */
-	  align-items: center; /* محاذاة الروابط عمودياً */
-	  gap: 30px; /* مسافة بين كل رابط */
-	}
+    .nav-links {
+      display: flex; /* ترتيب روابط التنقل أفقياً */
+      align-items: center; /* محاذاة الروابط عمودياً */
+      gap: 30px; /* مسافة بين كل رابط */
+    }
 
-	.nav-links a {
-	  text-decoration: none; /* إزالة الخط السفلي من الروابط */
-	  color: #000; /* لون النص */
-	  font-weight: 600; /* جعل الخط شبه غامق */
-	  text-transform: uppercase; /* تحويل النص إلى حروف كبيرة */
-	  font-size: 13px; /* حجم الخط */
-	}
+    .nav-links a {
+      text-decoration: none; /* إزالة الخط السفلي من الروابط */
+      color: #000; /* لون النص */
+      font-weight: 600; /* جعل الخط شبه غامق */
+      text-transform: uppercase; /* تحويل النص إلى حروف كبيرة */
+      font-size: 13px; /* حجم الخط */
+    }
 
-	.search-box {
-	  display: flex; /* ترتيب محتويات صندوق البحث أفقياً */
-	  align-items: center; /* محاذاة المحتويات عمودياً */
-	  background: #fff; /* خلفية بيضاء للصندوق */
-	  border-radius: 25px; /* جعل الحواف مستديرة */
-	  border: 1px solid #ccc; /* إضافة حد رمادي فاتح */
-	  padding: 3px 10px; /* حشوة داخلية للصندوق */
-	  margin-left: 10px; /* مسافة عن العناصر المجاورة */
-	}
+    .search-box {
+      display: flex; /* ترتيب محتويات صندوق البحث أفقياً */
+      align-items: center; /* محاذاة المحتويات عمودياً */
+      background: #fff; /* خلفية بيضاء للصندوق */
+      border-radius: 25px; /* جعل الحواف مستديرة */
+      border: 1px solid #ccc; /* إضافة حد رمادي فاتح */
+      padding: 3px 10px; /* حشوة داخلية للصندوق */
+      margin-left: 10px; /* مسافة عن العناصر المجاورة */
+    }
 
-	.search-box input {
-	  border: none; /* إزالة حدود الحقل */
-	  outline: none; /* إزالة خط التركيز الافتراضي */
-	  background: transparent; /* خلفية شفافة داخل الحقل */
-	  padding: 5px; /* حشوة داخلية للنص */
-	  font-size: 12px; /* حجم النص */
-	  width: 120px; /* عرض الحقل */
-	}
+    .search-box input {
+      border: none; /* إزالة حدود الحقل */
+      outline: none; /* إزالة خط التركيز الافتراضي */
+      background: transparent; /* خلفية شفافة داخل الحقل */
+      padding: 5px; /* حشوة داخلية للنص */
+      font-size: 12px; /* حجم النص */
+      width: 120px; /* عرض الحقل */
+    }
 
-	.search-box button {
-	  background: none; /* إزالة الخلفية الافتراضية للزر */
-	  border: none; /* إزالة الحدود */
-	  cursor: pointer; /* تغيير مؤشر الفأرة عند المرور عليه */
-	  font-size: 16px; /* حجم أيقونة أو نص الزر */
-	}
+    .search-box button {
+      background: none; /* إزالة الخلفية الافتراضية للزر */
+      border: none; /* إزالة الحدود */
+      cursor: pointer; /* تغيير مؤشر الفأرة عند المرور عليه */
+      font-size: 16px; /* حجم أيقونة أو نص الزر */
+    }
 
-	.contact-btn {
-	  background-color: #d8c7a4; /* لون خلفية زر الاتصال */
-	  border: none; /* إزالة الحدود */
-	  padding: 10px 22px; /* حشوة داخلية للزر */
-	  border-radius: 25px; /* جعل الزر مستدير الحواف */
-	  cursor: pointer; /* مؤشر الفأرة عند المرور عليه */
-	  font-weight: 600; /* جعل النص شبه غامق */
-	  text-transform: uppercase; /* تحويل النص لحروف كبيرة */
-	}
+    .contact-btn {
+      background-color: #d8c7a4; /* لون خلفية زر الاتصال */
+      border: none; /* إزالة الحدود */
+      padding: 10px 22px; /* حشوة داخلية للزر */
+      border-radius: 25px; /* جعل الزر مستدير الحواف */
+      cursor: pointer; /* مؤشر الفأرة عند المرور عليه */
+      font-weight: 600; /* جعل النص شبه غامق */
+      text-transform: uppercase; /* تحويل النص لحروف كبيرة */
+    }
 
-	/* ======= HERO SECTION ======= */
-	.hero {
-	  display: flex; /* استخدام Flexbox لترتيب النص والصورة */
-	  justify-content: space-between; /* توزيع العناصر على المسافة الكاملة */
-	  align-items: flex-start; /* محاذاة العناصر من الأعلى */
-	  padding: 50px 60px; /* حشوة داخلية حول المحتوى */
-	  flex-wrap: wrap; /* السماح بانتقال العناصر للسطر التالي عند ضيق الشاشة */
-	}
+    /* ======= HERO SECTION ======= */
+    .hero {
+      display: flex; /* استخدام Flexbox لترتيب النص والصورة */
+      justify-content: space-between; /* توزيع العناصر على المسافة الكاملة */
+      align-items: flex-start; /* محاذاة العناصر من الأعلى */
+      padding: 50px 60px; /* حشوة داخلية حول المحتوى */
+      flex-wrap: wrap; /* السماح بانتقال العناصر للسطر التالي عند ضيق الشاشة */
+    }
 
-	.hero-text {
-	  max-width: 600px; /* أقصى عرض للنص */
-	}
+    .hero-text {
+      max-width: 600px; /* أقصى عرض للنص */
+    }
 
-	.hero-text h1 {
-	  font-size: 52px; /* حجم العنوان الرئيسي */
-	  font-weight: 800; /* جعل العنوان ثقيل جداً */
-	  line-height: 1.1; /* ارتفاع السطر بين النصوص */
-	  margin-bottom: 25px; /* مسافة أسفل العنوان */
-	}
+    .hero-text h1 {
+      font-size: 52px; /* حجم العنوان الرئيسي */
+      font-weight: 800; /* جعل العنوان ثقيل جداً */
+      line-height: 1.1; /* ارتفاع السطر بين النصوص */
+      margin-bottom: 25px; /* مسافة أسفل العنوان */
+    }
 
-	.hero-right {
-	  max-width: 400px; /* أقصى عرض للعمود الأيمن */
-	  text-align: left; /* محاذاة النص لليسار */
-	}
+    .hero-right {
+      max-width: 400px; /* أقصى عرض للعمود الأيمن */
+      text-align: left; /* محاذاة النص لليسار */
+    }
 
-	.hero-right p {
-	  font-size: 13px; /* حجم الفقرة */
-	  letter-spacing: 0.5px; /* زيادة المسافة بين الحروف */
-	  text-transform: uppercase; /* تحويل النص لحروف كبيرة */
-	  line-height: 1.7; /* ارتفاع السطر */
-	  color: #111; /* لون النص */
-	}
+    .hero-right p {
+      font-size: 13px; /* حجم الفقرة */
+      letter-spacing: 0.5px; /* زيادة المسافة بين الحروف */
+      text-transform: uppercase; /* تحويل النص لحروف كبيرة */
+      line-height: 1.7; /* ارتفاع السطر */
+      color: #111; /* لون النص */
+    }
 
-	.explore-btn {
-	  margin-top: 20px; /* مسافة فوق الزر */
-	  background-color: #000; /* لون الخلفية أسود */
-	  color: #fff; /* لون النص أبيض */
-	  border: none; /* إزالة الحدود */
-	  padding: 12px 28px; /* حشوة داخلية للزر */
-	  border-radius: 8px; /* حواف مستديرة */
-	  font-weight: 600; /* جعل النص شبه غامق */
-	  cursor: pointer; /* تغيير مؤشر الفأرة عند المرور عليه */
-	  text-transform: uppercase; /* تحويل النص لحروف كبيرة */
-	}
+    .explore-btn {
+      margin-top: 20px; /* مسافة فوق الزر */
+      background-color: #000; /* لون الخلفية أسود */
+      color: #fff; /* لون النص أبيض */
+      border: none; /* إزالة الحدود */
+      padding: 12px 28px; /* حشوة داخلية للزر */
+      border-radius: 8px; /* حواف مستديرة */
+      font-weight: 600; /* جعل النص شبه غامق */
+      cursor: pointer; /* تغيير مؤشر الفأرة عند المرور عليه */
+      text-transform: uppercase; /* تحويل النص لحروف كبيرة */
+    }
 
-	/* ======= HERO IMAGES ======= */
-	.hero-images {
-	  display: flex; /* ترتيب الصور أفقياً */
-	  gap: 80px; /* مسافة بين الصور */
-	  justify-content: center; /* محاذاة الصور في الوسط */
-	  padding: 0 60px 60px; /* حشوة حول الصور */
-	  margin-top: 200px; /* مسافة من أعلى القسم */
-	}
+    /* ======= HERO IMAGES ======= */
+    .hero-images {
+      display: flex; /* ترتيب الصور أفقياً */
+      gap: 80px; /* مسافة بين الصور */
+      justify-content: center; /* محاذاة الصور في الوسط */
+      padding: 0 60px 60px; /* حشوة حول الصور */
+      margin-top: 200px; /* مسافة من أعلى القسم */
+    }
 
-	.hero-images img {
-	  width: 300px; /* عرض الصورة */
-	  height: 340px; /* ارتفاع الصورة */
-	  object-fit: cover; /* تغطية الصورة بالكامل مع الحفاظ على النسبة */
-	  border-radius: 15px; /* حواف مستديرة للصور */
-	  transition: transform 0.3s ease; /* تأثير الانتقال عند التكبير */
-	}
+    .hero-images img {
+      width: 300px; /* عرض الصورة */
+      height: 340px; /* ارتفاع الصورة */
+      object-fit: cover; /* تغطية الصورة بالكامل مع الحفاظ على النسبة */
+      border-radius: 15px; /* حواف مستديرة للصور */
+      transition: transform 0.3s ease; /* تأثير الانتقال عند التكبير */
+    }
 
-	.hero-images img:hover {
-	  transform: scale(1.05); /* تكبير الصورة عند المرور عليها */
-	}
+    .hero-images img:hover {
+      transform: scale(1.05); /* تكبير الصورة عند المرور عليها */
+    }
 
-	/* ======= RESPONSIVE ======= */
-	@media (max-width: 1000px) {
-	  .hero {
-		flex-direction: column; /* ترتيب العناصر عمودياً للشاشات الصغيرة */
-		text-align: center; /* محاذاة النص للوسط */
-	  }
+    /* ======= SUBSCRIPTION PLANS SECTION ======= */
+    .subscription-plans {
+      padding: 80px 60px;
+      text-align: center;
+      background-color: #f7efdf;
+    }
 
-	  .hero-images {
-		justify-content: center; /* محاذاة الصور للوسط */
-		flex-wrap: wrap; /* السماح للصور بالانتقال للسطر التالي */
-	  }
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 60px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
 
-	  .hero-text {
-		text-align: center; /* محاذاة النص للوسط */
-	  }
+    .plans-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
 
-	  .hero-right {
-		margin-top: 20px; /* مسافة فوق العمود الأيمن */
-		text-align: center; /* محاذاة النص للوسط */
-	  }
-	}
-	.hero {
-	  position: relative; /* لازم لو حنخلي العنصر الأب هو المرجع */
-	}
+    .plan-card {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
 
-	.hero-center {
-	  position: absolute;   /* لتثبيت النص فوق الصور */
-	  top: 350px;           /* المسافة من أعلى الصفحة، عدل حسب مكان الصور */
-	  left: 50%;            /* لتوسيط النص أفقياً */
-	  transform: translateX(-50%); /* تعويض التحريك للوسط */
-	  text-align: center;
-	}
+    .plan-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
 
-	.hero-center p {
-	  font-size: 100px;
-	  font-weight: 1000;
-	  color: #000;
-	  letter-spacing: 5px;
-	}
+    .plan-card.featured {
+      border: 2px solid #d8c7a4;
+      transform: scale(1.05);
+    }
+
+    .plan-card.featured:hover {
+      transform: scale(1.05) translateY(-10px);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: 15px;
+      right: -30px;
+      background-color: #d8c7a4;
+      color: #000;
+      padding: 5px 30px;
+      transform: rotate(45deg);
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .plan-name {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #000;
+    }
+
+    .plan-price {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: #000;
+    }
+
+    .plan-period {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .plan-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 30px;
+    }
+
+    .plan-features li {
+      padding: 8px 0;
+      position: relative;
+      padding-left: 25px;
+      font-size: 14px;
+    }
+
+    .plan-features li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #d8c7a4;
+      font-weight: bold;
+    }
+
+    .plan-btn {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: uppercase;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .plan-btn:hover {
+      background-color: #333;
+    }
+
+    .plan-btn.featured {
+      background-color: #d8c7a4;
+      color: #000;
+    }
+
+    .plan-btn.featured:hover {
+      background-color: #c9b78f;
+    }
+
+    /* ======= RESPONSIVE ======= */
+    @media (max-width: 1000px) {
+      .hero {
+        flex-direction: column; /* ترتيب العناصر عمودياً للشاشات الصغيرة */
+        text-align: center; /* محاذاة النص للوسط */
+      }
+
+      .hero-images {
+        justify-content: center; /* محاذاة الصور للوسط */
+        flex-wrap: wrap; /* السماح للصور بالانتقال للسطر التالي */
+      }
+
+      .hero-text {
+        text-align: center; /* محاذاة النص للوسط */
+      }
+
+      .hero-right {
+        margin-top: 20px; /* مسافة فوق العمود الأيمن */
+        text-align: center; /* محاذاة النص للوسط */
+      }
+
+      .plans-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .plan-card.featured {
+        transform: none;
+      }
+
+      .plan-card.featured:hover {
+        transform: translateY(-10px);
+      }
+    }
+    
+    .hero {
+      position: relative; /* لازم لو حنخلي العنصر الأب هو المرجع */
+    }
+
+    .hero-center {
+      position: absolute;   /* لتثبيت النص فوق الصور */
+      top: 350px;           /* المسافة من أعلى الصفحة، عدل حسب مكان الصور */
+      left: 50%;            /* لتوسيط النص أفقياً */
+      transform: translateX(-50%); /* تعويض التحريك للوسط */
+      text-align: center;
+    }
+
+    .hero-center p {
+      font-size: 100px;
+      font-weight: 1000;
+      color: #000;
+      letter-spacing: 5px;
+    }
   </style>
 </head>
 <body>
 
   <header>
     <div class="nav-links">
-		<a href="index.html">Home</a>
-		<a href="services.html">Services</a>
-		<a href="LOGIN.html">Login</a>
-		<a href="Analysis.html">AI Analysis</a>
-		<a href="insight.html">Insight</a>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="LOGIN.html">Login</a>
+      <a href="Analysis.html">AI Analysis</a>
+      <a href="insight.html">Insight</a>
     </div>
     <button class="contact-btn">Contact Us</button>
   </header>
@@ -204,7 +345,7 @@
     </div>
 
     <div class="hero-center">
-      <p>	AuraDecide</p>
+      <p>AuraDecide</p>
     </div>
 
     <div class="hero-right">
@@ -220,6 +361,68 @@
     <img src="https://i.pinimg.com/1200x/6b/af/ab/6bafab3a5482c415affd299a7ba0efd1.jpg" alt="Charts">
     <img src="https://i.pinimg.com/1200x/e5/a4/33/e5a433d8c0f724515b90d913fc209d96.jpg" alt="Reports">
   </div>
+
+  <!-- قسم خطط الاشتراك الجديد -->
+  <section class="subscription-plans">
+    <h2 class="section-title">اختر خطتك المناسبة</h2>
+    <div class="plans-container">
+      <!-- الخطة المجانية -->
+      <div class="plan-card">
+        <div class="plan-badge">مجاني</div>
+        <h3 class="plan-name">المرحلة الأولى</h3>
+        <div class="plan-price">مجاني</div>
+        <div class="plan-period">لمدة أسبوعين</div>
+        <ul class="plan-features">
+          <li>تحليل البيانات الأساسية</li>
+          <li>رسم المخططات البيانية</li>
+          <li>توصيات أولية</li>
+        </ul>
+        <button class="plan-btn" onclick="subscribe('free')">ابدأ الآن</button>
+      </div>
+
+      <!-- الخطة المتوسطة -->
+      <div class="plan-card featured">
+        <div class="plan-badge">الأكثر شيوعاً</div>
+        <h3 class="plan-name">المرحلة الثانية</h3>
+        <div class="plan-price">40 د.أ</div>
+        <div class="plan-period">اشتراك شهري</div>
+        <ul class="plan-features">
+          <li>جميع ميزات المرحلة الأولى</li>
+          <li>تنبؤات مستقبلية</li>
+          <li>تحليلات متقدمة</li>
+          <li>تقارير مفصلة</li>
+        </ul>
+        <button class="plan-btn featured" onclick="subscribe('pro')">اشترك الآن</button>
+      </div>
+
+      <!-- الخطة المتقدمة -->
+      <div class="plan-card">
+        <h3 class="plan-name">المرحلة الثالثة</h3>
+        <div class="plan-price">80 د.أ</div>
+        <div class="plan-period">اشتراك شهري</div>
+        <ul class="plan-features">
+          <li>جميع ميزات المرحلة الثانية</li>
+          <li>مستشارون من مختلف المجالات</li>
+          <li>تحليلات متخصصة</li>
+          <li>دعم فني متميز</li>
+          <li>تقارير مخصصة</li>
+        </ul>
+        <button class="plan-btn" onclick="subscribe('premium')">اشترك الآن</button>
+      </div>
+    </div>
+  </section>
+<script>
+function subscribe(plan) {
+  if (plan === "free") {
+    localStorage.setItem("userPlan", "free");
+    alert("✅ تم تفعيل الخطة المجانية بنجاح");
+    window.location.href = "dashboard.html";
+  } 
+  else {
+    window.location.href = "payment.html?plan=" + plan;
+  }
+}
+</script>
 
 </body>
 </html>
