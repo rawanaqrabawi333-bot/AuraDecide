@@ -245,20 +245,15 @@ onAuthStateChanged(auth, (user) => {
   const loginLink = document.querySelector('a[href="LOGIN.html"]');
 
   if (user) {
-    // المستخدم مسجل دخول → أظهر زر الخروج
     if (logoutBtn) logoutBtn.style.display = "inline-block";
     if (loginLink) loginLink.style.display = "none";
   } else {
-    // المستخدم غير مسجل دخول
     if (logoutBtn) logoutBtn.style.display = "none";
     if (loginLink) loginLink.style.display = "inline-block";
-
-    // إذا هذه ليست صفحة login → رجّعه للوجين
-    if (!window.location.href.includes("LOGIN.html")) {
-      window.location.href = "LOGIN.html";
-    }
+    // ❌ بدون أي تحويل هنا
   }
 });
+
 
 
 /* ------------------------------------
@@ -400,6 +395,7 @@ if (logoutBtn) {
 
 
 
-	</body>
-	</html>
+</body>
+</html>
+
 
