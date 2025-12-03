@@ -475,103 +475,106 @@
             <p>We appreciate your trust and always strive to provide the best</p>
         </div>
 
-		<div class="footer-links">
-		    <a href="index.html" class="footer-link">
-		        <i class="fas fa-arrow-left"></i> Back to Main Form
-		    </a>
-		</div>
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">
+                <i class="fas fa-arrow-left"></i> Back to Main Form
+            </a>
+        </div>
     </div>
 
-    <script>
-        // Star rating system
-        document.querySelectorAll('.star').forEach(star => {
-            star.addEventListener('click', function() {
-                const rating = parseInt(this.getAttribute('data-rating'));
-                const starsContainer = this.parentElement;
-                
-                // Update all stars in the same group
-                starsContainer.querySelectorAll('.star').forEach((s, index) => {
-                    if (index < rating) {
-                        s.classList.add('active');
-                    } else {
-                        s.classList.remove('active');
-                    }
-                });
-            });
+  <script>
+  // Star rating system
+  document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', function() {
+      const rating = parseInt(this.getAttribute('data-rating'));
+      const starsContainer = this.parentElement;
+
+      starsContainer.querySelectorAll('.star').forEach((s, index) => {
+        if (index < rating) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  // Feature rating system
+  document.querySelectorAll('.feature-star').forEach(star => {
+    star.addEventListener('click', function() {
+      const rating = parseInt(this.getAttribute('data-rating'));
+      const starsContainer = this.parentElement;
+
+      starsContainer.querySelectorAll('.feature-star').forEach((s, index) => {
+        if (index < rating) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  // Submit feedback via Formspree
+  document.getElementById('submitFeedback').addEventListener('click', function () {
+
+    const overallStars = document.querySelectorAll('#overallRating .active').length;
+    const usability = document.querySelector('[data-feature="usability"]').querySelectorAll('.active').length;
+    const accuracy = document.querySelector('[data-feature="accuracy"]').querySelectorAll('.active').length;
+    const performance = document.querySelector('[data-feature="performance"]').querySelectorAll('.active').length;
+    const reports = document.querySelector('[data-feature="reports"]').querySelectorAll('.active').length;
+
+    if (overallStars === 0) {
+      alert("⚠ يرجى اختيار التقييم العام قبل الإرسال");
+      return;
+    }
+
+    const comment = document.querySelectorAll('textarea')[0].value;
+    const suggestions = document.querySelectorAll('textarea')[1].value;
+
+    const data = {
+      overallRating: overallStars,
+      usability: usability,
+      accuracy: accuracy,
+      performance: performance,
+      reports: reports,
+      comment: comment,
+      suggestions: suggestions
+    };
+
+    fetch("https://formspree.io/f/mdkqzqaa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (response.ok) {
+        document.getElementById('feedbackForm').style.display = 'none';
+        document.getElementById('thankYouMessage').style.display = 'block';
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
         });
 
-        // Feature rating system
-        document.querySelectorAll('.feature-star').forEach(star => {
-            star.addEventListener('click', function() {
-                const rating = parseInt(this.getAttribute('data-rating'));
-                const feature = this.parentElement.getAttribute('data-feature');
-                const starsContainer = this.parentElement;
-                
-                // Update all stars in the same feature
-                starsContainer.querySelectorAll('.feature-star').forEach((s, index) => {
-                    if (index < rating) {
-                        s.classList.add('active');
-                    } else {
-                        s.classList.remove('active');
-                    }
-                });
-            });
-        });
+        // رجوع تلقائي بعد 5 ثواني
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 5000);
+      } else {
+        alert("❌ حدث خطأ أثناء الإرسال، حاول مرة أخرى");
+      }
+    })
+    .catch(error => {
+      alert("❌ فشل الاتصال بالخادم");
+      console.error(error);
+    });
 
-        // Submit feedback
-        document.getElementById('submitFeedback').addEventListener('click', function() {
+  });
+</script>
 
-			const overallStars = document.querySelectorAll('#overallRating .active').length;
-			const usability = document.querySelector('[data-feature="usability"]').querySelectorAll('.active').length;
-			const accuracy = document.querySelector('[data-feature="accuracy"]').querySelectorAll('.active').length;
-			const performance = document.querySelector('[data-feature="performance"]').querySelectorAll('.active').length;
-			const reports = document.querySelector('[data-feature="reports"]').querySelectorAll('.active').length;
-			  if (overallStars === 0) {
-				alert("⚠ يرجى اختيار التقييم العام قبل الإرسال");
-				return;
-			  }
-			const comment = document.querySelectorAll('textarea')[0].value;
-			const suggestions = document.querySelectorAll('textarea')[1].value;
-
-			const emailBody = `
-		Overall Rating: ${overallStars}/5
-		Usability: ${usability}/5
-		Accuracy: ${accuracy}/5
-		Performance: ${performance}/5
-		Reports: ${reports}/5
-
-		User Comment:
-		${comment}
-
-		Other Suggestions:
-		${suggestions}
-			`;
-
-			const mailLink = `mailto:rawanaqrabawi333@gmail.com?subject=User Feedback&body=${encodeURIComponent(emailBody)}`;
-
-						// فتح الإيميل في تبويب جديد
-			window.open(mailLink, "_blank");
-			
-			// إخفاء الفورم
-			document.getElementById('feedbackForm').style.display = 'none';
-			
-			// إظهار رسالة الشكر
-			document.getElementById('thankYouMessage').style.display = 'block';
-			
-			// الصعود للأعلى
-			window.scrollTo({
-			  top: 0,
-			  behavior: 'smooth'
-			});
-			
-			// الرجوع تلقائياً إلى index بعد 5 ثواني
-			setTimeout(() => {
-			  window.location.href = "index.html";
-			}, 5000);
-
-		});
-    </script>
 </body>
 </html>
-
-
