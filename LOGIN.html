@@ -147,7 +147,7 @@
 		<div class="nav-links">
 		  <a href="index.html">Home</a>
 		  <a href="services.html">Services</a>
-		  <a href="login.html">Login</a>
+		  <a href="LOGIN.html">Login</a>
 		  <a href="Analysis.html">AI Analysis</a>
 		  <a href="insight.html">Insight</a>
 		</div>
@@ -242,7 +242,7 @@ const db = getFirestore(app);
 -------------------------------------*/
 onAuthStateChanged(auth, (user) => {
   const logoutBtn = document.getElementById("logoutBtn");
-  const loginLink = document.querySelector('a[href="login.html"]');
+  const loginLink = document.querySelector('a[href="LOGIN.html"]');
 
   if (user) {
     // المستخدم مسجل دخول → أظهر زر الخروج
@@ -392,7 +392,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     await signOut(auth);
-    window.location.href = "login.html";
+    window.location.href = "LOGIN.html";
   });
 }
 
@@ -402,3 +402,4 @@ if (logoutBtn) {
 
 	</body>
 	</html>
+
