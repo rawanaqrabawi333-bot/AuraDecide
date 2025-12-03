@@ -129,20 +129,47 @@
     </div>
   </div>
 
-  <script>
-   function fakePay() {
-     const msg = document.getElementById("successMsg");
-     msg.style.display = "block";
+ <script>
+  function fakePay() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
 
-     setTimeout(() => {
-       window.location.href = "index.html"; 
-     }, 200); // بعد ثانيتين يرجع للرئيسية
-   }
-  </script>
+    const cardNumber = document.querySelector('input[placeholder="4242 4242 4242 4242"]').value.replace(/\s/g, '');
+    const expiry = document.querySelector('input[placeholder="12/28"]').value.trim();
+    const cvc = document.querySelector('input[placeholder="123"]').value.trim();
+
+    // ✅ التحقق من الحقول الفارغة
+    if (!name || !email || !cardNumber || !expiry || !cvc) {
+      alert("⚠️ يرجى تعبئة جميع الحقول");
+      return;
+    }
+
+    // ✅ التحقق من أن رقم البطاقة 16 خانة
+    if (!/^\d{16}$/.test(cardNumber)) {
+      alert("❌ رقم البطاقة يجب أن يكون 16 رقمًا");
+      return;
+    }
+
+    // ✅ التحقق من CVC (3 أرقام)
+    if (!/^\d{3}$/.test(cvc)) {
+      alert("❌ رمز CVC يجب أن يكون 3 أرقام");
+      return;
+    }
+
+    // ✅ إذا كل شيء صحيح
+    const msg = document.getElementById("successMsg");
+    msg.style.display = "block";
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 800); // يرجع للرئيسية بعد أقل من ثانية
+  }
+ </script>
 
 
 </body>
 </html>
+
 
 
 
