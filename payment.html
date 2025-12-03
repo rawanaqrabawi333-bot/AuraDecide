@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الدفع</title>
+</head>
+<body style="font-family:Poppins; background:#f7efdf; text-align:center; padding-top:100px">
+
+  <h2>إتمام عملية الدفع</h2>
+  <h3 id="planName"></h3>
+  <p id="planPrice"></p>
+
+  <input type="text" placeholder="الاسم الكامل" required><br><br>
+  <input type="email" placeholder="البريد الإلكتروني" required><br><br>
+
+  <button onclick="completePayment()">إتمام الدفع</button>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get("plan");
+
+    const name = document.getElementById("planName");
+    const price = document.getElementById("planPrice");
+
+    if(plan === "pro"){
+      name.innerText = "خطة المرحلة الثانية";
+      price.innerText = "40 د.أ شهريًا";
+    }
+
+    if(plan === "premium"){
+      name.innerText = "خطة المرحلة الثالثة";
+      price.innerText = "80 د.أ شهريًا";
+    }
+
+    function completePayment(){
+      localStorage.setItem("userPlan", plan);
+      alert("✅ تم الدفع بنجاح!");
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>

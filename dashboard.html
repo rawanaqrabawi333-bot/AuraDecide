@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>لوحة التحكم</title>
+</head>
+<body style="text-align:center; padding-top:100px">
+
+<h2>لوحة المستخدم</h2>
+<p id="status"></p>
+
+<script>
+const plan = localStorage.getItem("userPlan");
+
+if(plan === "free") {
+  document.getElementById("status").innerText = "✅ أنت على الخطة المجانية";
+}
+
+else if(plan === "pro") {
+  document.getElementById("status").innerText = "🔥 أنت على الخطة الثانية";
+}
+
+else if(plan === "premium") {
+  document.getElementById("status").innerText = "💎 أنت على الخطة الثالثة";
+}
+
+else {
+  document.getElementById("status").innerText = "⚠️ لم يتم تفعيل أي اشتراك";
+}
+</script>
+
+</body>
+</html>
