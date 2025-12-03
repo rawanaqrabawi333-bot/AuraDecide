@@ -412,17 +412,30 @@
     </div>
   </section>
 <script>
+<script>
 function subscribe(plan) {
+
   if (plan === "free") {
+
+    const now = new Date().getTime();
+    const twoWeeks = 14 * 24 * 60 * 60 * 1000;
+
     localStorage.setItem("userPlan", "free");
-    alert("✅ تم تفعيل الخطة المجانية بنجاح");
+    localStorage.setItem("freeStart", now);
+    localStorage.setItem("freeEnd", now + twoWeeks);
+
+    // ✅ يدخل مباشرة بدون أي تنبيه
     window.location.href = "dashboard.html";
   } 
   else {
+    // ✅ نفس سلوك الاشتراكات المدفوعة
     window.location.href = "payment.html?plan=" + plan;
   }
 }
 </script>
 
+</script>
+
 </body>
 </html>
+
