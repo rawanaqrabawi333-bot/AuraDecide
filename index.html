@@ -413,21 +413,11 @@
   </section>
 <script>
 function subscribe(plan) {
-
   if (plan === "free") {
-
-    const now = new Date().getTime();
-    const twoWeeks = 14 * 24 * 60 * 60 * 1000;
-
     localStorage.setItem("userPlan", "free");
-    localStorage.setItem("freeStart", now);
-    localStorage.setItem("freeEnd", now + twoWeeks);
-
-    // ✅ يدخل مباشرة بدون أي تنبيه
-    window.location.href = "dashboard.html";
+    window.location.href = "payment.html";
   } 
   else {
-    // ✅ نفس سلوك الاشتراكات المدفوعة
     window.location.href = "payment.html?plan=" + plan;
   }
 }
@@ -435,4 +425,3 @@ function subscribe(plan) {
 
 </body>
 </html>
-
