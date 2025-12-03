@@ -549,17 +549,29 @@
 
 			const mailLink = `mailto:rawanaqrabawi333@gmail.com?subject=User Feedback&body=${encodeURIComponent(emailBody)}`;
 
-			window.location.href = mailLink;
-
+						// فتح الإيميل في تبويب جديد
+			window.open(mailLink, "_blank");
+			
+			// إخفاء الفورم
 			document.getElementById('feedbackForm').style.display = 'none';
+			
+			// إظهار رسالة الشكر
 			document.getElementById('thankYouMessage').style.display = 'block';
-
+			
+			// الصعود للأعلى
 			window.scrollTo({
-				top: 0,
-				behavior: 'smooth'
+			  top: 0,
+			  behavior: 'smooth'
 			});
+			
+			// الرجوع تلقائياً إلى index بعد 5 ثواني
+			setTimeout(() => {
+			  window.location.href = "index.html";
+			}, 5000);
+
 		});
     </script>
 </body>
 </html>
+
 
