@@ -140,70 +140,107 @@
   </div>
 
 <script>
-  function fakePay() {
-    const name = document.getElementById("name");
-    const email = document.getElementById("email");
-    const card = document.getElementById("card");
-    const expiry = document.getElementById("expiry");
-    const cvc = document.getElementById("cvc");
+function fakePay() {
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const card = document.getElementById("card");
+  const expiry = document.getElementById("expiry");
+  const cvc = document.getElementById("cvc");
 
-    const nameError = document.getElementById("nameError");
-    const emailError = document.getElementById("emailError");
-    const cardError = document.getElementById("cardError");
-    const expiryError = document.getElementById("expiryError");
-    const cvcError = document.getElementById("cvcError");
+  const nameError = document.getElementById("nameError");
+  const emailError = document.getElementById("emailError");
+  const cardError = document.getElementById("cardError");
+  const expiryError = document.getElementById("expiryError");
+  const cvcError = document.getElementById("cvcError");
 
-    // تصفير الأخطاء
-    nameError.textContent = "";
-    emailError.textContent = "";
-    cardError.textContent = "";
-    expiryError.textContent = "";
-    cvcError.textContent = "";
+  nameError.textContent = "";
+  emailError.textContent = "";
+  cardError.textContent = "";
+  expiryError.textContent = "";
+  cvcError.textContent = "";
 
-    let valid = true;
+  let valid = true;
 
-    if (name.value.trim() === "") {
-      nameError.textContent = "الرجاء إدخال الاسم الكامل";
-      valid = false;
-    }
-
-    if (email.value.trim() === "") {
-      emailError.textContent = "الرجاء إدخال البريد الإلكتروني";
-      valid = false;
-    }
-
-    if (!/^\d{16}$/.test(card.value.replace(/\s/g, ""))) {
-      cardError.textContent = "رقم البطاقة يجب أن يكون 16 رقمًا";
-      valid = false;
-    }
-
-    if (expiry.value.trim() === "") {
-      expiryError.textContent = "يرجى إدخال تاريخ الانتهاء";
-      valid = false;
-    }
-
-    if (!/^\d{3}$/.test(cvc.value)) {
-      cvcError.textContent = "رمز CVC يجب أن يكون 3 أرقام";
-      valid = false;
-    }
-
-    if (!valid) return;
-
-    // ✅ نجاح الدفع الوهمي
-    const msg = document.getElementById("successMsg");
-    msg.style.display = "block";
-
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 800);
+  if (name.value.trim() === "") {
+    nameError.textContent = "الرجاء إدخال الاسم الكامل";
+    valid = false;
   }
+
+  if (email.value.trim() === "") {
+    emailError.textContent = "الرجاء إدخال البريد الإلكتروني";
+    valid = false;
+  }
+
+  if (!/^\d{16}$/.test(card.value.replace(/\s/g, ""))) {
+    cardError.textContent = "رقم البطاقة يجب أن يكون 16 رقمًا";
+    valid = false;
+  }
+
+  if (expiry.value.trim() === "") {
+    expiryError.textContent = "يرجى إدخال تاريخ الانتهاء";
+    valid = false;
+  }
+
+  if (!/^\d{3}$/.test(cvc.value)) {
+    cvcError.textContent = "رمز CVC يجب أن يكون 3 أرقام";
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  // ✅ تحديد الخطة من الرابط
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get("plan") || "pro";
+  localStorage.setItem("userPlan", plan);
+
+  // ✅ إذا كانت مجانية → تنتهي بعد 14 يوم الساعة 12 ليلاً
+  if (plan === "free") {
+    const now = new Date();
+    const endDate = new Date(now);
+    endDate.setDate(endDate.getDate() + 14);
+    endDate.setHours(23, 59, 59, 999); // 12 ليلاً
+
+    localStorage.setItem("freeEnd", endDate.getTime());
+  }
+
+  // ✅ رسالة نجاح
+  const msg = document.getElementById("successMsg");
+  msg.style.display = "block";
+
+  setTimeout(() => {
+    window.location.href = "dashboard.html";
+  }, 800);
+}
+
+/* ===============================
+   ✅ فحص انتهاء الاشتراك
+================================ */
+
+const plan = localStorage.getItem("userPlan");
+const freeEnd = localStorage.getItem("freeEnd");
+
+if (plan === "free" && freeEnd) {
+  const now = new Date().getTime();
+
+  if (now > freeEnd) {
+    const renew = confirm("⏳ انتهت الفترة المجانية.\nهل ترغب بتجديد الاشتراك الآن؟");
+
+    if (renew) {
+      window.location.href = "payment.html?plan=pro";
+    } else {
+      alert("⚠ تم إيقاف الميزات المدفوعة.");
+    }
+  }
+}
+
+
 </script>
+
 
 
 
 </body>
 </html>
-
 
 
 
