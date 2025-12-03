@@ -520,16 +520,45 @@
 
         // Submit feedback
         document.getElementById('submitFeedback').addEventListener('click', function() {
-            // In a real application, data would be sent to the server here
-            document.getElementById('feedbackForm').style.display = 'none';
-            document.getElementById('thankYouMessage').style.display = 'block';
-            
-            // Smooth scroll to top of page
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+
+			const overallStars = document.querySelectorAll('#overallRating .active').length;
+			const usability = document.querySelector('[data-feature="usability"]').querySelectorAll('.active').length;
+			const accuracy = document.querySelector('[data-feature="accuracy"]').querySelectorAll('.active').length;
+			const performance = document.querySelector('[data-feature="performance"]').querySelectorAll('.active').length;
+			const reports = document.querySelector('[data-feature="reports"]').querySelectorAll('.active').length;
+			  if (overallStars === 0) {
+				alert("⚠ يرجى اختيار التقييم العام قبل الإرسال");
+				return;
+			  }
+			const comment = document.querySelectorAll('textarea')[0].value;
+			const suggestions = document.querySelectorAll('textarea')[1].value;
+
+			const emailBody = `
+		Overall Rating: ${overallStars}/5
+		Usability: ${usability}/5
+		Accuracy: ${accuracy}/5
+		Performance: ${performance}/5
+		Reports: ${reports}/5
+
+		User Comment:
+		${comment}
+
+		Other Suggestions:
+		${suggestions}
+			`;
+
+			const mailLink = `mailto:rawanaqrabawi333@gmail.com?subject=User Feedback&body=${encodeURIComponent(emailBody)}`;
+
+			window.location.href = mailLink;
+
+			document.getElementById('feedbackForm').style.display = 'none';
+			document.getElementById('thankYouMessage').style.display = 'block';
+
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			});
+		});
     </script>
 </body>
 </html>
