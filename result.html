@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نتائج تحليل المشروع</title>
+
+<style>
+    body {
+        font-family: "Cairo", sans-serif;
+        background: #f7efdf;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        background: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        margin-bottom: 10px;
+        padding: 6px 14px;
+        background: linear-gradient(135deg, #667eea33, #764ba233);
+        border-right: 5px solid #4a90e2;
+        border-radius: 8px;
+        font-size: 20px;
+        color: #333;
+    }
+
+    .section {
+        background: #fafafa;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 22px;
+        border: 1px solid #ddd;
+    }
+
+    ul {
+        padding-right: 20px;
+        margin-top: 8px;
+    }
+
+    .swot-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .swot-box {
+        padding: 12px;
+        background: #fff;
+        border: 2px solid #4a90e2;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    .kpi-box {
+        background: #fff;
+        border: 2px solid #4a90e2;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 12px;
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 26px;
+        color: #4a90e2;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📊 نتائج تحليل مشروعك</h1>
+
+    <!-- التحليل العام -->
+    <div class="section">
+        <h2>التحليل العام للمشروع</h2>
+        <p id="general_analysis"></p>
+    </div>
+
+    <!-- القوة -->
+    <div class="section">
+        <h2>نقاط القوة</h2>
+        <ul id="strengths"></ul>
+    </div>
+
+    <!-- الضعف -->
+    <div class="section">
+        <h2>نقاط الضعف</h2>
+        <ul id="weaknesses"></ul>
+    </div>
+
+    <!-- حالة المشروع -->
+    <div class="section">
+        <h2>حالة المشروع الحالية</h2>
+        <p id="project_status"></p>
+    </div>
+
+    <!-- SWOT -->
+    <div class="section">
+        <h2>تحليل SWOT</h2>
+        <div class="swot-grid">
+            <div class="swot-box"><strong>القوة</strong><ul id="swot_strengths"></ul></div>
+            <div class="swot-box"><strong>الضعف</strong><ul id="swot_weaknesses"></ul></div>
+            <div class="swot-box"><strong>الفرص</strong><ul id="swot_opportunities"></ul></div>
+            <div class="swot-box"><strong>التهديدات</strong><ul id="swot_threats"></ul></div>
+        </div>
+    </div>
+
+    <!-- التوصيات التسويقية -->
+    <div class="section">
+        <h2>التوصيات التسويقية الأساسية</h2>
+        <p><strong>أفضل منصة مناسبة لمشروعك:</strong> <span id="best_platform"></span></p>
+        <p><strong>الفئة المستهدفة:</strong> <span id="audience"></span></p>
+    </div>
+
+    <!-- التوصيات المالية -->
+    <div class="section">
+        <h2>التوصيات المالية</h2>
+        <p><strong>توصيات تعديل الأسعار:</strong> <span id="pricing"></span></p>
+        <p><strong>طرق تقليل المصروفات:</strong> <span id="cost_reduction"></span></p>
+        <p><strong>مصادر الخسارة:</strong> <span id="loss_sources"></span></p>
+    </div>
+
+    <!-- العمليات التشغيلية -->
+    <div class="section">
+        <h2>تحسين العمليات التشغيلية</h2>
+        <p><strong>تحسين تجربة العميل:</strong> <span id="customer_experience"></span></p>
+        <p><strong>زيادة سرعة الخدمة:</strong> <span id="speed"></span></p>
+        <p><strong>تقليل الأخطاء:</strong> <span id="quality"></span></p>
+        <p><strong>رفع الإنتاجية:</strong> <span id="productivity"></span></p>
+    </div>
+
+    <!-- المنتجات -->
+    <div class="section">
+        <h2>استراتيجية المنتجات والخدمات</h2>
+        <p><strong>العرض الأكثر أهمية للتركيز عليه:</strong> <span id="focus_product"></span></p>
+        <p><strong>العرض الذي يُنصح بإيقافه:</strong> <span id="remove_product"></span></p>
+        <strong>أفكار جديدة مقترحة:</strong>
+        <ul id="new_ideas"></ul>
+    </div>
+
+    <!-- KPIs -->
+    <div class="section">
+        <h2>📌 مؤشرات الأداء (KPIs)</h2>
+
+        <div class="kpi-box">المدينة: <strong id="kpi_city"></strong></div>
+        <div class="kpi-box">نوع النشاط: <strong id="kpi_type"></strong></div>
+        <div class="kpi-box">نقطة التعادل: <strong id="kpi_breakeven"></strong></div>
+        <div class="kpi-box">قوة التسويق: <strong id="kpi_marketing"></strong></div>
+        <div class="kpi-box">نسبة الربحية: <strong id="kpi_profit_margin"></strong></div>
+    </div>
+
+</div>
+
+<script>
+
+function listFill(id, arr) {
+    const el = document.getElementById(id);
+    el.innerHTML = "";
+    arr?.forEach(i => el.innerHTML += `<li>${i}</li>`);
+}
+
+function fillData(d) {
+
+    document.getElementById("general_analysis").textContent = d["التحليل العام للمشروع"];
+
+    listFill("strengths", d["نقاط القوة"]);
+    listFill("weaknesses", d["نقاط الضعف"]);
+
+    document.getElementById("project_status").textContent = d["حالة المشروع"];
+
+    listFill("swot_strengths", d["SWOT"]["القوة"]);
+    listFill("swot_weaknesses", d["SWOT"]["الضعف"]);
+    listFill("swot_opportunities", d["SWOT"]["الفرص"]);
+    listFill("swot_threats", d["SWOT"]["التهديدات"]);
+
+    document.getElementById("best_platform").textContent = d["التوصيات التسويقية الاساسية"]["أفضل منصة مناسبة لمشروعك"];
+    document.getElementById("audience").textContent = d["التوصيات التسويقية الاساسية"]["الفئة المستهدفة"];
+
+    document.getElementById("pricing").textContent = d["التوصيات المالية"]["توصيات تعديل الأسعار"];
+    document.getElementById("cost_reduction").textContent = d["التوصيات المالية"]["طرق تقليل المصروفات"];
+    document.getElementById("loss_sources").textContent = d["التوصيات المالية"]["مصادر الخسارة"];
+
+    document.getElementById("customer_experience").textContent = d["تحسين العمليات التشغيلية"]["تحسين تجربة العميل"];
+    document.getElementById("speed").textContent = d["تحسين العمليات التشغيلية"]["زيادة سرعة الخدمة"];
+    document.getElementById("quality").textContent = d["تحسين العمليات التشغيلية"]["تقليل الأخطاء"];
+    document.getElementById("productivity").textContent = d["تحسين العمليات التشغيلية"]["رفع الانتاجية"];
+
+    document.getElementById("focus_product").textContent = d["استراتيجية المنتجات والخدمات"]["العرض الأكثر أهمية للتركيز عليه"];
+    document.getElementById("remove_product").textContent = d["استراتيجية المنتجات والخدمات"]["العرض الذي يُنصح بإيقافه"];
+
+    listFill("new_ideas", d["استراتيجية المنتجات والخدمات"]["أفكار جديدة مقترحة"]);
+
+    document.getElementById("kpi_city").textContent = d["مؤشرات الأداء الرئيسية (KPIs)"]["المدينة"];
+    document.getElementById("kpi_type").textContent = d["مؤشرات الأداء الرئيسية (KPIs)"]["نوع النشاط"];
+    document.getElementById("kpi_breakeven").textContent = d["مؤشرات الأداء الرئيسية (KPIs)"]["نقطة التعادل"];
+    document.getElementById("kpi_marketing").textContent = d["مؤشرات الأداء الرئيسية (KPIs)"]["قوة التسويق"];
+    document.getElementById("kpi_profit_margin").textContent = d["مؤشرات الأداء الرئيسية (KPIs)"]["نسبة الربحية"];
+}
+
+const data = JSON.parse(localStorage.getItem("analysisResult"));
+fillData(data);
+</script>
+
+</body>
+</html>
