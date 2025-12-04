@@ -12,15 +12,15 @@
 const plan = localStorage.getItem("userPlan");
 
 if(plan === "free") {
-  document.getElementById("status").innerText = "✅ أنت على الخطة المجانية";
+  document.getElementById("status").innerText = "";
 }
 
 else if(plan === "pro") {
-  document.getElementById("status").innerText = "🔥 أنت على الخطة الثانية";
+  document.getElementById("status").innerText = "";
 }
 
 else if(plan === "premium") {
-  document.getElementById("status").innerText = "💎 أنت على الخطة الثالثة";
+  document.getElementById("status").innerText = "";
 }
 
 else {
@@ -30,3 +30,4 @@ else {
 
 </body>
 </html>
+
