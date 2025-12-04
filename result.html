@@ -75,12 +75,36 @@
         text-align: center;
         margin-bottom: 25px;
     }
-        header {
+     header {
       display: flex; /* استخدام Flexbox لترتيب العناصر */
       justify-content: space-between; /* توزيع العناصر بمسافات متساوية */
       align-items: center; /* محاذاة العناصر عمودياً بالمنتصف */
       padding: 15px 50px; /* حشوة داخلية حول العناصر */
       background-color: #f7efdf; /* نفس لون خلفية الصفحة */
+    }
+
+    .nav-links {
+      display: flex; /* ترتيب روابط التنقل أفقياً */
+      align-items: center; /* محاذاة الروابط عمودياً */
+      gap: 30px; /* مسافة بين كل رابط */
+    }
+
+    .nav-links a {
+      text-decoration: none; /* إزالة الخط السفلي من الروابط */
+      color: #000; /* لون النص */
+      font-weight: 600; /* جعل الخط شبه غامق */
+      text-transform: uppercase; /* تحويل النص إلى حروف كبيرة */
+      font-size: 13px; /* حجم الخط */
+    }
+
+    .search-box {
+      display: flex; /* ترتيب محتويات صندوق البحث أفقياً */
+      align-items: center; /* محاذاة المحتويات عمودياً */
+      background: #fff; /* خلفية بيضاء للصندوق */
+      border-radius: 25px; /* جعل الحواف مستديرة */
+      border: 1px solid #ccc; /* إضافة حد رمادي فاتح */
+      padding: 3px 10px; /* حشوة داخلية للصندوق */
+      margin-left: 10px; /* مسافة عن العناصر المجاورة */
     }
 </style>
 </head>
@@ -235,5 +259,6 @@ fillData(data);
 
 </body>
 </html>
+
 
 
