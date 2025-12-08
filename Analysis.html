@@ -1170,12 +1170,15 @@ const auth = getAuth(app);
 // ✅ هذا هو القفل الحقيقي
 onAuthStateChanged(auth, (user) => {
   if (!user) {
+    localStorage.setItem("redirectAfterLogin", "Analysis.html");
     window.location.href = "LOGIN.html";
   }
+
 });
 </script>
 
 </html>
+
 
 
 
