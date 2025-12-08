@@ -301,7 +301,7 @@ button {
 </style>
 <body>
 
-<!-- ░░░░ HEADER ░░░░ -->
+<!--  HEADER -->
 <header class="top-nav">
   <div class="nav-links">
     <a href="index.html">Home</a>
@@ -319,7 +319,7 @@ button {
     <p>أدخل معلومات مشروعك لتحصل على تحليل دقيق وتوصيات ذكية</p>
   </div>
 
-  <!-- ░░░░ STEPS BAR ░░░░ -->
+  <!--  STEPS BAR  -->
   <div class="wizard-steps">
     <div class="step active"><span class="step-number">1</span> إنشاء الحساب</div>
     <div class="step"><span class="step-number">2</span> بيانات المشروع</div>
@@ -335,10 +335,10 @@ button {
     <div class="progress" id="progress"></div>
   </div>
 
-  <!-- ░░░░ FORM START ░░░░ -->
+  <!--  FORM START  -->
   <form id="businessForm">
 
-    <!-- ░░░░ STEP 1 — إنشاء الحساب ░░░░ -->
+    <!--  STEP 1 — إنشاء الحساب  -->
     <div class="form-container form-section active" id="step1">
       <h3>🔐 إنشاء حساب جديد</h3>
 
@@ -376,7 +376,7 @@ button {
       </div>
     </div>
 
-    <!-- ░░░░ STEP 2 — بيانات المشروع ░░░░ -->
+    <!--  STEP 2 — بيانات المشروع  -->
     <div class="form-container form-section" id="step2">
       <h3>🏢 البيانات الأساسية للمشروع</h3>
 
@@ -429,7 +429,7 @@ button {
       </div>
     </div>
 
-    <!-- ░░░░ STEP 3 — الخدمات / المنتجات ░░░░ -->
+    <!--  STEP 3 — الخدمات / المنتجات  -->
     <div class="form-container form-section" id="step3">
      <h3>🛒 المنتجات أو الخدمات المقدمة</h3>
 
@@ -481,7 +481,7 @@ button {
   </div>
 </div>
 
-    <!-- ░░░░ STEP 4 — البيانات المالية ░░░░ -->
+    <!--  STEP 4 — البيانات المالية  -->
     <div class="form-container form-section" id="step4">
       <h3>💰 البيانات المالية</h3>
 
@@ -516,7 +516,7 @@ button {
       </div>
     </div>
 
-    <!-- ░░░░ STEP 5 — التسويق ░░░░ -->
+    <!--  STEP 5 — التسويق  -->
     <div class="form-container form-section" id="step5">
       <h3>📣 التسويق</h3>
 
@@ -557,7 +557,7 @@ button {
       </div>
     </div>
 
-    <!-- ░░░░ STEP 6 — المشاكل الحالية ░░░░ -->
+    <!--  STEP 6 — المشاكل الحالية  -->
     <div class="form-container form-section" id="step6">
       <h3>⚠️ المشاكل الحالية</h3>
 
@@ -584,7 +584,7 @@ button {
       </div>
     </div>
 
-    <!-- ░░░░ STEP 7 — الهدف من التحليل ░░░░ -->
+    <!-- STEP 7 — الهدف من التحليل  -->
     <div class="form-container form-section" id="step7">
       <h3>🎯 الهدف من التحليل</h3>
 
@@ -612,7 +612,7 @@ button {
       </div>
     </div>
 
-    <!-- ░░░░ STEP 8 — المراجعة والإرسال ░░░░ -->
+    <!--  STEP 8 — المراجعة والإرسال  -->
     <div class="form-container form-section" id="step8">
       <h3>📋 مراجعة البيانات</h3>
 
@@ -1132,6 +1132,13 @@ document.getElementById("businessForm").addEventListener("submit", async functio
         });
 
         console.log("تم إرسال البيانات", response.status);
+        // 🟦 حفظ البيانات داخل Firestore كذلك
+        try {
+            await addDoc(collection(db, "projects"), dataObj);
+            console.log("تم حفظ البيانات في Firestore بنجاح");
+        } catch (err) {
+            console.error("خطأ أثناء حفظ البيانات:", err);
+        }
 
         if (!response.ok) {
             alert("⚠ حدث خطأ أثناء إرسال البيانات، تأكدي من الويبهوك.");
@@ -1178,6 +1185,7 @@ onAuthStateChanged(auth, (user) => {
 </script>
 
 </html>
+
 
 
 
