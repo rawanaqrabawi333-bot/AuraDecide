@@ -339,8 +339,19 @@ window.validateLogin = async function () {
     msg.textContent = "✔️ تم تسجيل الدخول";
 
     setTimeout(() => {
-      window.location.href = "index.html";
-    }, 1000);
+
+	  // هل يوجد صفحة لازم يرجع عليها؟
+	  let redirectPage = localStorage.getItem("redirectAfterLogin");
+	
+	  if (redirectPage) {
+	      localStorage.removeItem("redirectAfterLogin");
+	      window.location.href = redirectPage;  // ← يرجع لـ Analysis
+	  } else {
+	      window.location.href = "index.html"; // ← يدخل طبيعي
+	  }
+	
+	}, 1000);
+
 
   } catch (error) {
     msg.style.color = "red";
@@ -397,6 +408,7 @@ if (logoutBtn) {
 
 </body>
 </html>
+
 
 
 
