@@ -95,17 +95,20 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .nav-links a {
-      margin: 0 12px;
-      text-decoration: none;
-      font-weight: 600;
-      color: black;
-      transition: 0.3s;
+    .nav-links {
+        display: flex;
+        justify-content: center; /* توسيط الروابط */
+        align-items: center;
+        gap: 25px; /* مسافة بين العناصر */
     }
     
-    .nav-links a:hover {
-      color: #4a90e2;
+    .nav-links a {
+        text-decoration: none;
+        font-weight: 600;
+        color: black;
+        transition: 0.3s;
     }
+
 
     .search-box {
       display: flex; /* ترتيب محتويات صندوق البحث أفقياً */
@@ -266,6 +269,7 @@ fillData(data);
 
 </body>
 </html>
+
 
 
 
