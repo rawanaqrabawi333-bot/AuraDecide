@@ -1,1197 +1,2267 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نظام دعم القرار للشركات الصغيرة</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام دعم القرار للشركات الصغيرة</title>
 </head>
-<style>/* ====== RESET ====== */
-body {
-  font-family: "Cairo", sans-serif;
-  background-color: #f7efdf;
-  margin: 0;
-  padding: 20px;
-  direction: rtl;
-}
+<style>
+    :root {
+        --bg-main: #f7efdf;
+        /* البيج الأساسي */
+        --card-bg: #ffffff;
+        --primary: #8b5e3c;
+        /* بني قهوة */
+        --secondary: #d6b98c;
+        /* بيج داكن */
+        --accent: #c97c5d;
+        /* نحاسي */
+        --text-main: #3b2f2f;
+        --muted: #7a6f65;
+    }
 
-/* ====== TOP NAV ====== */
-.top-nav {
-  width: 95%;
-  margin: 0px auto 20px;
-  background: #f7efdf;
-  padding: 15px 25px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  box-shadow: none;
-}
+    /* =========================
+   RESET & GLOBAL SETTINGS
+   توحيد الخط، الخلفية، الاتجاه، وإزالة الهوامش الافتراضية
+========================= */
+    body {
+        font-family: "Cairo", sans-serif;
+        background-color: #f7efdf;
+        margin: 0;
+        padding: 20px;
+        direction: rtl;
+    }
 
-.nav-links a {
-  margin: 0 12px;
-  text-decoration: none;
-  font-weight: 600;
-  color: black;
-  transition: 0.3s;
-}
+    /* =========================
+   TOP NAVIGATION BAR
+   شريط التنقل العلوي
+========================= */
+    .top-nav {
+        width: 95%;
+        margin: 0px auto 20px;
+        background: #f7efdf;
+        padding: 15px 25px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        box-shadow: none;
+        align-items: center;
 
-.nav-links a:hover {
-  color: #4a90e2;
-}
+    }
 
-/* ====== PAGE HEADER ====== */
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
+    /* روابط التنقل داخل الـ navbar */
+    .nav-links a {
+        margin: 0 12px;
+        text-decoration: none;
+        font-weight: 600;
+        color: black;
+        transition: 0.3s;
+    }
 
-.header {
-  text-align: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 30px;
-  border-radius: 12px;
-  margin-bottom: 35px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+    /* محاذاة النص داخل حقول الإدخال لليمين */
+    #step1 input {
+        text-align: right;
+    }
 
-.header h1 {
-  margin: 0;
-  font-size: 28px;
-}
+    /* تنسيق الروابط بدون خط سفلي */
+    #step1 a {
+        color: #000;
+        text-decoration: none;
+    }
 
-/* ====== STEPS BAR ====== */
-.wizard-steps {
-  display: flex;
-  justify-content: space-between;
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 25px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  overflow-x: auto;
-}
+    /* إظهار خط سفلي عند المرور على الرابط */
+    #step1 a:hover {
+        color: var(--primary);
+        text-decoration: underline;
+    }
 
-.step {
-  display: flex;
-  align-items: center;
-  color: #666;
-  font-size: 14px;
-  min-width: 120px;
-}
+    /* تأثير hover على روابط التنقل */
+    .nav-links a:hover {
+        color: #4a90e2;
+    }
 
-.step.active {
-  color: #4a90e2;
-  font-weight: bold;
-}
+    /* =========================
+   MAIN PAGE CONTAINER
+   الحاوية الأساسية للمحتوى
+========================= */
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
 
-.step-number {
-  width: 28px;
-  height: 28px;
-  background: #ddd;
-  color: black;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-}
+    /* =========================
+   PAGE HEADER (TITLE SECTION)
+   عنوان الصفحة الرئيسي
+========================= */
+    .header {
+        text-align: center;
+        padding: 30px 20px;
+        border-radius: 18px;
+        margin-bottom: 40px;
+        background: linear-gradient(135deg,
+                #8b5e3c 0%,
+                #c97c5d 100%);
+        color: #fff;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        z-index: 2;
+    }
 
-.step.active .step-number {
-  background: #4a90e2;
-  color: white;
-}
 
-/* ====== PROGRESS BAR ====== */
-.progress-bar {
-  height: 7px;
-  background: #e8e8e8;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
+    /* عنوان الصفحة */
+    .header h1 {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
 
-.progress {
-  height: 100%;
-  width: 12%;
-  background: linear-gradient(90deg, #4a90e2, #764ba2);
-  transition: width 0.4s ease;
-}
+    .header p {
+        font-size: 16px;
+        opacity: 0.95;
+    }
 
-/* ====== FORM SECTIONS ====== */
-.form-container {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  margin-bottom: 25px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
+    /* =========================
+   STEPS / WIZARD BAR
+   شريط خطوات النموذج
+========================= */
+    .wizard-steps {
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+        padding: 18px;
+        border-radius: 16px;
+        margin-bottom: 35px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        gap: 12px;
+        overflow-x: auto;
+    }
 
-.form-section {
-  display: none;
-}
+    .header,
+    .wizard-steps,
+    .form-container {
+        position: relative;
+        z-index: 1;
+    }
 
-.form-section.active {
-  display: block;
-}
 
-/* ====== TITLES ====== */
-h3 {
-  margin-top: 0;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #4a90e2;
-  font-size: 22px;
-  color: #333;
-}
+    /* كل خطوة داخل شريط الخطوات */
+    .step {
+        display: flex;
+        align-items: center;
+        color: #666;
+        font-size: 14px;
+        min-width: 120px;
+    }
 
-/* ====== INPUTS ====== */
-.form-group {
-  margin-bottom: 20px;
-}
+    /* الخطوة النشطة (الحالية) */
+    .step.active {
+        color: var(--primary);
+        font-weight: bold;
+    }
 
-label {
-  font-weight: bold;
-  margin-bottom: 8px;
-  display: block;
-  color: #444;
-}
+    /* رقم الخطوة */
+    .step-number {
+        width: 28px;
+        height: 28px;
+        background: #e6e0d8;
+        color: var(--text-main);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 8px;
+    }
 
-input,
-select,
-textarea {
-  width: 100%;
-  padding: 12px;
-  font-size: 15px;
-  border: 2px solid #e1e2e5;
-  border-radius: 9px;
-  transition: 0.3s;
-  box-sizing: border-box;
-}
+    /* رقم الخطوة النشطة */
+    .step.active .step-number {
+        background: linear-gradient(135deg,
+                var(--primary),
+                var(--accent));
+        color: #fff;
+    }
 
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #4a90e2;
-  outline: none;
-}
+    /* =========================
+   PROGRESS BAR
+   شريط التقدم أسفل الخطوات
+========================= */
+    .progress-bar {
+        height: 7px;
+        background: #e8e8e8;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
 
-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
+    /* الجزء المتحرك من شريط التقدم */
+    .progress {
+        background: linear-gradient(90deg,
+                var(--primary),
+                var(--accent));
+    }
 
-/* ====== INPUT HELP (NOTE) ====== */
-.input-help {
-  font-size: 12px;
-  color: #777;
-  margin-top: 5px;
-}
 
-/* ====== ERROR STYLES ====== */
-input.error,
-select.error,
-textarea.error {
-  border-color: #d9534f !important;
-}
+    /* =========================
+   FORM SECTIONS
+   أقسام الفورم (كل Step)
+========================= */
+    .form-container {
+        background: #fbf8f3;
+        border-radius: 16px;
+        border: 1px solid #eee2d3;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        padding: 30px 35px;
+        margin-bottom: 30px;
+    }
 
-.error-message {
-  color: #d9534f;
-  font-size: 13px;
-  margin-top: 5px;
-}
+    .form-container h3 {
+        margin-bottom: 25px;
+        color: var(--primary);
+        font-size: 22px;
+    }
 
-/* ====== DYNAMIC SECTIONS ====== */
-#servicesSection,
-#productsSection,
-#marketingSection {
-  margin-top: 20px;
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #e5e5e5;
-}
+    .form-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
 
-.service-item,
-.product-item {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-right: 4px solid #4a90e2;
-}
 
-/* ====== BUTTONS ====== */
-button {
-  border: none;
-  padding: 12px 28px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: 0.3s;
-}
+    /* إخفاء جميع الأقسام افتراضيًا */
+    .form-section {
+        display: none;
+    }
 
-.btn-primary {
-  background-color: #4a90e2;
-  color: white;
-}
+    /* إظهار القسم النشط فقط */
+    .form-section.active {
+        display: block;
+    }
 
-.btn-primary:hover {
-  background-color: #357abd;
-}
+    /* =========================
+   SECTION TITLES
+   عناوين كل قسم
+========================= */
+    h3 {
+        margin-top: 0;
+        padding-bottom: 10px;
+        border-color: var(--primary);
+        font-size: 22px;
+        color: #333;
+    }
 
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-}
+    /* =========================
+   FORM INPUTS & TEXTAREAS
+   الحقول النصية والقوائم
+========================= */
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-.btn-secondary:hover {
-  background-color: #545b62;
-}
+    /* العناوين فوق الحقول */
+    label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+        color: #444;
+    }
 
-.btn-success {
-  background-color: #28a745;
-  color: white;
-}
+    /* جميع أنواع المدخلات */
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+        border: 2px solid #e1e2e5;
+        border-radius: 9px;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
 
-.btn-success:hover {
-  background-color: #218838;
-}
+    input:hover,
+    select:hover,
+    textarea:hover {
+        border-color: var(--secondary);
+    }
 
-/* BUTTON GROUP */
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-}
+    input:focus,
+    textarea:focus,
+    select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(139, 94, 60, 0.15);
+    }
 
-/* ====== SUMMARY SECTION ====== */
-#dataSummary {
-  background: #f5f5f5;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-}
+    .btn-primary {
+        background: linear-gradient(135deg,
+                var(--primary),
+                var(--accent));
+    }
 
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background: white;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  border-right: 4px solid #4a90e2;
-}
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
 
-/* ====== RESPONSIVE ====== */
-@media (max-width: 768px) {
-  .wizard-steps {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    /* إعدادات textarea */
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
 
-  .button-group {
-    flex-direction: column;
-    gap: 10px;
-  }
+    /* =========================
+   INPUT HELP TEXT
+   النص الإرشادي أسفل الحقول
+========================= */
+    .input-help {
+        font-size: 12px;
+        color: #777;
+        margin-top: 5px;
+    }
 
-  button {
-    width: 100%;
-  }
-}
+    /* =========================
+   ERROR STATES
+   تنسيق الأخطاء
+========================= */
+    input.error,
+    select.error,
+    textarea.error {
+        border-color: #d9534f !important;
+    }
+
+    /* رسالة الخطأ */
+    .error-message {
+        color: #d9534f;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    /* =========================
+   DYNAMIC SECTIONS
+   أقسام تظهر وتختفي (خدمات، منتجات، تسويق)
+========================= */
+    #servicesSection,
+    #productsSection,
+    #marketingSection {
+        margin-top: 20px;
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #e5e5e5;
+    }
+
+    /* عنصر خدمة فردي */
+    .service-item,
+    .product-item {
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 12px;
+        border-right: 4px solid var(--primary);
+    }
+
+    /* =========================
+   BUTTONS
+   جميع الأزرار
+========================= */
+    button {
+        border: none;
+        padding: 12px 28px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    /* Hover للزر الأساسي */
+    .btn-primary:hover {
+        background-color: #357abd;
+    }
+
+    /* زر ثانوي */
+    .btn-secondary {
+        background-color: #e6e0d8;
+        color: var(--text-main);
+    }
+
+    /* Hover للزر الثانوي */
+    .btn-secondary:hover {
+        background-color: var(--secondary);
+    }
+
+    /* زر نجاح */
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    /* Hover لزر النجاح */
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    /* =========================
+   BUTTON GROUP
+   أزرار التنقل بين الخطوات
+========================= */
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    /* =========================
+   SUMMARY SECTION
+   صفحة مراجعة البيانات
+========================= */
+    #dataSummary {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+    }
+
+    /* صف واحد من ملخص البيانات */
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        border-right: 4px solid var(--primary);
+    }
+
+    /* =========================
+   SUBMIT BUTTON
+   زر الإرسال النهائي
+========================= */
+    .submit-btn {
+        background: linear-gradient(135deg,
+                var(--primary),
+                var(--accent));
+        color: white;
+        font-size: 18px;
+        padding: 14px 35px;
+        border-radius: 10px;
+        float: right;
+        margin-top: 15px;
+    }
+
+    /* زر الإرسال عند التعطيل */
+    .submit-btn:disabled {
+        background-color: #9ccc9c;
+        cursor: not-allowed;
+    }
+
+    /* =========================
+   FILE UPLOAD BOX
+   تنسيق رفع الملفات
+========================= */
+    .file-upload-box {
+        padding: 15px;
+        border: 2px dashed #b9b9b9;
+        border-radius: 10px;
+        background: #fafafa;
+        margin-bottom: 18px;
+        transition: 0.3s;
+    }
+
+    /* Hover لرفع الملفات */
+    .file-upload-box:hover {
+        border-bottom: 2px solid var(--primary);
+    }
+
+    /* عنوان داخل صندوق رفع الملفات */
+    .file-upload-box label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+        color: #444;
+    }
+
+    /* ===== AUTH SECTION ===== */
+    .auth-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    /* Tabs */
+    .auth-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+
+    .auth-tabs .tab {
+        padding: 10px 25px;
+        border: none;
+        background: #eee;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .auth-tabs .tab.active {
+        background: #4a90e2;
+        color: white;
+    }
+
+    /* Inputs spacing */
+    #step1 .form-group {
+        margin-bottom: 15px;
+    }
+
+    /* Name fields */
+    .name-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .name-row input {
+        flex: 1;
+    }
+
+    /* Button */
+    #step1 .submit-btn {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    /* Switch link */
+    .switch-link {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        /* مسافة بين مربع الصح والنص */
+        margin-top: 15px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+    }
+
+    .left-btn {
+        justify-content: flex-start;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 15px;
+        /* مسافة بين الحقول */
+        align-items: flex-start;
+        /* محاذاة الحقول */
+    }
+
+    .form-row .form-group {
+        flex: 1;
+        /* كل حقل يأخذ نفس العرض */
+    }
+
+    .time-range {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .time-inline input[type="time"] {
+        width: 190px;
+        /* عرض مناسب */
+    }
 </style>
+
 <body>
 
-<!--  HEADER -->
-<header class="top-nav">
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="LOGIN.html">Login</a>
-    <a href="Analysis.html">AI Analysis</a>
-    <a href="result.html">Insight</a>
-  </div>
-</header>
+    <!-- ░░░░ HEADER ░░░░ -->
+    <header class="top-nav">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="insight.html">Insight</a>
+        </div>
+    </header>
 
-<div class="container">
+    <div class="container">
 
-  <div class="header">
-    <h1>🚀 نظام دعم القرار للشركات الصغيرة</h1>
-    <p>أدخل معلومات مشروعك لتحصل على تحليل دقيق وتوصيات ذكية</p>
-  </div>
-
-  <!--  STEPS BAR  -->
-  <div class="wizard-steps">
-    <div class="step active"><span class="step-number">1</span> إنشاء الحساب</div>
-    <div class="step"><span class="step-number">2</span> بيانات المشروع</div>
-    <div class="step"><span class="step-number">3</span> المنتجات / الخدمات</div>
-    <div class="step"><span class="step-number">4</span> البيانات المالية</div>
-    <div class="step"><span class="step-number">5</span> التسويق</div>
-    <div class="step"><span class="step-number">6</span> المشاكل الحالية</div>
-    <div class="step"><span class="step-number">7</span> الهدف من التحليل</div>
-    <div class="step"><span class="step-number">8</span> المراجعة والإرسال</div>
-  </div>
-
-  <div class="progress-bar">
-    <div class="progress" id="progress"></div>
-  </div>
-
-  <!--  FORM START  -->
-  <form id="businessForm">
-
-    <!--  STEP 1 — إنشاء الحساب  -->
-    <div class="form-container form-section active" id="step1">
-      <h3>🔐 إنشاء حساب جديد</h3>
-
-      <div class="form-group">
-        <label>الاسم الكامل</label>
-        <input type="text" name="fullName" placeholder="اكتب اسمك الكامل">
-        <small class="input-help">الاسم يجب أن يكون واضحًا وصحيحًا</small>
-      </div>
-
-      <div class="form-group">
-        <label>البريد الإلكتروني</label>
-        <input type="email" name="email" placeholder="example@email.com">
-        <small class="input-help">سنتواصل معك عبر هذا البريد</small>
-      </div>
-
-      <div class="form-group">
-        <label>رقم الهاتف</label>
-        <input type="tel" name="phone" placeholder="07XXXXXXXX">
-        <small class="input-help">يجب إدخال رقم صحيح</small>
-      </div>
-
-      <div class="form-group">
-        <label>كلمة المرور</label>
-        <input type="password" name="password" placeholder="كلمة مرور قوية">
-        <small class="input-help">يجب أن تحتوي على 8 أحرف على الأقل</small>
-      </div>
-
-      <div class="form-group">
-        <label>تأكيد كلمة المرور</label>
-        <input type="password" name="confirmPassword" placeholder="أعد كتابة كلمة المرور">
-      </div>
-
-      <div class="button-group">
-        <button type="button" class="btn-primary" onclick="nextStep(2)">التالي</button>
-      </div>
-    </div>
-
-    <!--  STEP 2 — بيانات المشروع  -->
-    <div class="form-container form-section" id="step2">
-      <h3>🏢 البيانات الأساسية للمشروع</h3>
-
-      <div class="form-group">
-        <label>اسم المشروع</label>
-        <input type="text" name="projectName" placeholder="مثال: مقهى روز">
-        <small class="input-help">اكتب اسم المشروع كما يظهر لعملائك</small>
-      </div>
-
-      <div class="form-group">
-        <label>نوع المشروع</label>
-        <select name="businessType">
-          <option value="">اختر النوع</option>
-          <option value="مطعم">مطعم</option>
-          <option value="مقهى">مقهى</option>
-          <option value="متجر إلكتروني">متجر إلكتروني</option>
-          <option value="بيع بالتجزئة">بيع بالتجزئة</option>
-          <option value="خدمات">خدمات</option>
-          <option value="تصنيع">تصنيع</option>
-        </select> </div>
-      <div class="form-group">
-          <label>موقع المشروع</label>
-          <select name="projectLocation" id="locationSelect" onchange="toggleCityField()">
-          <option value="">اختر نوع الموقع</option>
-          <option value="اونلاين">أونلاين فقط</option>
-          <option value="على أرض الواقع">على أرض الواقع فقط</option>
-          <option value="مدمج">على أرض الواقع + أونلاين</option>
-      </select>
-      </div>
-
-
-      <div class="form-group" id="cityField" style="display:none;">
-        <label>المدينة</label>
-        <input type="text" name="city" placeholder="اكتب اسم المدينة">
-      </div>
-
-      <div class="form-group">
-        <label>عمر المشروع (بالشهور)</label>
-        <input type="number" name="projectAge" placeholder="مثال: 12">
-      </div>
-
-      <div class="form-group">
-        <label>وصف قصير للمشروع</label>
-        <textarea name="projectDescription" placeholder="اشرح مشروعك باختصار"></textarea>
-      </div>
-
-      <div class="button-group">
-        <button type="button" class="btn-secondary" onclick="prevStep(1)">السابق</button>
-        <button type="button" class="btn-primary" onclick="nextStep(3)">التالي</button>
-      </div>
-    </div>
-
-    <!--  STEP 3 — الخدمات / المنتجات  -->
-    <div class="form-container form-section" id="step3">
-     <h3>🛒 المنتجات أو الخدمات المقدمة</h3>
-
-  <div class="form-group">
-    <label>هل تقدم؟</label>
-    <select name="offerType" id="offerType" onchange="toggleOfferType()">
-      <option value="">اختر</option>
-      <option value="خدمات">خدمات</option>
-      <option value="منتجات">منتجات</option>
-      <option value="الاثنين">الاثنين معًا</option>
-    </select>
-  </div>
-
-  <!-- خدمات -->
-  <div id="servicesSection" style="display:none;">
-    <h4>الخدمات</h4>
-    <div id="servicesContainer"></div>
-    <button type="button" class="btn-primary" onclick="addService()">➕ إضافة خدمة</button>
-
-    <!-- 🔥 الجديد: أكثر خدمة طلبًا -->
-    <div class="form-group" style="margin-top:20px;">
-     <label>ما هي أكثر خدمة مطلوبة؟</label>
-      <select name="mostRequestedService" id="mostRequestedService">
-         <option value="">اختر الخدمة</option>
-      </select>
-    </div>
-
-  </div>
-
-  <!-- منتجات -->
-  <div id="productsSection" style="display:none; margin-top:20px;">
-    <h4>المنتجات</h4>
-    <div id="productsContainer"></div>
-    <button type="button" class="btn-primary" onclick="addProduct()">➕ إضافة منتج</button>
-
-    <!-- 🔥 الجديد: أكثر منتج مبيعًا -->
-    <div class="form-group" style="margin-top:20px;">
-    <label>ما هو أكثر منتج مبيعًا؟</label>
-    <select name="mostSoldProduct" id="mostSoldProduct">
-        <option value="">اختر المنتج</option>
-     </select>
-   </div>
-
-  </div>
-
-  <div class="button-group">
-    <button type="button" class="btn-secondary" onclick="prevStep(2)">السابق</button>
-    <button type="button" class="btn-primary" onclick="nextStep(4)">التالي</button>
-  </div>
-</div>
-
-    <!--  STEP 4 — البيانات المالية  -->
-    <div class="form-container form-section" id="step4">
-      <h3>💰 البيانات المالية</h3>
-
-      <div class="form-group">
-        <label>الإيرادات الشهرية</label>
-        <input type="number" name="monthlyRevenue" placeholder="بالدينار الأردني">
-      </div>
-
-      <div class="form-group">
-        <label>التكاليف الثابتة الشهرية</label>
-        <input type="number" name="fixedCosts" placeholder="إيجار - رواتب - كهرباء">
-      </div>
-
-      <div class="form-group">
-        <label>التكاليف المتغيرة الشهرية</label>
-        <input type="number" name="variableCosts" placeholder="مواد خام - توصيل">
-      </div>
-
-      <div class="form-group">
-        <label>عدد الموظفين</label>
-        <input type="number" name="employeesCount" placeholder="مثال: 4">
-      </div>
-
-      <div class="form-group">
-        <label>ساعات العمل الأسبوعية</label>
-        <input type="number" name="weeklyHours" placeholder="مثال: 40">
-      </div>
-
-      <div class="button-group">
-        <button type="button" class="btn-secondary" onclick="prevStep(3)">السابق</button>
-        <button type="button" class="btn-primary" onclick="nextStep(5)">التالي</button>
-      </div>
-    </div>
-
-    <!--  STEP 5 — التسويق  -->
-    <div class="form-container form-section" id="step5">
-      <h3>📣 التسويق</h3>
-
-      <div class="form-group">
-        <label>هل لديك منصة تسويق؟</label>
-        <select name="hasMarketing" id="hasMarketing" onchange="toggleMarketingSection()">
-          <option value="">اختر</option>
-          <option value="لا يوجد">لا يوجد</option>
-          <option value="يوجد">يوجد</option>
-        </select>
-      </div>
-
-      <div id="marketingSection" style="display:none;">
-        <div class="form-group">
-          <label>اسم المنصة</label>
-          <input type="text" name="marketingPlatform" placeholder="Instagram / TikTok ...">
+        <div class="header">
+            <h1> نظام دعم القرار للشركات الصغيرة</h1>
+            <p>أدخل معلومات مشروعك لتحصل على تحليل دقيق وتوصيات ذكية</p>
         </div>
 
-        <div class="form-group">
-          <label>عدد المتابعين</label>
-          <input type="number" name="followersCount" placeholder="أرقام فقط">
+        <!-- ░░░░ STEPS BAR ░░░░ -->
+        <div class="wizard-steps">
+            <div class="step"><span class="step-number">2</span> بيانات المشروع</div>
+            <div class="step"><span class="step-number">3</span> المنتجات / الخدمات</div>
+            <div class="step"><span class="step-number">4</span> البيانات المالية</div>
+            <div class="step"><span class="step-number">5</span> التسويق</div>
+            <div class="step"><span class="step-number">6</span> المشاكل الحالية</div>
+            <div class="step"><span class="step-number">7</span> الهدف من التحليل</div>
+            <div class="step"><span class="step-number">8</span> المراجعة والإرسال</div>
         </div>
 
-        <div class="form-group">
-          <label>الإعلانات السابقة (إن وجد)</label>
-          <textarea name="previousAds" placeholder="ما نوع الحملات والإعلانات؟"></textarea>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
         </div>
 
-        <div class="form-group">
-          <label>نتائج الإعلانات</label>
-          <textarea name="adsResults" placeholder="هل كانت ناجحة؟ ما معدل التفاعل؟"></textarea>
-        </div>
-      </div>
+        <!-- ░░░░ FORM START ░░░░ -->
+        <form id="businessForm">
 
-      <div class="button-group">
-        <button type="button" class="btn-secondary" onclick="prevStep(4)">السابق</button>
-        <button type="button" class="btn-primary" onclick="nextStep(6)">التالي</button>
-      </div>
+
+            <!-- ░░░░ STEP 2 — بيانات المشروع ░░░░ -->
+            <div class="form-container form-section" id="step2">
+                <h3>🏢 البيانات الأساسية للمشروع</h3>
+
+                <div class="form-group">
+                    <label>اسم المشروع</label>
+                    <input type="text" name="projectName" placeholder="مثال: مقهى روز">
+                    <small class="input-help">اكتب اسم المشروع كما يظهر لعملائك</small>
+                </div>
+                <div class="form-row">
+
+                    <!-- نوع المشروع -->
+                    <div class="form-group">
+                        <label>نوع المشروع</label>
+                        <select name="businessType" id="businessTypeSelect" onchange="toggleCustomBusinessType()">
+                            <option value="">اختر النوع</option>
+                            <option value="مطعم/فودتراك">مطعم/ فود تراك</option>
+                            <option value="مقهى">مقهى</option>
+                            <option value="حلويات">حلويات</option>
+                            <option value="متجر إلكتروني">متجر إلكتروني</option>
+                            <option value="ملابس">ملابس</option>
+                            <option value="صالون تجميل">صالون تجميل</option>
+                            <option value="شركة تقنية">شركة تقنية</option>
+                            <option value="تدريب وتعليم">تدريب وتعليم</option>
+                            <option value="عقارات">عقارات</option>
+                            <option value="مقاولات">مقاولات</option>
+                            <option value="بيع بالتجزئة">بيع بالتجزئة</option>
+                            <option value="خدمات">خدمات</option>
+                            <option value="تجارة عامة">تجارة عامة</option>
+                            <option value="تصنيع">تصنيع</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+
+                    <!-- نوع المشروع (أخرى) -->
+                    <div class="form-group" id="customBusinessTypeField" style="display:none;">
+                        <label>اكتب نوع المشروع</label>
+                        <input type="text" name="customBusinessType"
+                            placeholder="مثال: متجر فخار / دراي كلين / مفروشات">
+                    </div>
+
+                    <!-- التصنيف الفرعي -->
+                    <div class="form-group">
+                        <label>التصنيف الفرعي للنشاط</label>
+                        <input type="text" name="subCategory" placeholder="مثال: قهوة مختصة / ملابس أطفال / حلويات">
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>تواجد المشروع</label>
+                        <select name="projectLocation" id="locationSelect">
+                            <option value="اونلاين">أونلاين فقط</option>
+                            <option value="على أرض الواقع">على أرض الواقع فقط</option>
+                            <option value="مدمج">على أرض الواقع + أونلاين</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="cityField">
+                        <label>المدينة</label>
+                        <input type="text" name="city" placeholder="اكتب اسم المدينة">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>عمر المشروع (بالشهور)</label>
+                        <input type="number" name="projectAge" placeholder="مثال: 12">
+                    </div>
+
+                    <div class="form-group">
+                        <label>مرحلة المشروع</label>
+                        <select name="projectStage">
+                            <option value="">اختر المرحلة</option>
+                            <option value="startup">مشروع ناشئ</option>
+                            <option value="growing">في مرحلة نمو</option>
+                            <option value="stable">مستقر</option>
+                            <option value="declining">يعاني من تراجع</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+
+                    <!-- عدد الزبائن -->
+                    <div class="form-group">
+                        <label>عدد الزبائن الشهري التقريبي</label>
+                        <input type="number" name="monthlyCustomers" placeholder="مثال: 300">
+                    </div>
+
+                    <!-- ساعات الذروة -->
+                    <div class="form-group">
+                        <label>ساعات الذروة</label>
+
+                        <div class="time-inline">
+                            <span>من</span>
+                            <input type="time" name="peakFromTime" required>
+
+                            <span>إلى</span>
+                            <input type="time" name="peakToTime" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label>نموذج العمل (Business Model)</label>
+                    <select name="businessModel">
+                        <option value="">اختر النموذج</option>
+
+                        <!-- نماذج تقليدية -->
+                        <option value="B2C" title="بيع مباشر للعميل — مثل المطاعم والمحلات والمتاجر الإلكترونية">B2C
+                            (بيع مباشر للعميل)</option>
+
+                        <option value="B2B" title="بيع خدمات أو منتجات لشركات — مثل شركات البرمجة والتجهيزات">B2B
+                            (بيع
+                            لشركات)</option>
+
+                        <option value="B2G" title="بيع للجهات الحكومية — عقود رسمية مع الدولة">B2G (بيع للحكومة)
+                        </option>
+
+                        <option value="C2C" title="زبون يبيع لزبون — مثل OLX وMarketplace">C2C (تجارة بين
+                            المستهلكين)
+                        </option>
+
+                        <option value="C2B" title="المستهلك يقدم خدمة للشركات — مثل المصورين والفريلانسر">C2B
+                            (المستهلك
+                            يبيع للشركات)</option>
+
+                        <!-- التجارة الإلكترونية -->
+                        <option value="Ecommerce" title="متجر إلكتروني يبيع منتجات — يشمل التوصيل والدفع الإلكتروني">
+                            E-commerce (متجر إلكتروني)</option>
+
+                        <option value="Marketplace" title="منصة تجمع بائعين متعددين وتأخذ عمولة — مثل Amazon وTalabat">
+                            Marketplace</option>
+
+                        <option value="Dropshipping" title="بيع بدون تخزين — المورد يشحن للعميل مباشرة">Dropshipping
+                        </option>
+
+                        <option value="Wholesale" title="بيع كميات كبيرة بأسعار جملة">Wholesale (بيع جملة)</option>
+
+                        <!-- الاشتراكات -->
+                        <option value="Subscription" title="دفع شهري أو سنوي — مثل Netflix واشتراكات النوادي">
+                            Subscription</option>
+
+                        <option value="Freemium" title="خدمة مجانية مع ميزات مدفوعة — مثل Canva وNotion">Freemium
+                            (مجاني
+                            + مدفوع)</option>
+
+                        <option value="PayAsYouGo" title="الدفع حسب الاستخدام — مثل تعبئة الرصيد والدفع حسب الطلب">
+                            Pay-as-you-go</option>
+
+                        <!-- الخدمات -->
+                        <option value="ServiceBased" title="تقديم خدمات مثل الصيانة، التدريب، التصميم">Service-Based
+                            (خدمات)</option>
+
+                        <option value="OnDemand" title="حسب الطلب مثل Uber وطلبات — الخدمة تعمل عند الطلب">On-Demand
+                        </option>
+
+                        <option value="ManagedServices" title="خدمة مستمرة تُدار بالكامل — مثل إدارة سوشيال ميديا">
+                            Managed Services</option>
+
+                        <!-- المحلات والمطاعم -->
+                        <option value="WalkIn" title="محل أو مطعم يعتمد على زيارات العملاء للمكان">Walk-in (زيارات
+                            مباشرة)</option>
+
+                        <option value="GhostKitchen" title="مطبخ سحابي بدون صالة — بيع عبر التطبيقات فقط">Ghost
+                            Kitchen
+                            (مطبخ سحابي)</option>
+
+                        <option value="HybridOnlineOffline"
+                            title="جمع بين أونلاين + موقع فعلي — أفضل لكثير من المشاريع">Hybrid (أونلاين + أرض
+                            الواقع)
+                        </option>
+
+                        <option value="Franchise" title="شراء علامة تجارية جاهزة مقابل رسوم — مثل McDonald's">
+                            Franchise
+                        </option>
+
+                        <!-- نماذج التقنية -->
+                        <option value="SaaS" title="برنامج كخدمة — مثل CRM وأنظمة الحجز">SaaS</option>
+
+                        <option value="PaaS" title="منصة كخدمة — تُستخدم لبناء تطبيقات">PaaS</option>
+
+                        <option value="DaaS" title="بيع بيانات أو الوصول إليها — Data as a Service">DaaS</option>
+
+                        <option value="API" title="العمل عبر API — مثل الدفع الإلكتروني أو الخرائط">API-Based
+                        </option>
+
+                        <option value="AIModel" title="ذكاء اصطناعي يقدم خدمات — مثل ChatGPT وAI Agents">AI Agent /
+                            AI
+                            Model</option>
+
+                        <!-- الإعلانات -->
+                        <option value="Advertising" title="الدخل من الإعلانات — مثل المواقع الإخبارية والمجلات">
+                            Advertising</option>
+
+                        <option value="Affiliate" title="التسويق بالعمولة — تربح من البيع عبر رابطك">Affiliate
+                            Marketing
+                        </option>
+
+                        <option value="Commission" title="الأرباح من عمولات — مثل منصات الوساطة">Commission-Based
+                        </option>
+
+                        <!-- التصنيع -->
+                        <option value="Manufacturing" title="إنتاج منتجات وبيعها — مصانع، ورش">Manufacturing
+                        </option>
+
+                        <option value="PrivateLabel" title="منتج يتم تصنيعه لك ويُباع تحت اسم علامتك التجارية">
+                            Private
+                            Label</option>
+
+                        <!-- الاستشارات والمجتمع -->
+                        <option value="Consulting" title="بيع خبرتك — مستشارين، تدريب، محاسبة">Consulting (استشارات)
+                        </option>
+
+                        <option value="CommunityModel" title="بناء مجتمع يحقق أرباح مثل باتريون، عضويات، نشاطات">
+                            Community-Based</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>المنافسين المباشرين</label>
+                    <textarea name="competitors" placeholder="اذكر 2-3 منافسين في نفس مجالك"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>الميزة التنافسية</label>
+                    <textarea name="uniqueValue" placeholder="ما الذي يميز مشروعك عن المنافسين؟"></textarea>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label>وصف قصير للمشروع</label>
+                    <textarea name="projectDescription" placeholder="اشرح مشروعك باختصار"></textarea>
+                </div>
+
+                <div class="button-group left-btn">
+                    <button type="button" class="btn-primary" onclick="nextStep(3)">التالي</button>
+                </div>
+
+            </div>
+
+            <!-- ░░░░ STEP 3 — الخدمات / المنتجات ░░░░ -->
+            <div class="form-container form-section" id="step3">
+                <h3>🛒 المنتجات أو الخدمات المقدمة</h3>
+
+                <div class="form-group">
+                    <label>هل تقدم؟</label>
+                    <select name="offerType" id="offerType" onchange="toggleOfferType()">
+                        <option value="">اختر</option>
+                        <option value="خدمات">خدمات</option>
+                        <option value="منتجات">منتجات</option>
+                        <option value="الاثنين">الاثنين معًا</option>
+                    </select>
+                </div>
+
+                <!-- ░░ خدمات ░░ -->
+                <div id="servicesSection" style="display:none;">
+                    <h4>الخدمات</h4>
+                    <div id="servicesContainer"></div>
+
+                    <button type="button" class="btn-primary" onclick="addService()">➕ إضافة خدمة</button>
+
+                    <div class="form-group" style="margin-top:20px;">
+                        <label>أكثر خدمة مطلوبة</label>
+                        <select name="mostRequestedService" id="mostRequestedService">
+                            <option value="">اختر الخدمة</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ░░ منتجات ░░ -->
+                <div id="productsSection" style="display:none; margin-top:20px;">
+                    <h4>المنتجات</h4>
+                    <div id="productsContainer"></div>
+
+                    <button type="button" class="btn-primary" onclick="addProduct()">➕ إضافة منتج</button>
+
+                    <div class="form-group" style="margin-top:20px;">
+                        <label>أكثر منتج مبيعًا</label>
+                        <select name="mostSoldProduct" id="mostSoldProduct">
+                            <option value="">اختر المنتج</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="prevStep(2)">السابق</button>
+                    <button type="button" class="btn-primary" onclick="nextStep(4)">التالي</button>
+                </div>
+            </div>
+
+            <!-- ░░░░ STEP 4 — البيانات المالية ░░░░ -->
+            <div class="form-container form-section" id="step4">
+
+                <h3>💰 البيانات المالية</h3>
+
+                <!-- البيانات المالية الأساسية -->
+                <div class="form-group">
+                    <label>الإيرادات الشهرية</label>
+                    <input type="number" name="monthlyRevenue" placeholder="بالدينار الأردني">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>التكاليف الثابتة الشهرية</label>
+                        <input type="number" name="fixedCosts" placeholder="إيجار - رواتب - كهرباء">
+                    </div>
+                </div>
+
+                <h4>🏢 تفصيل التكاليف الثابتة</h4>
+                <div class="form-row">
+                    <div class="form-group"><label>الإيجار</label><input type="number" name="rentCost"></div>
+                    <div class="form-group"><label>الرواتب</label><input type="number" name="salariesCost"></div>
+                    <div class="form-group"><label>الفواتير</label><input type="number" name="utilitiesCost"></div>
+                    <div class="form-group"><label>الأنظمة</label><input type="number" name="subscriptionsCost"></div>
+                    <div class="form-group"><label>أخرى</label><input type="number" name="otherFixedCosts"></div>
+                </div>
+
+
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>التكاليف المتغيرة الشهرية</label>
+                        <input type="number" name="variableCosts">
+                    </div>
+                </div>
+
+                <h4>📦 تفصيل التكاليف المتغيرة</h4>
+                <div class="form-row">
+                    <div class="form-group"><label>مواد خام</label><input type="number" name="rawMaterialsCost"></div>
+                    <div class="form-group"><label>توصيل</label><input type="number" name="deliveryCost"></div>
+                    <div class="form-group"><label>تسويق</label><input type="number" name="paidMarketingCost"></div>
+                    <div class="form-group"><label>عمولات</label><input type="number" name="commissionsCost"></div>
+                    <div class="form-group"><label>أخرى</label><input type="number" name="otherVariableCosts"></div>
+                </div>
+
+
+
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>عدد الموظفين</label>
+                        <input type="number" name="employeesCount">
+                    </div>
+                    <div class="form-group">
+                        <label>ساعات العمل الأسبوعية</label>
+                        <input type="number" name="weeklyHours">
+                    </div>
+                </div>
+
+
+                <!-- ░░░░ تفاصيل الإيرادات ░░░░ -->
+                <h4>📊 تفاصيل الإيرادات</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>مصادر الإيرادات الأساسية </label>
+                        <select name="revenueSource">
+                            <option value="">اختر</option>
+                            <option value="منتج واحد">منتج واحد رئيسي</option>
+                            <option value="عدة منتجات">عدة منتجات</option>
+                            <option value="خدمات">خدمات</option>
+                            <option value="اشتراكات">اشتراكات</option>
+                            <option value="مختلط">مختلط</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>أعلى منتج / خدمة تحقيقًا للإيراد</label>
+                        <select name="topRevenueItem" id="topRevenueItem">
+                            <option value="">اختر من المنتجات / الخدمات</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- ░░░░ الربحية والتكاليف ░░░░ -->
+                <h4 style="margin-top:25px;">📉 الربحية والتكاليف</h4>
+                <div class="form-row">
+                    <div class="form-group"><label>هل تعرف نسبة الربح؟</label><select name="profitMarginKnown">
+                            <option value="">اختر</option>
+                            <option value="نعم">نعم</option>
+                            <option value="لا">لا</option>
+                        </select></div>
+                    <div class="form-group"><label>نسبة الربح التقديرية (%)</label><input type="number"
+                            name="profitMargin" placeholder="مثال: 25"></div>
+                    <div class="form-group"><label>أكبر بند تكلفة</label><select name="highestCost">
+                            <option value="">اختر</option>
+                            <option value="رواتب">رواتب</option>
+                            <option value="إيجار">إيجار</option>
+                            <option value="مواد خام">مواد خام</option>
+                            <option value="تسويق">تسويق</option>
+                            <option value="توصيل">توصيل</option>
+                        </select></div>
+                    <div class="form-group"><label>اتجاه التكاليف أخر 3 أشهر </label><select name="costTrend">
+                            <option value="">اختر</option>
+                            <option value="تزداد">تزداد</option>
+                            <option value="ثابتة">ثابتة</option>
+                            <option value="تنخفض">تنخفض</option>
+                        </select></div>
+                </div>
+
+
+                <!-- ░░░░ السيولة والموسمية ░░░░ -->
+                <h4>💸 السيولة والموسمية</h4>
+                <div class="form-row">
+                    <div class="form-group"><label>ضغط سيولة</label><select name="cashFlowIssue">
+                            <option value="">اختر</option>
+                            <option value="نعم">نعم</option>
+                            <option value="أحيانًا">أحيانًا</option>
+                            <option value="لا">لا</option>
+                        </select>
+                    </div>
+                    <div class="form-group"> <label>متوسط فترة تحصيل المبيعات (بالأيام)</label>
+                        <input type="number" name="collectionDays">
+                    </div>
+                </div>
+                <h4>📅 الموسمية</h4>
+                <div class="form-row">
+                    <div class="form-group"><label>مبيعات موسمية؟</label><select name="seasonalSales">
+                            <option value="">اختر</option>
+                            <option value="نعم">نعم</option>
+                            <option value="لا">لا</option>
+                        </select></div>
+                    <div class="form-group"><label>أقوى موسم</label><select name="bestSeason" id="bestSeason">
+                            <option value="">اختر الموسم</option>
+                            <option value="صيف">صيف</option>
+                            <option value="شتاء">شتاء</option>
+                            <option value="خريف">خريف</option>
+                            <option value="ربيع">ربيع</option>
+                            <option value="رمضان">رمضان</option>
+                            <option value="الأعياد">الأعياد</option>
+                            <option value="الجمعة البيضاء">الجمعة البيضاء</option>
+                            <option value="بداية السنة">بداية السنة</option>
+                            <option value="نهاية السنة">نهاية السنة</option>
+                        </select></div>
+                </div>
+
+
+
+                <!-- ░░░░ رفع الملفات ░░░░ -->
+                <h3 style="margin-top:25px;">📁 رفع ملفات التحليل</h3>
+
+                <div class="file-upload-box">
+                    <label>📌 ملف المبيعات (آخر 3 أشهر فأكثر)— اجباري ( رفعه يعطي تحليل أدق )
+                        *تحذير : يجب أن تكون جميع البيانات في sheet واحدة
+                    </label>
+                    <input type="file" name="salesFile" accept=".xlsx,.xls" required>
+                    <small class="input-help">
+                        📌 الملف يجب أن:
+                        <br>• يكون Excel فقط
+                        <br>• يحتوي Sheet واحدة
+                        <br>• الأعمدة الإجبارية:
+                        <br>— product_name
+                        <br>— price
+                        <br>— sale_date
+                        <br>— region
+                    </small>
+
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="prevStep(3)">السابق</button>
+                    <button type="button" class="btn-primary" onclick="nextStep(5)">التالي</button>
+                </div>
+
+            </div>
+
+
+
+            <!-- ░░░░ STEP 5 — التسويق ░░░░ -->
+            <div class="form-container form-section" id="step5">
+                <h3>📣 التسويق</h3>
+
+                <div class="form-group">
+                    <label>هل لديك منصة تسويق؟</label>
+                    <select name="hasMarketing" id="hasMarketing" onchange="toggleMarketingSection()">
+                        <option value="">اختر</option>
+                        <option value="لا يوجد">لا يوجد</option>
+                        <option value="يوجد">يوجد</option>
+                    </select>
+                </div>
+
+                <div id="marketingSection" style="display:none;">
+                    <div class="form-group">
+                        <label>اسم المنصة</label>
+                        <input type="text" name="marketingPlatform" placeholder="Instagram / TikTok ...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>عدد المتابعين</label>
+                        <input type="number" name="followersCount" placeholder="أرقام فقط">
+                    </div>
+
+                    <div class="form-group">
+                        <label>الإعلانات السابقة (إن وجد)</label>
+                        <textarea name="previousAds" placeholder="ما نوع الحملات والإعلانات؟"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نتائج الإعلانات</label>
+                        <textarea name="adsResults" placeholder="هل كانت ناجحة؟ ما معدل التفاعل؟"></textarea>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="prevStep(4)">السابق</button>
+                    <button type="button" class="btn-primary" onclick="nextStep(6)">التالي</button>
+                </div>
+            </div>
+
+            <!-- ░░░░ STEP 6 — المشاكل الحالية ░░░░ -->
+            <div class="form-container form-section" id="step6">
+                <h3>⚠️ المشاكل الحالية</h3>
+
+                <div class="form-group">
+                    <label>ما هي أقرب مشكلة لمشروعك؟</label>
+                    <select name="mainProblem">
+                        <option value="">اختر المشكلة</option>
+                        <option value="تشغيلية">مشاكل تشغيلية</option>
+                        <option value="تسويقية">مشاكل تسويقية</option>
+                        <option value="مالية">مشاكل مالية</option>
+                        <option value="خدمة العملاء">مشاكل في خدمة العملاء</option>
+                        <option value="أخرى">أخرى (اكتبها)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>وصف المشكلة</label>
+                    <textarea name="problemDescription" placeholder="اشرح المشكلة باختصار"></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="prevStep(5)">السابق</button>
+                    <button type="button" class="btn-primary" onclick="nextStep(7)">التالي</button>
+                </div>
+            </div>
+
+            <!-- ░░░░ STEP 7 — الهدف من التحليل ░░░░ -->
+            <div class="form-container form-section" id="step7">
+                <h3>🎯 الهدف من التحليل</h3>
+
+                <div class="form-group">
+                    <label>اختر الهدف</label>
+                    <select name="analysisGoal">
+                        <option value="">اختر الهدف</option>
+                        <option value="فتح فرع جديد">فتح فرع جديد</option>
+                        <option value="تحسين خدمة العملاء">تحسين خدمة العملاء</option>
+                        <option value="زيادة الإنتاج">زيادة الإنتاج</option>
+                        <option value="تعديل الأسعار">تعديل الأسعار</option>
+                        <option value="تقليل التكاليف">تقليل التكاليف</option>
+                        <option value="أخرى">أخرى (اكتب هدفك)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>وصف الهدف</label>
+                    <textarea name="goalDescription" placeholder="اكتب هدفك بالتفصيل"></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="prevStep(6)">السابق</button>
+                    <button type="button" class="btn-primary" onclick="nextStep(8)">التالي</button>
+                </div>
+            </div>
+
+            <!-- ░░░░ STEP 8 — المراجعة والإرسال ░░░░ -->
+            <div class="form-container form-section" id="step8">
+                <h3>📋 مراجعة البيانات</h3>
+
+                <div id="dataSummary"></div>
+
+                <div class="form-group" style="margin-top:20px;">
+                    <div class="checkbox-row">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms">أوافق على معالجة البيانات</label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="prevStep(7)">السابق</button>
+                    <button type="submit" class="submit-btn">إرسال البيانات</button>
+
+                </div>
+            </div>
+            <div id="loadingMessage" style="display:none; 
+            background:#fff3cd;
+            padding:15px;
+            border-radius:10px;
+            border:1px solid #f0d98a;
+            margin-top:20px;
+            font-size:16px;
+            color:#8a6d3b;">
+                ⏳ جاري تحليل بيانات مشروعك… يرجى الانتظار لحظات
+            </div>
+
+        </form>
     </div>
-
-    <!--  STEP 6 — المشاكل الحالية  -->
-    <div class="form-container form-section" id="step6">
-      <h3>⚠️ المشاكل الحالية</h3>
-
-      <div class="form-group">
-        <label>ما هي أقرب مشكلة لمشروعك؟</label>
-        <select name="mainProblem">
-          <option value="">اختر المشكلة</option>
-          <option value="تشغيلية">مشاكل تشغيلية</option>
-          <option value="تسويقية">مشاكل تسويقية</option>
-          <option value="مالية">مشاكل مالية</option>
-          <option value="خدمة العملاء">مشاكل في خدمة العملاء</option>
-          <option value="أخرى">أخرى (اكتبها)</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>وصف المشكلة</label>
-        <textarea name="problemDescription" placeholder="اشرح المشكلة باختصار"></textarea>
-      </div>
-
-      <div class="button-group">
-        <button type="button" class="btn-secondary" onclick="prevStep(5)">السابق</button>
-        <button type="button" class="btn-primary" onclick="nextStep(7)">التالي</button>
-      </div>
-    </div>
-
-    <!-- STEP 7 — الهدف من التحليل  -->
-    <div class="form-container form-section" id="step7">
-      <h3>🎯 الهدف من التحليل</h3>
-
-      <div class="form-group">
-        <label>اختر الهدف</label>
-        <select name="analysisGoal">
-          <option value="">اختر الهدف</option>
-          <option value="فتح فرع جديد">فتح فرع جديد</option>
-          <option value="تحسين خدمة العملاء">تحسين خدمة العملاء</option>
-          <option value="زيادة الإنتاج">زيادة الإنتاج</option>
-          <option value="تعديل الأسعار">تعديل الأسعار</option>
-          <option value="تقليل التكاليف">تقليل التكاليف</option>
-          <option value="أخرى">أخرى (اكتب هدفك)</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>وصف الهدف</label>
-        <textarea name="goalDescription" placeholder="اكتب هدفك بالتفصيل"></textarea>
-      </div>
-
-      <div class="button-group">
-        <button type="button" class="btn-secondary" onclick="prevStep(6)">السابق</button>
-        <button type="button" class="btn-primary" onclick="nextStep(8)">التالي</button>
-      </div>
-    </div>
-
-    <!--  STEP 8 — المراجعة والإرسال  -->
-    <div class="form-container form-section" id="step8">
-      <h3>📋 مراجعة البيانات</h3>
-
-      <div id="dataSummary"></div>
-
-      <div class="form-group" style="margin-top:20px;">
-        <label><input type="checkbox" required> أوافق على معالجة البيانات</label>
-      </div>
-
-      <div class="button-group">
-        <button type="button" class="btn-secondary" onclick="prevStep(7)">السابق</button>
-        <button type="submit" class="btn-success">إرسال البيانات</button>
-      </div>
-    </div>
-
-  </form>
-</div>
 
 </body>
-<script>/* ==========================
-   إعداد المتغيرات الأساسية
-========================== */
-let currentStep = 1;
+<script>
+    /* ==========================
+       إعداد المتغيرات الأساسية
+    ========================== */
+    let currentStep = 2;
+    const firstStep = 2;
+    const lastStep = 8;
+    const totalSteps = lastStep - firstStep + 1; // = 7
 
-/* ==========================================================
-   تحديث الـ Progress Bar + تحديث أرقام الخطوات
-========================================================== */
-function updateProgress() {
-    const progress = document.getElementById("progress");
-    const totalSteps = 8;
-    progress.style.width = `${(currentStep / totalSteps) * 100}%`;
 
-    document.querySelectorAll(".step").forEach((step, index) => {
-        if (index + 1 <= currentStep) step.classList.add("active");
-        else step.classList.remove("active");
-    });
-}
+    /* ==========================================================
+       تحديث الـ Progress Bar + تحديث أرقام الخطوات
+    ========================================================== */
+    function updateProgress() {
+        const progress = document.getElementById("progress");
 
-/* ==========================================================
-   التنقل بين الخطوات
-========================================================== */
-function showStep(step) {
-    document.querySelectorAll(".form-section").forEach(s => s.classList.remove("active"));
-    document.getElementById(`step${step}`).classList.add("active");
+        const progressIndex = currentStep - firstStep + 1;
+        progress.style.width = `${(progressIndex / totalSteps) * 100}%`;
 
-    currentStep = step;
-    updateProgress();
+        document.querySelectorAll(".step").forEach((stepEl) => {
+            const stepNumber = parseInt(
+                stepEl.querySelector(".step-number").textContent
+            );
 
-    if (step === 8) generateSummary();
-}
-
-function nextStep(step) {
-    if (validateStep(currentStep)) showStep(step);
-}
-
-function prevStep(step) {
-    showStep(step);
-}
-
-/* ==========================================================
-   إظهار/إخفاء حقل المدينة حسب نوع الموقع
-========================================================== */
-function toggleCityField() {
-    const loc = document.getElementById("locationSelect").value;
-    const cityField = document.getElementById("cityField");
-
-    // إذا كان على أرض الواقع أو مدمج → نعرض المدينة
-    if (loc === "على أرض الواقع" || loc === "مدمج") {
-        cityField.style.display = "block";
-    } else {
-        cityField.style.display = "none";
+            if (stepNumber === currentStep) {
+                stepEl.classList.add("active");
+            } else {
+                stepEl.classList.remove("active");
+            }
+        });
     }
-}
 
 
-/* ==========================================================
-   إضافة الخدمات والمنتجات ديناميكيًا
-========================================================== */
-let serviceCount = 0;
-let productCount = 0;
 
-/* ===== إضافة خدمة ===== */
-function addService() {
-    serviceCount++;
-    const container = document.getElementById("servicesContainer");
+    /* ==========================================================
+       التنقل بين الخطوات
+    ========================================================== */
+    function showStep(step) {
+        document.querySelectorAll(".form-section")
+            .forEach(s => s.classList.remove("active"));
 
-    const div = document.createElement("div");
-    div.className = "service-item";
-    div.innerHTML = `
+        const target = document.getElementById(`step${step}`);
+        if (!target) return;
+
+        target.classList.add("active");
+
+        currentStep = step;
+        updateProgress();
+
+        if (step === 4) updateTopRevenueSelect();
+        if (step === 8) generateSummary();
+    }
+    function nextStep(step) {
+        // تحقق من صحة البيانات قبل الانتقال
+        const isValid = validateStep(currentStep);
+        if (!isValid) return;
+
+        showStep(step);
+    }
+
+
+    function prevStep(step) {
+        showStep(step);
+    }
+    showStep(2);
+
+    /* ==========================================================
+       إظهار/إخفاء حقل نوع المشروع
+    ========================================================== */
+
+    function toggleCustomBusinessType() {
+        const select = document.getElementById("businessTypeSelect").value;
+        const field = document.getElementById("customBusinessTypeField");
+
+        if (select === "other") {
+            field.style.display = "block";
+        } else {
+            field.style.display = "none";
+        }
+    }
+
+
+
+    /* ==========================================================
+     إضافة الخدمات والمنتجات ديناميكيًا + الحقول التفصيلية
+  ========================================================== */
+
+    let serviceCount = 0;
+    let productCount = 0;
+
+    /* ------------------ إضافة خدمة ------------------ */
+    function addService() {
+        serviceCount++;
+        const container = document.getElementById("servicesContainer");
+
+        const div = document.createElement("div");
+        div.className = "service-item";
+        div.innerHTML = `
+<p class="input-help" style="margin-bottom:15px;">
+    املأ بيانات هذه الخدمة كما تُقدَّم حاليًا. المعلومات تُستخدم لتحليل
+    الربحية، الجهد التشغيلي، وفرص التحسين.
+</p>
+
+<!-- الصف 1 -->
+<div class="form-row">
+
+    <div class="form-group">
         <label>اسم الخدمة</label>
-        <input type="text" name="serviceName${serviceCount}" placeholder="اسم الخدمة" oninput="updateServiceSelect()">
+        <input 
+            type="text" 
+            name="serviceName${serviceCount}" 
+            placeholder="مثال: جلسة استشارة / تنظيف عميق"
+            oninput="updateServiceSelect(); updateTopRevenueSelect();">
+        <small class="input-help">الاسم الذي يعرفه الزبائن</small>
+    </div>
 
+    <div class="form-group">
+        <label>نوع الخدمة</label>
+        <select name="serviceType${serviceCount}">
+            <option value="">اختر</option>
+            <option value="Operational">تشغيلية</option>
+            <option value="Consulting">استشارية</option>
+            <option value="Digital">رقمية</option>
+        </select>
+        <small class="input-help">يساعد على فهم طبيعة الخدمة وإمكانية تطويرها</small>
+    </div>
+
+    <div class="form-group">
+        <label>طريقة تقديم الخدمة</label>
+        <select name="serviceDelivery${serviceCount}">
+            <option value="">اختر</option>
+            <option value="Onsite">حضوري</option>
+            <option value="Online">عن بُعد</option>
+            <option value="Hybrid">هجين</option>
+        </select>
+        <small class="input-help">هل تحتاج حضور فعلي أم يمكن تقديمها أونلاين</small>
+    </div>
+
+</div>
+
+<!-- الصف 2 -->
+<div class="form-row">
+
+    <div class="form-group">
         <label>سعر الخدمة</label>
-        <input type="number" name="servicePrice${serviceCount}" placeholder="مثال: 10 دينار">
+        <input 
+            type="number" 
+            name="servicePrice${serviceCount}" 
+            placeholder="السعر الذي يدفعه الزبون">
+        <small class="input-help">المبلغ الكامل الذي يدفعه العميل مقابل الخدمة</small>
+    </div>
 
-        <button type="button" onclick="this.parentElement.remove(); updateServiceSelect();" class="btn-secondary" style="margin-top:10px;">❌ حذف</button>
-    `;
-    container.appendChild(div);
+    <div class="form-group">
+        <label>تكلفة تنفيذ الخدمة</label>
+        <input 
+            type="number" 
+            name="serviceCost${serviceCount}" 
+            placeholder="رواتب، مواد، وقت">
+        <small class="input-help">التكلفة الفعلية لتنفيذ الخدمة مرة واحدة</small>
+    </div>
 
-    updateServiceSelect();
-}
+    <div class="form-group">
+        <label>هامش ربح الخدمة (%)</label>
+        <input 
+  type="number"
+  name="serviceMargin${serviceCount}"
+  placeholder="يُحسب تلقائيًا"
+  readonly
+>      
+ <small class="input-help">اتركه فارغًا ليتم حسابه تلقائيًا</small>
+    </div>
+
+</div>
+
+<!-- الصف 3 -->
+<div class="form-row">
+
+    <div class="form-group">
+        <label>المدة اللازمة لتنفيذ الخدمة</label>
+        <input 
+            type="text" 
+            name="serviceDuration${serviceCount}" 
+            placeholder="مثال: 30 دقيقة / ساعتين">
+        <small class="input-help">كم يستغرق تنفيذ الخدمة للعميل الواحد</small>
+    </div>
+
+    <div class="form-group">
+        <label>عدد مرات تقديم الخدمة شهريًا</label>
+        <input 
+            type="number" 
+            name="serviceMonthlyUsage${serviceCount}" 
+            placeholder="مثال: 40">
+        <small class="input-help">عدد المرات التي تُقدَّم فيها الخدمة خلال شهر</small>
+    </div>
+
+    <div class="form-group">
+        <label>الحد الأقصى لتقديم الخدمة شهريًا</label>
+        <input 
+            type="number" 
+            name="serviceCapacity${serviceCount}" 
+            placeholder="مثال: 60">
+        <small class="input-help">أقصى عدد يمكنك تقديمه شهريًا بدون ضغط</small>
+    </div>
+
+</div>
+
+<!-- الجمهور -->
+<div class="form-group">
+    <label>الجمهور المستهدف</label>
+    <select name="serviceAudience${serviceCount}">
+        <option value="">اختر الجمهور المناسب</option>
+        <option value="individuals">أفراد</option>
+        <option value="students">طلاب</option>
+        <option value="employees">موظفون</option>
+        <option value="families">عائلات</option>
+        <option value="companies">شركات</option>
+        <option value="business_owners">أصحاب مشاريع</option>
+        <option value="women">سيدات</option>
+        <option value="men">رجال</option>
+        <option value="children">أطفال</option>
+        <option value="seniors">كبار السن</option>
+        <option value="all">جميع الفئات</option>
+    </select>
+    <small class="input-help">
+        اختر الفئة التي تطلب هذه الخدمة غالبًا
+    </small>
+</div>
 
 
-/* ===== إضافة منتج ===== */
-function addProduct() {
-    productCount++;
-    const container = document.getElementById("productsContainer");
+<!-- الوصف -->
+<div class="form-group">
+    <label>وصف الخدمة</label>
+    <textarea 
+        name="serviceDescription${serviceCount}" 
+        placeholder="اشرح كيف تُقدَّم الخدمة ولماذا يختارها العميل"></textarea>
+    <small class="input-help">أي تفاصيل تساعد على فهم الخدمة بشكل أدق</small>
+</div>
 
-    const div = document.createElement("div");
-    div.className = "product-item";
-    div.innerHTML = `
+<div style="margin-top:20px; text-align:left;">
+  <button
+    type="button"
+    class="btn-secondary"
+    onclick="this.closest('.service-item').remove(); updateServiceSelect();updateTopRevenueSelect();">
+    ❌ حذف الخدمة
+  </button>
+</div>
+`;
+
+
+        container.appendChild(div);
+    }
+
+
+
+    /* ------------------ تحديث قائمة أكثر خدمة ------------------ */
+    function updateServiceSelect() {
+        const select = document.getElementById("mostRequestedService");
+        select.innerHTML = `<option value="">اختر الخدمة</option>`;
+
+        for (let i = 1; i <= serviceCount; i++) {
+            const name = document.querySelector(`[name="serviceName${i}"]`)?.value;
+            if (name) {
+                select.innerHTML += `<option value="${name}">${name}</option>`;
+            }
+        }
+    }
+    function calculateServiceMargin(price, cost) {
+        if (!price || !cost || price <= 0) return null;
+        return (((price - cost) / price) * 100).toFixed(1);
+    }
+
+    /* ------------------ إضافة منتج ------------------ */
+    function addProduct() {
+        productCount++;
+        const container = document.getElementById("productsContainer");
+
+        const div = document.createElement("div");
+        div.className = "product-item";
+
+        div.innerHTML = `<p class="input-help" style="margin-bottom:15px;">
+    املأ بيانات هذا المنتج كما يُباع حاليًا. المعلومات تُستخدم لتحليل
+    الربحية، سرعة الدوران، والمخزون وفرص التحسين.
+</p>
+
+<!-- الصف 1 -->
+<div class="form-row">
+
+    <div class="form-group">
         <label>اسم المنتج</label>
-        <input type="text" name="productName${productCount}" placeholder="اسم المنتج" oninput="updateProductSelect()">
+        <input 
+            type="text" 
+            name="productName${productCount}" 
+            placeholder="مثال: قميص قطن / علبة قهوة 250غ"
+            oninput="updateProductSelect();updateTopRevenueSelect();">
+        <small class="input-help">الاسم الذي يظهر للزبون</small>
+    </div>
 
+    <div class="form-group">
+        <label>نوع المنتج (بالنسبة لمشروعك)</label>
+        <select name="productType${productCount}">
+            <option value="">اختر</option>
+            <option value="Essential">أساسي</option>
+            <option value="Luxury">كمالي</option>
+        </select>
+        <small class="input-help">يساعد على فهم سلوك الشراء والتسعير</small>
+    </div>
+
+    <div class="form-group">
+    <label>الفئة المستهدفة</label>
+    <select name="productAudience${productCount}">
+        <option value="">اختر</option>
+        <option value="men">رجال</option>
+        <option value="women">سيدات</option>
+        <option value="children">أطفال</option>
+        <option value="senior">كبار السن</option>
+        <option value="all">جميع الفئات</option>
+    </select>
+</div>
+
+
+
+</div>
+
+<!-- الصف 2 -->
+<div class="form-row">
+
+    <div class="form-group">
         <label>سعر المنتج</label>
-        <input type="number" name="productPrice${productCount}" placeholder="مثال: 15 دينار">
+        <input 
+            type="number" 
+            name="productPrice${productCount}" 
+            placeholder="سعر البيع للقطعة">
+        <small class="input-help">السعر النهائي الذي يدفعه العميل</small>
+    </div>
 
-        <button type="button" onclick="this.parentElement.remove(); updateProductSelect();" class="btn-secondary" style="margin-top:10px;">❌ حذف</button>
-    `;
-    container.appendChild(div);
+    <div class="form-group">
+        <label>تكلفة المنتج</label>
+        <input 
+            type="number" 
+            name="productCost${productCount}" 
+            placeholder="تكلفة الشراء أو التصنيع">
+        <small class="input-help">تكلفة القطعة الواحدة (بدون ربح)</small>
+    </div>
 
-    updateProductSelect();
-}
+    <div class="form-group">
+        <label>هامش الربح المتوقع (%)</label>
+        <input 
+  type="number"
+  name="productMargin${productCount}"
+  placeholder="يُحسب تلقائيًا"
+  readonly
+>
+        <small class="input-help">اتركه فارغًا ليتم حسابه تلقائيًا</small>
+    </div>
 
-/* تحديث قائمة أكثر خدمة مطلوبة */
-function updateServiceSelect() {
-    const select = document.getElementById("mostRequestedService");
-    select.innerHTML = `<option value="">اختر الخدمة</option>`;
+</div>
 
-    for (let i = 1; i <= serviceCount; i++) {
-        const name = document.querySelector(`[name="serviceName${i}"]`)?.value;
-        if (name) {
-            select.innerHTML += `<option value="${name}">${name}</option>`;
-        }
+<!-- الصف 3 -->
+<div class="form-row">
+
+    <div class="form-group">
+        <label>مدة بقاء المنتج في المخزون (بالأيام)</label>
+        <input 
+            type="number" 
+            name="productShelfLife${productCount}" 
+            placeholder="مثال: 30">
+        <small class="input-help">كم يوم يبقى المنتج قبل البيع</small>
+    </div>
+
+    <div class="form-group">
+        <label>المخزون المتوفر</label>
+        <input 
+            type="number" 
+            name="productStock${productCount}" 
+            placeholder="عدد القطع المتوفرة">
+        <small class="input-help">
+            يساعد على تحليل خطر نفاد المخزون أو التكدس
+        </small>
+    </div>
+
+</div>
+
+<!-- الوصف -->
+<div class="form-group">
+    <label>وصف المنتج</label>
+    <textarea 
+        name="productDescription${productCount}" 
+        placeholder="تفاصيل المنتج، الحجم، الجودة، الاستخدام"></textarea>
+    <small class="input-help">أي معلومات تميز المنتج عن غيره</small>
+</div>
+
+<div style="margin-top:20px; text-align:left;">
+   <button
+     type="button"
+     class="btn-secondary"
+     onclick="this.closest('.product-item').remove(); updateProductSelect();updateTopRevenueSelect();">
+     ❌ حذف المنتج
+   </button>
+</div>
+`;
+
+        container.appendChild(div);
     }
-}
 
-/* تحديث قائمة أكثر منتج مبيعًا */
-function updateProductSelect() {
-    const select = document.getElementById("mostSoldProduct");
-    select.innerHTML = `<option value="">اختر المنتج</option>`;
 
-    for (let i = 1; i <= productCount; i++) {
-        const name = document.querySelector(`[name="productName${i}"]`)?.value;
-        if (name) {
-            select.innerHTML += `<option value="${name}">${name}</option>`;
-        }
+    function calculateProductMargin(price, cost) {
+        if (!price || !cost || price <= 0) return null;
+        const margin = ((price - cost) / price) * 100;
+        return margin.toFixed(1); // رقم عشري واحد
     }
-}
 
 
-/* ===== إظهار أقسام المنتجات/الخدمات حسب الاختيار ===== */
-function toggleOfferType() {
-    const type = document.getElementById("offerType").value;
-    document.getElementById("servicesSection").style.display =
-        (type === "خدمات" || type === "الاثنين") ? "block" : "none";
-    document.getElementById("productsSection").style.display =
-        (type === "منتجات" || type === "الاثنين") ? "block" : "none";
-}
+    /* ------------------ تحديث قائمة أكثر منتج ------------------ */
+    function updateProductSelect() {
+        const select = document.getElementById("mostSoldProduct");
+        select.innerHTML = `<option value="">اختر المنتج</option>`;
 
-/* ==========================================================
-   إظهار / إخفاء قسم التسويق
-========================================================== */
-function toggleMarketingSection() {
-    const has = document.getElementById("hasMarketing").value;
-    document.getElementById("marketingSection").style.display =
-        (has === "يوجد") ? "block" : "none";
-}
-
-/* ==========================================================
-   فاليوديشن لكل خطوة
-========================================================== */
-function showError(input, message) {
-    input.classList.add("error");
-
-    let err = input.parentElement.querySelector(".error-message");
-    if (!err) {
-        err = document.createElement("div");
-        err.className = "error-message";
-        input.parentElement.appendChild(err);
-    }
-    err.textContent = message;
-}
-
-function clearError(input) {
-    input.classList.remove("error");
-    let err = input.parentElement.querySelector(".error-message");
-    if (err) err.remove();
-}
-
-function validateStep(step) {
-    let valid = true;
-
-    function checkRequired(name, message = "هذا الحقل مطلوب") {
-        const field = document.querySelector(`[name="${name}"]`);
-        if (field) {
-            clearError(field);
-            if (!field.value.trim()) {
-                showError(field, message);
-                valid = false;
+        for (let i = 1; i <= productCount; i++) {
+            const name = document.querySelector(`[name="productName${i}"]`)?.value;
+            if (name) {
+                select.innerHTML += `<option value="${name}">${name}</option>`;
             }
         }
     }
+    /* ===== تحديث قائمة أكثر منتج مبيعا او خدمة  ===== */
 
-    /* ================================
-   STEP 1 — إنشاء الحساب
-================================= */
-if (step === 1) {
+    function updateTopRevenueSelect() {
+        const select = document.getElementById("topRevenueItem");
+        if (!select) return;
 
-    checkRequired("fullName");
-    checkRequired("email");
-    checkRequired("phone");
-    checkRequired("password");
-    checkRequired("confirmPassword");
+        select.innerHTML = `<option value="">اختر من المنتجات / الخدمات</option>`;
 
-    const password = document.querySelector('[name="password"]');
-    const confirmPassword = document.querySelector('[name="confirmPassword"]');
-
-    // شرط طول كلمة المرور
-    if (password.value.length < 8) {
-        showError(password, "كلمة المرور يجب أن تكون 8 أحرف على الأقل");
-        valid = false;
-    }
-
-    // 🔥 شرط كلمة المرور القوية
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-
-    if (!strongPasswordRegex.test(password.value)) {
-        showError(password, "كلمة المرور يجب أن تحتوي على: حرف كبير + حرف صغير + رقم + رمز");
-        valid = false;
-    }
-
-    // مطابقة الكلمة
-    if (password.value !== confirmPassword.value) {
-        showError(confirmPassword, "كلمتا المرور غير متطابقتين");
-        valid = false;
-    }
-
-    return valid;
-}
-
-
-    /* ================================
-       STEP 2 — المشروع
-    ================================= */
-    if (step === 2) {
-        checkRequired("projectName");
-        checkRequired("businessType");
-        checkRequired("projectLocation");
-        checkRequired("projectAge");
-
-        const loc = document.getElementById("locationSelect").value;
-        if (loc === "على أرض الواقع" || loc === "مدمج") {
-            checkRequired("city", "المدينة مطلوبة");
-        }
-
-        return valid;
-    }
-
-    /* ================================
-       STEP 3 — خدمات / منتجات
-    ================================= */
-    if (step === 3) {
-        const offer = document.getElementById("offerType").value;
-
-        if (!offer) {
-            showError(document.getElementById("offerType"), "يجب اختيار نوع المشروع");
-            valid = false;
-            return valid;
-        }
-
-        if (offer === "خدمات" || offer === "الاثنين") {
-            if (serviceCount === 0) {
-                alert("يجب إضافة خدمة واحدة على الأقل");
-                return false;
+        /* ===== الخدمات ===== */
+        document.querySelectorAll(".service-item").forEach(service => {
+            const nameInput = service.querySelector('[name^="serviceName"]');
+            if (nameInput && nameInput.value.trim()) {
+                const opt = document.createElement("option");
+                opt.value = nameInput.value;
+                opt.textContent = `خدمة: ${nameInput.value}`;
+                select.appendChild(opt);
             }
-
-            for (let i = 1; i <= serviceCount; i++) {
-                checkRequired(`serviceName${i}`);
-                checkRequired(`servicePrice${i}`);
-            }
-
-            checkRequired("mostRequestedService");
-        }
-
-        if (offer === "منتجات" || offer === "الاثنين") {
-            if (productCount === 0) {
-                alert("يجب إضافة منتج واحد على الأقل");
-                return false;
-            }
-
-            for (let i = 1; i <= productCount; i++) {
-                checkRequired(`productName${i}`);
-                checkRequired(`productPrice${i}`);
-            }
-
-            checkRequired("mostSoldProduct");
-        }
-
-        return valid;
-    }
-
-    /* ================================
-       STEP 4 — المالية
-    ================================= */
-    if (step === 4) {
-        checkRequired("monthlyRevenue");
-        checkRequired("fixedCosts");
-        checkRequired("variableCosts");
-        checkRequired("employeesCount");
-        checkRequired("weeklyHours");
-        return valid;
-    }
-
-    /* ================================
-       STEP 5 — التسويق
-    ================================= */
-    if (step === 5) {
-        const hasMarketing = document.getElementById("hasMarketing").value;
-
-        if (!hasMarketing) {
-            showError(document.getElementById("hasMarketing"), "الرجاء اختيار نعم أو لا");
-            valid = false;
-            return valid;
-        }
-
-        if (hasMarketing === "يوجد") {
-            checkRequired("marketingPlatform");
-            checkRequired("followersCount");
-        }
-
-        return valid;
-    }
-
-    /* ================================
-       STEP 6 — المشاكل
-    ================================= */
-    if (step === 6) {
-        checkRequired("mainProblem");
-        checkRequired("problemDescription");
-        return valid;
-    }
-
-    /* ================================
-       STEP 7 — الهدف
-    ================================= */
-    if (step === 7) {
-        checkRequired("analysisGoal");
-        checkRequired("goalDescription");
-        return valid;
-    }
-
-    return valid;
-}
-
-
-
-/* ==========================================================
-   تلخيص كل البيانات قبل الإرسال
-========================================================== */
-function generateSummary() {
-    const summary = document.getElementById("dataSummary");
-    summary.innerHTML = "";
-    const form = document.getElementById("businessForm");
-    const data = new FormData(form);
-
-    function addRow(label, value) {
-        if (value && value.trim() !== "") {
-            summary.innerHTML += `
-                <div class="summary-row">
-                    <strong>${label}</strong>
-                    <span>${value}</span>
-                </div>
-            `;
-        }
-    }
-
-    // ========== بيانات الحساب ==========
-    addRow("الاسم الكامل", data.get("fullName"));
-    addRow("البريد الإلكتروني", data.get("email"));
-    addRow("رقم الهاتف", data.get("phone"));
-
-    // ========== بيانات المشروع ==========
-    addRow("اسم المشروع", data.get("projectName"));
-    addRow("نوع المشروع", data.get("businessType"));
-    addRow("موقع المشروع", data.get("projectLocation"));
-    addRow("المدينة", data.get("city"));
-    addRow("عمر المشروع", data.get("projectAge"));
-    addRow("وصف المشروع", data.get("projectDescription"));
-
-    // ========== الخدمات ==========
-    summary.innerHTML += `<h3 style="margin-top:20px;">الخدمات</h3>`;
-    let hasService = false;
-
-    for (let i = 1; i <= serviceCount; i++) {
-        const name = data.get(`serviceName${i}`);
-        const price = data.get(`servicePrice${i}`);
-        const best = data.get(`serviceBest${i}`);
-        const audience = data.get(`serviceAudience${i}`);
-
-        if (name || price || best || audience) {
-            hasService = true;
-            addRow(`اسم الخدمة ${i}`, name);
-            addRow(`سعر الخدمة ${i}`, price);
-            addRow(`الأكثر تقديمًا ${i}`, best);
-            addRow(`الجمهور المستهدف ${i}`, audience);
-        }
-    }
-
-    if (!hasService) {
-        addRow("الخدمات", "لا يوجد");
-    }
-
-    // ========== المنتجات ==========
-    summary.innerHTML += `<h3 style="margin-top:20px;">المنتجات</h3>`;
-    let hasProduct = false;
-
-    for (let i = 1; i <= productCount; i++) {
-        const name = data.get(`productName${i}`);
-        const price = data.get(`productPrice${i}`);
-        const best = data.get(`productBest${i}`);
-        const audience = data.get(`productAudience${i}`);
-
-        if (name || price || best || audience) {
-            hasProduct = true;
-            addRow(`اسم المنتج ${i}`, name);
-            addRow(`سعر المنتج ${i}`, price);
-            addRow(`الأكثر مبيعًا ${i}`, best);
-            addRow(`الجمهور المستهدف ${i}`, audience);
-            addRow("أكثر خدمة مطلوبة", data.get("mostRequestedService"));
-            addRow("أكثر منتج مبيعًا", data.get("mostSoldProduct"));
-
-        }
-    }
-
-    if (!hasProduct) {
-        addRow("المنتجات", "لا يوجد");
-    }
-
-    // ========== البيانات المالية ==========
-    summary.innerHTML += `<h3 style="margin-top:20px;">البيانات المالية</h3>`;
-    addRow("الإيرادات الشهرية", data.get("monthlyRevenue"));
-    addRow("التكاليف الثابتة", data.get("fixedCosts"));
-    addRow("التكاليف المتغيرة", data.get("variableCosts"));
-    addRow("عدد الموظفين", data.get("employeesCount"));
-    addRow("ساعات العمل الأسبوعية", data.get("weeklyHours"));
-
-    // ========== التسويق ==========
-    summary.innerHTML += `<h3 style="margin-top:20px;">التسويق</h3>`;
-    addRow("هل يوجد منصة تسويق؟", data.get("hasMarketing"));
-    addRow("اسم المنصة", data.get("marketingPlatform"));
-    addRow("عدد المتابعين", data.get("followersCount"));
-    addRow("الإعلانات السابقة", data.get("previousAds"));
-    addRow("نتائج الإعلانات", data.get("adsResults"));
-
-    // ========== المشاكل ==========
-    summary.innerHTML += `<h3 style="margin-top:20px;">المشاكل الحالية</h3>`;
-    addRow("نوع المشكلة", data.get("mainProblem"));
-    addRow("وصف المشكلة", data.get("problemDescription"));
-
-    // ========== الهدف ==========
-    summary.innerHTML += `<h3 style="margin-top:20px;">الهدف من التحليل</h3>`;
-    addRow("الهدف", data.get("analysisGoal"));
-    addRow("تفصيل الهدف", data.get("goalDescription"));
-}
-
-
-/* ==========================================================
-   إرسال الفورم
-========================================================== */
-document.getElementById("businessForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const form = document.getElementById("businessForm");
-    const formData = new FormData(form);
-
-    // تحويل البيانات لكائن JSON
-    const dataObj = {};
-    formData.forEach((value, key) => {
-        dataObj[key] = value;
-    });
-
-    // تعبئة الخدمات
-    dataObj.services = [];
-    for (let i = 1; i <= serviceCount; i++) {
-        const name = formData.get(`serviceName${i}`);
-        const price = formData.get(`servicePrice${i}`);
-        if (name && price) {
-            dataObj.services.push({
-                name: name,
-                price: price
-            });
-        }
-    }
-
-    // تعبئة المنتجات
-    dataObj.products = [];
-    for (let i = 1; i <= productCount; i++) {
-        const name = formData.get(`productName${i}`);
-        const price = formData.get(`productPrice${i}`);
-        if (name && price) {
-            dataObj.products.push({
-                name: name,
-                price: price
-            });
-        }
-    }
-
-    // 🔗 رابط الويبهوك الخاص بك
-    const webhookURL = "https://toalzidy.app.n8n.cloud/webhook-test/business-analysis-data";
-    try {
-        const response = await fetch(webhookURL, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(dataObj)
         });
 
-        console.log("تم إرسال البيانات", response.status);
-        // 🟦 حفظ البيانات داخل Firestore كذلك
-        try {
-            await addDoc(collection(db, "projects"), dataObj);
-            console.log("تم حفظ البيانات في Firestore بنجاح");
-        } catch (err) {
-            console.error("خطأ أثناء حفظ البيانات:", err);
+        /* ===== المنتجات ===== */
+        document.querySelectorAll(".product-item").forEach(product => {
+            const nameInput = product.querySelector('[name^="productName"]');
+            if (nameInput && nameInput.value.trim()) {
+                const opt = document.createElement("option");
+                opt.value = nameInput.value;
+                opt.textContent = `منتج: ${nameInput.value}`;
+                select.appendChild(opt);
+            }
+        });
+    }
+
+
+    /* ------------------ إظهار الأقسام ------------------ */
+    function toggleOfferType() {
+        const type = document.getElementById("offerType").value;
+
+        document.getElementById("servicesSection").style.display =
+            (type === "خدمات" || type === "الاثنين") ? "block" : "none";
+
+        document.getElementById("productsSection").style.display =
+            (type === "منتجات" || type === "الاثنين") ? "block" : "none";
+    }
+
+
+    /* ==========================================================
+       إظهار قسم التسويق
+    ========================================================== */
+    function toggleMarketingSection() {
+        const has = document.getElementById("hasMarketing").value;
+        document.getElementById("marketingSection").style.display =
+            has === "يوجد" ? "block" : "none";
+    }
+    function showError(input, message) {
+        input.classList.add("error");
+
+        let err = input.parentElement.querySelector(".error-message");
+        if (!err) {
+            err = document.createElement("div");
+            err.className = "error-message";
+            input.parentElement.appendChild(err);
+        }
+        err.textContent = message;
+    }
+
+    function clearError(input) {
+        input.classList.remove("error");
+        let err = input.parentElement.querySelector(".error-message");
+        if (err) err.remove();
+    }
+
+    /* ==========================================================
+       فاليوديشن لكل خطوة
+    ========================================================== */
+    function validateStep(step) {
+        let valid = true;
+
+        function checkRequired(name, message = "هذا الحقل مطلوب") {
+            const field = document.querySelector(`[name="${name}"]`);
+            if (field) {
+                clearError(field);
+                if (!field.value.trim()) {
+                    showError(field, message);
+                    valid = false;
+                }
+            }
         }
 
-        if (!response.ok) {
-            alert("⚠ حدث خطأ أثناء إرسال البيانات، تأكدي من الويبهوك.");
+        /* STEP 2 */
+        if (step === 2) {
+
+            // الحقول الأساسية
+            checkRequired("projectName");
+            checkRequired("businessType");
+            checkRequired("subCategory");
+            checkRequired("projectLocation");
+            checkRequired("city");
+            checkRequired("projectAge");
+            checkRequired("projectStage");
+            checkRequired("monthlyCustomers");
+            checkRequired("peakFromTime", "حدد وقت بداية الذروة");
+            checkRequired("peakToTime", "حدد وقت نهاية الذروة");
+            checkRequired("competitors");
+            checkRequired("uniqueValue");
+            checkRequired("businessModel");
+            checkRequired("projectDescription");
+            // التحقق من نوع المشروع "أخرى"
+            const businessType = document.getElementById("businessTypeSelect").value;
+            if (businessType === "other") {
+                checkRequired("customBusinessType", "يرجى كتابة نوع المشروع");
+            }
+        }
+
+
+        /*  STEP 3 — الخدمات / المنتجات*/
+        if (step === 3) {
+            const offer = document.getElementById("offerType").value;
+
+            /* نوع التقديم */
+            if (!offer) {
+                showError(document.getElementById("offerType"), "يجب اختيار نوع التقديم");
+                return false;
+            }
+
+            const actualServices = document.querySelectorAll(".service-item").length;
+
+            if ((offer === "خدمات" || offer === "الاثنين") && actualServices === 0) {
+                alert("❌ يجب إضافة خدمة واحدة على الأقل");
+                return false;
+            }
+
+
+            const actualProducts = document.querySelectorAll(".product-item").length;
+
+            if ((offer === "منتجات" || offer === "الاثنين") && actualProducts === 0) {
+                alert("❌ يجب إضافة منتج واحد على الأقل");
+                return false;
+            }
+
+
+            /* ================= خدمات ================= */
+            if (offer === "خدمات" || offer === "الاثنين") {
+                const services = document.querySelectorAll(".service-item");
+
+                services.forEach((service) => {
+                    const name = service.querySelector('[name^="serviceName"]');
+                    const price = service.querySelector('[name^="servicePrice"]');
+                    const cost = service.querySelector('[name^="serviceCost"]');
+                    const margin = service.querySelector('[name^="serviceMargin"]');
+                    const desc = service.querySelector('[name^="serviceDescription"]');
+                    const duration = service.querySelector('[name^="serviceDuration"]');
+                    const audience = service.querySelector('[name^="serviceAudience"]');
+
+                    checkRequired(name.name, "اسم الخدمة مطلوب");
+                    checkRequired(price.name, "سعر الخدمة مطلوب");
+                    checkRequired(cost.name, "تكلفة الخدمة مطلوبة");
+                    checkRequired(desc.name, "وصف الخدمة مطلوب");
+                    checkRequired(duration.name, "مدة تنفيذ الخدمة مطلوبة");
+                    checkRequired(audience.name, "الجمهور المستهدف مطلوب");
+
+                    if (
+                        !name.value.trim() ||
+                        !price.value.trim() ||
+                        !cost.value.trim() ||
+                        !desc.value.trim() ||
+                        !duration.value.trim() ||
+                        !audience.value.trim()
+                    ) {
+                        valid = false;
+                    }
+
+                    // حساب الهامش
+                    if (margin && !margin.value.trim()) {
+                        const m = calculateServiceMargin(
+                            parseFloat(price.value),
+                            parseFloat(cost.value)
+                        );
+                        if (m !== null) margin.value = m;
+                    }
+                });
+            }
+
+
+            /* ================= منتجات ================= */
+            if (offer === "منتجات" || offer === "الاثنين") {
+                const products = document.querySelectorAll(".product-item");
+
+                products.forEach((product) => {
+                    const name = product.querySelector('[name^="productName"]');
+                    const price = product.querySelector('[name^="productPrice"]');
+                    const cost = product.querySelector('[name^="productCost"]');
+                    const margin = product.querySelector('[name^="productMargin"]');
+                    const desc = product.querySelector('[name^="productDescription"]');
+                    const audience = product.querySelector('[name^="productAudience"]');
+                    const stock = product.querySelector('[name^="productStock"]');
+
+                    checkRequired(name.name, "اسم المنتج مطلوب");
+                    checkRequired(price.name, "سعر المنتج مطلوب");
+                    checkRequired(cost.name, "تكلفة المنتج مطلوبة");
+                    checkRequired(desc.name, "وصف المنتج مطلوب");
+                    checkRequired(audience.name, "الفئة المستهدفة مطلوبة");
+                    checkRequired(stock.name, "قيمة المخزون مطلوبة");
+
+                    if (
+                        !name.value.trim() ||
+                        !price.value.trim() ||
+                        !cost.value.trim() ||
+                        !desc.value.trim() ||
+                        !audience.value.trim() ||
+                        !stock.value.trim()
+                    ) {
+                        valid = false;
+                    }
+
+                    if (margin && !margin.value.trim()) {
+                        const m = calculateProductMargin(
+                            parseFloat(price.value),
+                            parseFloat(cost.value)
+                        );
+                        if (m !== null) margin.value = m;
+                    }
+                });
+            }
+        }
+
+        /* STEP 4 */
+        if (step === 4) {
+
+            // الحقول الأساسية (مطلوبة)
+            checkRequired("monthlyRevenue", "الإيرادات الشهرية مطلوبة");
+            checkRequired("fixedCosts", "التكاليف الثابتة مطلوبة");
+            checkRequired("variableCosts", "التكاليف المتغيرة مطلوبة");
+            checkRequired("employeesCount", "عدد الموظفين مطلوب");
+            checkRequired("weeklyHours", "ساعات العمل مطلوبة");
+            checkRequired("bestSeason", "يرجى اختيار أقوى موسم مبيعات");
+            /* ===== التحقق من ملف المبيعات (إجباري) ===== */
+            const salesFileInput = document.querySelector('input[name="salesFile"]');
+
+            if (!salesFileInput || salesFileInput.files.length === 0) {
+                alert("❌ ملف المبيعات (آخر 3 أشهر) إجباري لعمل التحليل");
+                valid = false;
+            }
+            // ===== التحقق من التكاليف الثابتة (تفصيل vs إجمالي) =====
+            const fixedTotal = parseFloat(document.querySelector('[name="fixedCosts"]').value) || 0;
+
+            const fixedDetails = [
+                "rentCost",
+                "salariesCost",
+                "utilitiesCost",
+                "subscriptionsCost",
+                "otherFixedCosts"
+            ];
+
+            let fixedSum = 0;
+            fixedDetails.forEach(name => {
+                const val = parseFloat(document.querySelector(`[name="${name}"]`)?.value);
+                if (!isNaN(val)) fixedSum += val;
+            });
+
+            if (fixedSum > fixedTotal) {
+                showError(
+                    document.querySelector('[name="fixedCosts"]'),
+                    "مجموع تفاصيل التكاليف الثابتة أكبر من الرقم الإجمالي"
+                );
+                valid = false;
+            }
+            if (salesFileInput && salesFileInput.files.length > 0) {
+                const file = salesFileInput.files[0];
+                const allowedTypes = [
+                    "application/vnd.ms-excel",
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "text/csv"
+                ];
+
+                if (!allowedTypes.includes(file.type)) {
+                    alert("❌ الرجاء رفع ملف Excel أو CSV فقط");
+                    valid = false;
+                }
+            }
+
+
+            // ===== التحقق من التكاليف المتغيرة (تفصيل vs إجمالي) =====
+            const variableTotal = parseFloat(document.querySelector('[name="variableCosts"]').value) || 0;
+
+            const variableDetails = [
+                "rawMaterialsCost",
+                "deliveryCost",
+                "paidMarketingCost",
+                "commissionsCost",
+                "otherVariableCosts"
+            ];
+
+            let variableSum = 0;
+            variableDetails.forEach(name => {
+                const val = parseFloat(document.querySelector(`[name="${name}"]`)?.value);
+                if (!isNaN(val)) variableSum += val;
+            });
+
+            if (variableSum > variableTotal) {
+                showError(
+                    document.querySelector('[name="variableCosts"]'),
+                    "مجموع تفاصيل التكاليف المتغيرة أكبر من الرقم الإجمالي"
+                );
+                valid = false;
+            }
+
+            // ===== الحقول الإضافية (اختيارية) =====
+
+            const profitKnown = document.querySelector('[name="profitMarginKnown"]')?.value;
+            const profitValue = document.querySelector('[name="profitMargin"]');
+
+            if (profitKnown === "نعم" && profitValue && !profitValue.value.trim()) {
+                showError(profitValue, "يرجى إدخال نسبة الربح");
+                valid = false;
+            }
+
+            const cashIssue = document.querySelector('[name="cashFlowIssue"]')?.value;
+            const collectionDays = document.querySelector('[name="collectionDays"]');
+
+            if (cashIssue === "نعم" && collectionDays && !collectionDays.value.trim()) {
+                showError(collectionDays, "مدة التحصيل مطلوبة عند وجود مشكلة سيولة");
+                valid = false;
+            }
+
+            return valid;
+        }
+
+
+        /* STEP 5 */
+        if (step === 5) {
+            const hasMarketing = document.getElementById("hasMarketing").value;
+
+            if (!hasMarketing) {
+                showError(document.getElementById("hasMarketing"), "الرجاء اختيار نعم أو لا");
+                return false;
+            }
+
+            if (hasMarketing === "يوجد") {
+                checkRequired("marketingPlatform");
+                checkRequired("followersCount");
+            }
+            return valid;
+        }
+
+        /* STEP 6 */
+        if (step === 6) {
+            checkRequired("mainProblem");
+            checkRequired("problemDescription");
+            return valid;
+        }
+
+        /* STEP 7 */
+        if (step === 7) {
+            checkRequired("analysisGoal");
+            checkRequired("goalDescription");
+            return valid;
+        }
+
+        return valid;
+    }
+
+    /* ==========================================================
+       تلخيص البيانات
+    ========================================================== */
+    function generateSummary() {
+        const summary = document.getElementById("dataSummary");
+        summary.innerHTML = "";
+
+        const form = document.getElementById("businessForm");
+        const data = new FormData(form);
+
+        /* ===== Helpers ===== */
+        function section(title) {
+            summary.innerHTML += `
+        <div style="
+            margin:20px 0 10px;
+            font-weight:bold;
+            color:#8b5e3c;
+            border-bottom:1px solid #ddd;
+            padding-bottom:5px;
+        ">${title}</div>`;
+        }
+
+        function row(label, value) {
+            if (value !== null && value !== undefined && value !== "") {
+                summary.innerHTML += `
+            <div class="summary-row">
+                <strong>${label}</strong>
+                <span>${value}</span>
+            </div>`;
+            }
+        }
+
+        /* =========================
+           STEP 2 — بيانات المشروع
+        ========================= */
+        section("🏢 بيانات المشروع");
+
+        row("اسم المشروع", data.get("projectName"));
+        const businessType =
+            data.get("businessType") === "other"
+                ? data.get("customBusinessType")
+                : data.get("businessType");
+
+        row("نوع المشروع", businessType);
+        row("نوع المشروع (أخرى)", data.get("customBusinessType"));
+        row("التصنيف الفرعي", data.get("subCategory"));
+        row("موقع المشروع", data.get("projectLocation"));
+        row("المدينة", data.get("city"));
+        row("عمر المشروع (بالشهور)", data.get("projectAge"));
+        row("مرحلة المشروع", data.get("projectStage"));
+        row("عدد الزبائن الشهري", data.get("monthlyCustomers"));
+
+        const from = data.get("peakFromTime");
+        const to = data.get("peakToTime");
+        if (from && to) row("ساعات الذروة", `${from} → ${to}`);
+
+        row("نموذج العمل", data.get("businessModel"));
+        row("المنافسين", data.get("competitors"));
+        row("الميزة التنافسية", data.get("uniqueValue"));
+        row("وصف المشروع", data.get("projectDescription"));
+
+        /* =========================
+           STEP 3 — الخدمات
+        ========================= */
+        section("🧩 الخدمات");
+
+        document.querySelectorAll(".service-item").forEach((service, i) => {
+            const get = name => service.querySelector(`[name^="${name}"]`)?.value;
+
+            row(
+                `خدمة #${i + 1}`,
+                `
+            الاسم: ${get("serviceName")} |
+            السعر: ${get("servicePrice")} |
+            التكلفة: ${get("serviceCost")} |
+            هامش الربح: ${get("serviceMargin")}% |
+            المدة: ${get("serviceDuration")} |
+            مرات شهريًا: ${get("serviceMonthlyUsage")} |
+            الحد الأقصى: ${get("serviceCapacity")} |
+            النوع: ${get("serviceType")} |
+            طريقة التقديم: ${get("serviceDelivery")} |
+            الجمهور: ${get("serviceAudience")}
+            `
+            );
+
+            row(`وصف خدمة #${i + 1}`, get("serviceDescription"));
+        });
+
+        row("أكثر خدمة مطلوبة", data.get("mostRequestedService"));
+
+        /* =========================
+           STEP 3 — المنتجات
+        ========================= */
+        section("🛒 المنتجات");
+
+        document.querySelectorAll(".product-item").forEach((product, i) => {
+            const get = name => product.querySelector(`[name^="${name}"]`)?.value;
+
+            row(
+                `منتج #${i + 1}`,
+                `
+            الاسم: ${get("productName")} |
+            السعر: ${get("productPrice")} |
+            التكلفة: ${get("productCost")} |
+            هامش الربح: ${get("productMargin")}% |
+            الفئة: ${get("productAudience")} |
+            المخزون: ${get("productStock")} |
+            مدة التخزين: ${get("productShelfLife")} يوم
+            `
+            );
+
+            row(`وصف منتج #${i + 1}`, get("productDescription"));
+        });
+
+        row("أكثر منتج مبيعًا", data.get("mostSoldProduct"));
+
+        /* =========================
+           STEP 4 — البيانات المالية
+        ========================= */
+        section("💰 البيانات المالية");
+
+        row("الإيرادات الشهرية", data.get("monthlyRevenue"));
+        row("التكاليف الثابتة", data.get("fixedCosts"));
+        row("— إيجار", data.get("rentCost"));
+        row("— رواتب", data.get("salariesCost"));
+        row("— فواتير", data.get("utilitiesCost"));
+        row("— اشتراكات", data.get("subscriptionsCost"));
+        row("— أخرى", data.get("otherFixedCosts"));
+
+        row("التكاليف المتغيرة", data.get("variableCosts"));
+        row("— مواد خام", data.get("rawMaterialsCost"));
+        row("— توصيل", data.get("deliveryCost"));
+        row("— تسويق", data.get("paidMarketingCost"));
+        row("— عمولات", data.get("commissionsCost"));
+        row("— أخرى", data.get("otherVariableCosts"));
+
+        row("عدد الموظفين", data.get("employeesCount"));
+        row("ساعات العمل الأسبوعية", data.get("weeklyHours"));
+
+        /* =========================
+           الربحية
+        ========================= */
+        section("📉 الربحية");
+
+        row("هل نسبة الربح معروفة؟", data.get("profitMarginKnown"));
+        row("نسبة الربح (%)", data.get("profitMargin"));
+        row("أكبر بند تكلفة", data.get("highestCost"));
+        row("اتجاه التكاليف", data.get("costTrend"));
+
+        /* =========================
+           السيولة والموسمية
+        ========================= */
+        section("💸 السيولة والموسمية");
+
+        row("ضغط سيولة", data.get("cashFlowIssue"));
+        row("مدة التحصيل (أيام)", data.get("collectionDays"));
+        row("مبيعات موسمية", data.get("seasonalSales"));
+        row("أقوى موسم", data.get("bestSeason"));
+
+        /* =========================
+           التسويق
+        ========================= */
+        section("📣 التسويق");
+
+        row("هل يوجد تسويق", data.get("hasMarketing"));
+        row("منصة التسويق", data.get("marketingPlatform"));
+        row("عدد المتابعين", data.get("followersCount"));
+        row("الإعلانات السابقة", data.get("previousAds"));
+        row("نتائج الإعلانات", data.get("adsResults"));
+
+        /* =========================
+           الملفات
+        ========================= */
+        section("📁 الملفات");
+
+        const salesFile = document.querySelector('input[name="salesFile"]')?.files[0];
+        row("ملف المبيعات", salesFile ? salesFile.name : "لم يتم رفع ملف");
+    }
+
+
+
+    /* ==========================================================
+      إرسال البيانات + الملفات للنود n8n
+   ========================================================== */
+    const businessForm = document.getElementById("businessForm");
+
+    businessForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // التأكد من الموافقة
+        if (!document.getElementById("agreeTerms").checked) {
+            alert("❌ يجب الموافقة على معالجة البيانات");
             return;
         }
 
-        // الانتقال لصفحة النتائج
-        window.location.href = "results.html";
+        const formData = new FormData(businessForm);
 
-    } catch (err) {
-        console.error("خطأ:", err);
-        alert("❌ فشل الاتصال بالويبهوك");
-    }
-});
+        // ملاحظة: الـ FormData بتلقط الملفات لحالها إذا الـ input إله name="salesFile"
+        // بس عشان نتأكد، بنطبع الحقول اللي رح تطلع
+        console.log("البيانات اللي رح تنبعث:");
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+
+        localStorage.setItem("analysisStatus", "processing");
+        localStorage.removeItem("analysisResult");
+
+        const webhookURL = "https://toalzidy.app.n8n.cloud/webhook/busniss_analysis";
+
+        try {
+            const response = await fetch(webhookURL, {
+                method: "POST",
+                // ما تحط Headers يدوي للـ Content-Type، المتصفح لحاله بضبطها مع الـ FormData
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`خطأ من السيرفر: ${response.status} - ${errorText}`);
+            }
+
+            const result = await response.json();
+            console.log("وصلت النتيجة من n8n:", result);
+
+            localStorage.setItem("analysisResult", JSON.stringify(result));
+            localStorage.setItem("analysisStatus", "done");
+
+            window.location.href = "result.html";
+
+        } catch (err) {
+            console.error("صار خطأ في الإرسال:", err);
+            localStorage.setItem("analysisStatus", "error");
+            alert("صار مشكلة بالسيرفر، تأكد إن الـ Webhook في n8n شغال (Active)");
+        }
+    });
 
 
-/* ==========================================================
-   تشغيل البداية
+    /* ==========================================================
+   حفظ الإدخالات تلقائيًا (LocalStorage)
 ========================================================== */
-updateProgress();
-</script>
-<script type="module">
+    document.querySelectorAll("#businessForm input, #businessForm textarea, #businessForm select")
+        .forEach(el => {
+            if (!el.name) return;
 
-updateProgress();
+            // استرجاع القيمة إذا كانت محفوظة
+            const saved = localStorage.getItem(el.name);
+            if (saved !== null && el.type !== "file") {
+                el.value = saved;
+            }
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+            // حفظ عند التغيير
+            el.addEventListener("input", () => {
+                localStorage.setItem(el.name, el.value);
+            });
+        });
 
-const firebaseConfig = {
-  apiKey: "AIzaSyClQwi-qkw0gm-h4W-1Ml_GmVurHmoLNxM",
-  authDomain: "nabd-project.firebaseapp.com",
-  projectId: "nabd-project",
-};
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// ✅ هذا هو القفل الحقيقي
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    localStorage.setItem("redirectAfterLogin", "Analysis.html");
-    window.location.href = "LOGIN.html";
-  }
-
-});
+    /* ==========================================================
+       تشغيل البداية
+    ========================================================== */
+    updateProgress();
 </script>
 
 </html>
-
-
-
-
-
-
-
-
-
