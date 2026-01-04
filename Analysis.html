@@ -2262,6 +2262,52 @@
        تشغيل البداية
     ========================================================== */
     updateProgress();
+    
+    const form = document.getElementById("businessForm");
+    
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+    
+        const data = new FormData(form);
+        saveRequestFromForm(data);
+    
+        alert("تم حفظ البيانات بنجاح ✅");
+        form.reset();
+    });
+    
+    function saveRequestFromForm(data) {
+        const requests = JSON.parse(localStorage.getItem("businessRequests")) || [];
+    
+        const request = {
+            id: Date.now(),
+    
+            // بيانات المشروع
+            projectName: data.get("projectName"),
+            businessType:
+                data.get("businessType") === "other"
+                    ? data.get("customBusinessType")
+                    : data.get("businessType"),
+            subCategory: data.get("subCategory"),
+            projectLocation: data.get("projectLocation"),
+            city: data.get("city"),
+            projectAge: data.get("projectAge"),
+            projectStage: data.get("projectStage"),
+            monthlyCustomers: data.get("monthlyCustomers"),
+    
+            // مالية
+            monthlyRevenue: data.get("monthlyRevenue"),
+    
+            // إدارية
+            status: "pending",
+            date: new Date().toISOString().split("T")[0]
+        };
+    
+        requests.push(request);
+        localStorage.setItem("businessRequests", JSON.stringify(requests));
+    }
+
+
 </script>
 
 </html>
+
