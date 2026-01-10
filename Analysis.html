@@ -2307,8 +2307,24 @@
     }
 
 </script>
+<script type="module">
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const auth = getAuth(); // يستخدم التطبيق المهيأ مسبقًا
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    // احفظ الصفحة الحالية
+    localStorage.setItem("redirectAfterLogin", location.pathname);
+
+    // حوّل مباشرة لصفحة تسجيل الدخول
+    location.replace("LOGIN.html");
+  }
+});
+</script>
 
 </html>
+
 
 
 
