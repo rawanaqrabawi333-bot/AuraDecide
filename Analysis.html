@@ -2310,20 +2310,25 @@
 <script type="module">
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const auth = getAuth(); // يستخدم التطبيق المهيأ مسبقًا
+/* اقفل الصفحة مبدئيًا */
+document.documentElement.style.display = "none";
+
+const auth = getAuth();
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    // احفظ الصفحة الحالية
+    // غير مسجل دخول → رجوع للّوغن
     localStorage.setItem("redirectAfterLogin", location.pathname);
-
-    // حوّل مباشرة لصفحة تسجيل الدخول
     location.replace("LOGIN.html");
+  } else {
+    // مسجل دخول → افتح الصفحة
+    document.documentElement.style.display = "block";
   }
 });
 </script>
 
 </html>
+
 
 
 
