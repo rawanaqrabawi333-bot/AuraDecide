@@ -2305,35 +2305,10 @@
         requests.push(request);
         localStorage.setItem("businessRequests", JSON.stringify(requests));
     }
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyClQwi-qkw0gm-h4W-1Ml_GmVurHmoLNxM",
-      authDomain: "nabd-project.firebaseapp.com",
-      projectId: "nabd-project",
-      storageBucket: "nabd-project.firebasestorage.app",
-      messagingSenderId: "684621374858",
-      appId: "1:684621374858:web:45803c0ac4df49cacb5473"
-    };
-    
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    
-    // 🔒 حماية الصفحة
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        // حفظ الصفحة الحالية للرجوع لها بعد تسجيل الدخول
-        localStorage.setItem("redirectAfterLogin", window.location.href);
-    
-        // تحويل لصفحة تسجيل الدخول
-        window.location.href = "LOGIN.html";
-      }
-    });
-
 
 </script>
 
 </html>
+
 
 
