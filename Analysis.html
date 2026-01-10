@@ -2308,26 +2308,56 @@
 
 </script>
 <script type="module">
+/* ===============================
+   Firebase Imports
+================================ */
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* اقفل الصفحة مبدئيًا */
+/* ===============================
+   Firebase Config
+================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyClQwi-qkw0gm-h4W-1Ml_GmVurHmoLNxM",
+  authDomain: "nabd-project.firebaseapp.com",
+  projectId: "nabd-project",
+  storageBucket: "nabd-project.firebasestorage.app",
+  messagingSenderId: "684621374858",
+  appId: "1:684621374858:web:45803c0ac4df49cacb5473"
+};
+
+/* ===============================
+   Initialize Firebase (مرة واحدة)
+================================ */
+const app = getApps().length === 0
+  ? initializeApp(firebaseConfig)
+  : getApps()[0];
+
+const auth = getAuth(app);
+
+/* ===============================
+   اغلاق الصفحة مؤقتًا
+================================ */
 document.documentElement.style.display = "none";
 
-const auth = getAuth();
-
+/* ===============================
+   حماية الصفحة
+================================ */
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    // غير مسجل دخول → رجوع للّوغن
+    // غير مسجل دخول
     localStorage.setItem("redirectAfterLogin", location.pathname);
     location.replace("LOGIN.html");
   } else {
-    // مسجل دخول → افتح الصفحة
+    // مسجل دخول
     document.documentElement.style.display = "block";
   }
 });
 </script>
 
+
 </html>
+
 
 
 
